@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Add by Kopkap -->
+    <color name="colorPrimary">#009798</color>
+    <color name="colorSecondary">#EC7014</color>
+    <color name="colorThirdary">#009798</color>
+    <color name="colorBackground">#EEEEEE</color>
+    <color name="colorFont">#222222</color>
+</resources>

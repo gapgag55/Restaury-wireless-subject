@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "421899464076",
+    "firebase_url": "https://restaury-7795a.firebaseio.com",
+    "project_id": "restaury-7795a",
+    "storage_bucket": "restaury-7795a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:421899464076:android:3e9a219ad4dd5602",
+        "android_client_info": {
+          "package_name": "com.mang.restaury"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "421899464076-av4v7up87ndkm3rhkii96mh0got76vav.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mang.restaury",
+            "certificate_hash": "4db161ae381a5b592e62e436fd271913da476664"
+          }
+        },
+        {
+          "client_id": "421899464076-8vg7tstflmgg5jatfshkkl3rndpodf5t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAOlpNfvoLfr0neDaypSdsmwPIosIc4mMA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "421899464076-8vg7tstflmgg5jatfshkkl3rndpodf5t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

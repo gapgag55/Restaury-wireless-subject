@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragments.SearchFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/orange_button"
+        android:text="Button Test"
+        android:padding="5dp"
+        android:textSize="15dp"
+        android:textColor="@android:color/white"
+        android:fontFamily="@font/roboto_regular"
+        >
+    </Button>
+
+</FrameLayout>

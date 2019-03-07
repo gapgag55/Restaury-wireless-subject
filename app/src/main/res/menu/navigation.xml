@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/search_page"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="Home"
+        android:fontFamily="@font/roboto_regular" />
+
+    <item
+        android:id="@+id/favorite_page"
+        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:title="Favorite"
+        android:fontFamily="@font/roboto_regular" />
+
+    <item
+        android:id="@+id/cart_page"
+        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:title="Cart"
+        android:fontFamily="@font/roboto_regular" />
+
+    <item
+        android:id="@+id/profile_page"
+        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:title="Profile"
+        android:fontFamily="@font/roboto_regular" />
+
+</menu>
