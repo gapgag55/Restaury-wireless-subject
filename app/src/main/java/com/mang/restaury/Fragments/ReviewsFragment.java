@@ -9,14 +9,13 @@ import android.view.ViewGroup;
 
 import com.mang.restaury.R;
 
-
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CartFragment extends Fragment {
+public class ReviewsFragment extends Fragment {
 
 
-    public CartFragment() {
+    public ReviewsFragment() {
         // Required empty public constructor
     }
 
@@ -25,11 +24,7 @@ public class CartFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_cart, container, false);
-
-        
-
-        return view;
+        return inflater.inflate(R.layout.fragment_reviews, container, false);
     }
 
 }

@@ -38,8 +38,20 @@ public class FavoriteFragment extends Fragment {
         restaurants = new ArrayList<>();
         restaurants.add(new Restaurant("Shabu Ha", 13.1670473, 100.9324348));
         restaurants.add(new Restaurant("Shabu Ha 2", 13.1670473, 100.9324348));
+        restaurants.add(new Restaurant("Shabu Ha", 13.1670473, 100.9324348));
+        restaurants.add(new Restaurant("Shabu Ha 2", 13.1670473, 100.9324348));
+        restaurants.add(new Restaurant("Shabu Ha", 13.1670473, 100.9324348));
+        restaurants.add(new Restaurant("Shabu Ha 2", 13.1670473, 100.9324348));
+        restaurants.add(new Restaurant("Shabu Ha", 13.1670473, 100.9324348));
+        restaurants.add(new Restaurant("Shabu Ha 2", 13.1670473, 100.9324348));
+        restaurants.add(new Restaurant("Shabu Ha", 13.1670473, 100.9324348));
+        restaurants.add(new Restaurant("Shabu Ha 2", 13.1670473, 100.9324348));
+        restaurants.add(new Restaurant("Shabu Ha", 13.1670473, 100.9324348));
+        restaurants.add(new Restaurant("Shabu Ha 2", 13.1670473, 100.9324348));
+        restaurants.add(new Restaurant("Shabu Ha", 13.1670473, 100.9324348));
+        restaurants.add(new Restaurant("Shabu Ha 2", 13.1670473, 100.9324348));
 
-        RecyclerView recycleView = (RecyclerView) view.findViewById(R.id.recycleview_id);
+        RecyclerView recycleView = (RecyclerView) view.findViewById(R.id.restaurant_cycle);
         RestaurantAdapter myAdapter = new RestaurantAdapter(view.getContext(), restaurants);
         recycleView.setLayoutManager(new GridLayoutManager(view.getContext(), 2));
         recycleView.setAdapter(myAdapter);

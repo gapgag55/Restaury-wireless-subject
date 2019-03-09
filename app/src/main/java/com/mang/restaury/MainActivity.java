@@ -7,7 +7,9 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
+import com.mang.restaury.Fragments.CartFragment;
 import com.mang.restaury.Fragments.FavoriteFragment;
+import com.mang.restaury.Fragments.ProfileFragment;
 import com.mang.restaury.Fragments.SearchFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -27,6 +29,17 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.favorite_page:
                     selectedFragment = new FavoriteFragment();
                     break;
+
+                case R.id.cart_page:
+                    selectedFragment = new CartFragment();
+                    break;
+
+                case R.id.profile_page:
+                    selectedFragment = new ProfileFragment();
+                    break;
+                default:
+                    selectedFragment = new SearchFragment();
+                    break;
             }
 
             renderFragment(selectedFragment);
@@ -44,7 +57,6 @@ public class MainActivity extends AppCompatActivity {
 
         selectedFragment = new SearchFragment();
         renderFragment(selectedFragment);
-
     }
 
     private void renderFragment(Fragment selectedFragment) {

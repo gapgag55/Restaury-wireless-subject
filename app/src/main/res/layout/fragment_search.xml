@@ -1,62 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".Fragments.SearchFragment">
+    android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/search_background"
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:src="@drawable/search_background" />
+        android:layout_height="match_parent"
+        android:focusableInTouchMode="true"
+        tools:context=".Fragments.SearchFragment">
 
-    <EditText
-        android:id="@+id/search_input"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/search_background"
-        android:layout_marginTop="-35dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:background="@drawable/search_input"
-        android:padding="20dp"
-        android:hint="Search for restaurant you know"
-        android:textColorHint="@color/colorHint"
-        android:fontFamily="@font/roboto_medium" />
+        <ImageView
+            android:id="@+id/search_background"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@drawable/search_backgroud"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:cropToPadding="false" />
 
-    <LinearLayout
-        android:id="@+id/near_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/search_input"
-        android:layout_marginTop="20dp"
-        android:layout_centerHorizontal="true">
-
-        <TextView
-            android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/search_input"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Near"
-            android:background="@drawable/orange_button"
-            android:textColor="@android:color/white"
+            android:layout_below="@+id/search_background"
+            android:layout_marginTop="-35dp"
             android:layout_marginLeft="20dp"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp" />
+            android:layout_marginRight="20dp"
+            android:background="@drawable/search_input"
+            android:padding="20dp"
+            android:hint="Search for restaurant you know"
+            android:textColorHint="@color/colorHint"
+            android:singleLine="true"
+            android:fontFamily="@font/roboto_medium"
+            android:elevation="1dp"/>
 
-        <TextView
+        <LinearLayout
+            android:id="@+id/near_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/search_input"
+            android:layout_marginTop="20dp"
+            android:layout_centerHorizontal="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Near"
+                android:background="@drawable/orange_button"
+                android:textColor="@android:color/white"
+                android:layout_marginLeft="20dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_medium"
+                android:text="Restaurants Near You"
+                android:textColor="@color/colorFont"
+                android:textSize="17dp"
+                android:layout_marginLeft="20dp" />
+
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/restaurant_cycle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto_medium"
-            android:text="Restaurants Near You"
-            android:textColor="@color/colorFont"
-            android:textSize="17dp"
-            android:layout_marginLeft="20dp" />
+            android:layout_below="@+id/near_layout"
+            android:padding="20dp"
+            android:layout_marginBottom="50dp">
 
-    </LinearLayout>
+        </android.support.v7.widget.RecyclerView>
 
+    </RelativeLayout>
 
-
-</RelativeLayout>
+</ScrollView>

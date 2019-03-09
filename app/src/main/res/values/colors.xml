@@ -3,8 +3,9 @@
     <!-- Add by Kopkap -->
     <color name="colorPrimary">#009798</color>
     <color name="colorSecondary">#EC7014</color>
-    <color name="colorThirdary">#009798</color>
-    <color name="colorBackground">#FFFFFF</color>
+    <color name="colorThirdary">#F4BC36</color>
+    <color name="colorBackground">#F8F8F8</color>
     <color name="colorFont">#222222</color>
     <color name="colorHint">#DDDDDD</color>
+    <color name="colorLine">#EEEEEE</color>
 </resources>

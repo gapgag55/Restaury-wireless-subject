@@ -4,25 +4,26 @@
 
     <item
         android:id="@+id/search_page"
-        android:icon="@drawable/ic_home_black_24dp"
+        android:icon="@drawable/ic_search"
         android:title="Home"
         android:fontFamily="@font/roboto_regular" />
 
     <item
         android:id="@+id/favorite_page"
-        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:icon="@drawable/ic_favorite"
         android:title="Favorite"
         android:fontFamily="@font/roboto_regular" />
 
     <item
         android:id="@+id/cart_page"
-        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:icon="@drawable/ic_cart"
         android:title="Cart"
-        android:fontFamily="@font/roboto_regular" />
+        android:fontFamily="@font/roboto_regular"
+        android:checked="true" />
 
     <item
         android:id="@+id/profile_page"
-        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:icon="@drawable/ic_profile"
         android:title="Profile"
         android:fontFamily="@font/roboto_regular" />
 

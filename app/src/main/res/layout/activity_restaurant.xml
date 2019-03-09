@@ -27,8 +27,12 @@
 
     </android.support.v7.widget.Toolbar>
 
-
-
-
+    <ImageView
+        android:id="@+id/restaurant_image"
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        android:scaleType="centerCrop"
+        android:layout_below="@+id/toolbar"
+        android:src="@drawable/shabu1"/>
 
 </RelativeLayout>
