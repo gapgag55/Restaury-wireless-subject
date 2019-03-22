@@ -18,7 +18,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Write Comment"
+            android:text="Write a Review"
             android:fontFamily="@font/roboto_medium"
             android:textSize="18sp"
             android:textColor="@color/colorFont"
@@ -32,15 +32,53 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:background="@drawable/input"
-            android:padding="20dp">
+            android:background="@drawable/input">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <EditText
+                android:id="@+id/comment_box"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="10/10/2562"
-                android:fontFamily="@font/roboto_regular"
-                android:textColor="@color/colorFont" />
+                android:hint="Some comment here…"
+                android:textColorHint="@color/colorHint"
+                android:padding="20dp"
+                android:textSize="15sp"
+                android:background="@drawable/input"
+                android:singleLine="false"
+                android:height="150dp"
+                android:gravity="top" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_below="@id/comment_box"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Stars here"
+                    android:fontFamily="@font/roboto_regular"
+                    android:textColor="@color/colorFont"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:background="@drawable/orange_button"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="Send Review"
+                    android:textColor="@android:color/white"
+                    android:textSize="12sp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:layout_alignParentEnd="true"/>
+
+            </RelativeLayout>
 
 
         </RelativeLayout>
