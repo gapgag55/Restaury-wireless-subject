@@ -6,83 +6,181 @@
     android:layout_height="match_parent"
     tools:context=".Fragments.ReviewsFragment">
 
-    <LinearLayout
-        android:id="@+id/cart_delivery"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_below="@+id/cart_items"
-        android:background="@android:color/white"
-        android:layout_marginTop="20dp">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
+        android:fillViewport="true">
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Write a Review"
-            android:fontFamily="@font/roboto_medium"
-            android:textSize="18sp"
-            android:textColor="@color/colorFont"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:background="@drawable/divider" />
+            android:orientation="vertical">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="@drawable/input">
-
-            <EditText
-                android:id="@+id/comment_box"
+            <LinearLayout
+                android:id="@+id/comment_box_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Some comment here…"
-                android:textColorHint="@color/colorHint"
-                android:padding="20dp"
-                android:textSize="15sp"
-                android:background="@drawable/input"
-                android:singleLine="false"
-                android:height="150dp"
-                android:gravity="top" />
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_below="@id/comment_box"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp">
+                android:orientation="vertical"
+                android:layout_below="@+id/cart_items"
+                android:background="@android:color/white"
+                android:layout_marginTop="20dp">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Stars here"
-                    android:fontFamily="@font/roboto_regular"
-                    android:textColor="@color/colorFont"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true" />
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:background="@drawable/orange_button"
+                    android:text="Write a Review"
                     android:fontFamily="@font/roboto_medium"
-                    android:text="Send Review"
-                    android:textColor="@android:color/white"
-                    android:textSize="12sp"
+                    android:textSize="18sp"
+                    android:textColor="@color/colorFont"
                     android:paddingLeft="20dp"
                     android:paddingRight="20dp"
-                    android:layout_alignParentEnd="true"/>
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:background="@drawable/divider" />
 
-            </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:background="@drawable/input">
+
+                    <EditText
+                        android:id="@+id/comment_box"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Some comment here…"
+                        android:textColorHint="@color/colorHint"
+                        android:padding="20dp"
+                        android:textSize="15sp"
+                        android:background="@drawable/input"
+                        android:singleLine="false"
+                        android:height="150dp"
+                        android:gravity="top" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_below="@id/comment_box"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Stars here"
+                            android:fontFamily="@font/roboto_regular"
+                            android:textColor="@color/colorFont"
+                            android:layout_alignParentLeft="true"
+                            android:layout_centerVertical="true" />
+
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="40dp"
+                            android:background="@drawable/orange_button"
+                            android:fontFamily="@font/roboto_medium"
+                            android:text="Send Review"
+                            android:textColor="@android:color/white"
+                            android:textSize="12sp"
+                            android:paddingLeft="20dp"
+                            android:paddingRight="20dp"
+                            android:layout_alignParentEnd="true"/>
+
+                    </RelativeLayout>
 
 
-        </RelativeLayout>
+                </RelativeLayout>
 
-    </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/comment_rating_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_below="@+id/comment_box_layout"
+                android:background="@android:color/white"
+                android:layout_marginTop="20dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Comment Ratings (7)"
+                    android:fontFamily="@font/roboto_medium"
+                    android:textSize="18sp"
+                    android:textColor="@color/colorFont"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:background="@drawable/divider" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:background="@drawable/input"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:id="@+id/about"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Stars go here"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textColor="@color/colorFont"
+                        android:lineSpacingMultiplier="1.5"
+                        />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/comments_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_below="@+id/comment_rating_layout"
+                android:background="@android:color/white"
+                android:layout_marginTop="20dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Customer Reviews (2)"
+                    android:fontFamily="@font/roboto_medium"
+                    android:textSize="18sp"
+                    android:textColor="@color/colorFont"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:background="@drawable/divider" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:background="@drawable/input">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/comment_cycle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="50dp">
+
+                    </android.support.v7.widget.RecyclerView>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </RelativeLayout>

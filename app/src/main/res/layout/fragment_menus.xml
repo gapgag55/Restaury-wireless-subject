@@ -6,67 +6,78 @@
     android:layout_height="match_parent"
     tools:context=".Fragments.MenusFragment">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@android:color/white"
-        android:layout_marginTop="20dp">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
+        android:fillViewport="true">
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Menus"
-            android:fontFamily="@font/roboto_medium"
-            android:textSize="18sp"
-            android:textColor="@color/colorFont"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:background="@drawable/divider" />
+            android:orientation="vertical">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="@drawable/divider"
-            android:padding="20dp">
-
-            <TextView
-                android:id="@+id/about"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Some recycle view goes here"
-                android:fontFamily="@font/roboto_regular"
-                android:textColor="@color/colorFont"
-                android:lineSpacingMultiplier="1.5"
-                />
+                android:orientation="vertical"
+                android:background="@android:color/white"
+                android:layout_marginTop="20dp">
 
-        </RelativeLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Menus"
+                    android:fontFamily="@font/roboto_medium"
+                    android:textSize="18sp"
+                    android:textColor="@color/colorFont"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:background="@drawable/divider" />
 
-    </LinearLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:background="@drawable/divider">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/white"
-        android:padding="15dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="50dp"
-        android:elevation="10dp">
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/menu_cycle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/near_layout"
+                        android:layout_marginBottom="50dp">
 
-        <Button
-            android:id="@+id/place_order"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/orange_button"
-            android:text="VIEW THE CART"
-            android:fontFamily="@font/roboto_medium"
-            android:textColor="@android:color/white"
-            android:textSize="17sp"
-            android:padding="15dp"/>
+                    </android.support.v7.widget.RecyclerView>
 
-    </LinearLayout>
+                </RelativeLayout>
 
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:padding="15dp"
+                android:layout_alignParentBottom="true"
+                android:elevation="10dp">
+
+                <Button
+                    android:id="@+id/place_order"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/orange_button"
+                    android:text="VIEW THE CART"
+                    android:fontFamily="@font/roboto_medium"
+                    android:textColor="@android:color/white"
+                    android:textSize="17sp"
+                    android:padding="15dp"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
 </RelativeLayout>
