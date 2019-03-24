@@ -74,6 +74,7 @@
                             android:layout_centerVertical="true" />
 
                         <Button
+                            android:id="@+id/table_book_button"
                             android:layout_width="wrap_content"
                             android:layout_height="40dp"
                             android:background="@drawable/orange_button"
@@ -97,7 +98,8 @@
                 android:orientation="vertical"
                 android:layout_below="@+id/about_layout"
                 android:background="@android:color/white"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="50dp">
 
                 <TextView
                     android:layout_width="match_parent"

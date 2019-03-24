@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:fontFamily="@font/roboto_medium"
-            android:text="Table Reservation"
+            android:text="Customize"
             android:textColor="@color/colorFont"
             android:textSize="20dp" />
 
@@ -38,11 +38,10 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/table_restaurant"
+                android:id="@+id/customize_heading"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_below="@+id/cart_items"
                 android:background="@android:color/white">
 
                 <RelativeLayout
@@ -56,7 +55,7 @@
                         android:id="@+id/restaurant_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Shabu Ha"
+                        android:text="Thai Fired Rice with Prawns"
                         android:textSize="20sp"
                         android:fontFamily="@font/roboto_medium"
                         android:textColor="@color/colorFont"
@@ -68,7 +67,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/restaurant_name"
-                        android:text="The best shabu of Mahidol University"
+                        android:text="Restaurant: Shabu Ha"
                         android:textSize="15sp"
                         android:fontFamily="@font/roboto_medium"
                         android:textColor="@color/colorFont"
@@ -79,7 +78,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/cart_delivery"
+                android:id="@+id/customize_variation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -90,7 +89,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Reservation Detail"
+                    android:text="Variation"
                     android:fontFamily="@font/roboto_medium"
                     android:textSize="18sp"
                     android:textColor="@color/colorFont"
@@ -152,40 +151,52 @@
 
                 </RelativeLayout>
 
-                <RelativeLayout
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/customize_topping"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/customize_heading"
+                android:orientation="vertical"
+                android:background="@android:color/white"
+                android:layout_marginTop="20dp"
+                android:focusable="true"
+                android:focusableInTouchMode="true">
+
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
+                    android:text="Choice of topping"
+                    android:fontFamily="@font/roboto_medium"
+                    android:textSize="18sp"
+                    android:textColor="@color/colorFont"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
                     android:background="@drawable/divider"
-                    android:padding="20dp">
+                    />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Reserve Time:"
-                        android:fontFamily="@font/roboto_regular"
-                        android:textColor="@color/colorFont"
-                        android:layout_alignParentLeft="true"
-                        />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="13:00"
-                        android:fontFamily="@font/roboto_regular"
-                        android:textColor="@color/colorFont"
-                        android:layout_alignParentEnd="true"
-                        />
-
-                </RelativeLayout>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Some instruction here"
+                    android:textColorHint="@color/colorHint"
+                    android:padding="20dp"
+                    android:textSize="15sp"
+                    android:background="@drawable/input"
+                    android:singleLine="false"
+                    android:gravity="top"
+                    android:minHeight="130dp"
+                    />
 
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/cart_contact"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/cart_delivery"
+                android:layout_below="@+id/customize_topping"
                 android:orientation="vertical"
                 android:background="@android:color/white"
                 android:layout_marginTop="20dp"
@@ -235,16 +246,57 @@
         android:backgroundTint="@color/colorPrimary"
         android:elevation="10dp">
 
-        <Button
-            android:id="@+id/place_order"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/yellow_button"
-            android:text="RESERVE THE TABLE"
-            android:fontFamily="@font/roboto_medium"
-            android:textColor="@android:color/white"
-            android:textSize="17sp"
-            android:padding="10dp"/>
+            android:orientation="horizontal">
+
+            <!--<Button-->
+                <!--android:id="@+id/place_order"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:background="@drawable/yellow_button"-->
+                <!--android:text="-"-->
+                <!--android:fontFamily="@font/roboto_medium"-->
+                <!--android:textColor="@android:color/white"-->
+                <!--android:textSize="17sp"-->
+                <!--android:padding="15dp" />-->
+
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="1"/>-->
+
+            <!--<Button-->
+                <!--android:id="@+id/place_order"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:background="@drawable/yellow_button"-->
+                <!--android:text="-"-->
+                <!--android:fontFamily="@font/roboto_medium"-->
+                <!--android:textColor="@android:color/white"-->
+                <!--android:textSize="17sp"-->
+                <!--android:padding="15dp" />-->
+
+
+            <Button
+                android:id="@+id/place_order"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/yellow_button"
+                android:text="ADD TO CART"
+                android:fontFamily="@font/roboto_medium"
+                android:textColor="@android:color/white"
+                android:textSize="17sp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:layout_alignParentRight="true" />
+
+        </RelativeLayout>
+
+
 
     </LinearLayout>
 

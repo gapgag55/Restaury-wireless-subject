@@ -41,7 +41,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="0dp"
-                android:fontFamily="@font/roboto_medium"
+                android:fontFamily="@font/roboto_regular"
                 android:text="10 January 2018"
                 android:textColor="#2d2d2d"
                 android:textSize="12sp" />

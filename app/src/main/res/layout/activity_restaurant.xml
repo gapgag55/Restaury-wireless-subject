@@ -44,7 +44,7 @@
                 android:layout_height="220dp"
                 android:scaleType="centerCrop"
                 android:layout_below="@+id/toolbar"
-                android:src="@drawable/shabu1"/>
+                android:src="@drawable/shabu1" />
 
             <android.support.design.widget.TabLayout
                 android:id="@+id/tabs"

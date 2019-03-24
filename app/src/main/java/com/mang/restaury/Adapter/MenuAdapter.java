@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.mang.restaury.CustomizeActivity;
 import com.mang.restaury.Model.Menu;
 import com.mang.restaury.Model.Restaurant;
 import com.mang.restaury.R;
@@ -47,11 +48,10 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder>  {
         viewHolder.menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//
-//                Intent intent = new Intent(mContext, RestaurantActivity.class);
+                Intent intent = new Intent(mContext, CustomizeActivity.class);
 //                intent.putExtra("restaurant_name", restaurant.getTitle());
-//
-//                mContext.startActivity(intent);
+
+                mContext.startActivity(intent);
             }
         });
     }
@@ -73,7 +73,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder>  {
 
             // Get ID from XML
 
-            menu = (LinearLayout) itemView.findViewById(R.id.menu);
+            menu = (LinearLayout) itemView.findViewById(R.id.menu_layout);
             menuName = (TextView) itemView.findViewById(R.id.menu_name);
             menuPrice = (TextView) itemView.findViewById(R.id.menu_price);
         }
