@@ -8,4 +8,5 @@
     <color name="colorFont">#222222</color>
     <color name="colorHint">#DDDDDD</color>
     <color name="colorLine">#EEEEEE</color>
+    <color name="white">#FFFFFF</color>
 </resources>

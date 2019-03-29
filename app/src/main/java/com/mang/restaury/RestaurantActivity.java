@@ -21,12 +21,19 @@ public class RestaurantActivity extends AppCompatActivity {
 
     private ViewPager mViewPager;
 
+    private Float latitute;
+
+    private Float longitute;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restaurant);
 
         String restaurant_name = getIntent().getExtras().getString("restaurant_name");
+        latitute = getIntent().getExtras().getFloat("lat");
+        longitute = getIntent().getExtras().getFloat("long");
+
 
         toolbar_title = (TextView) findViewById(R.id.toolbar_title);
         toolbar_title.setText(restaurant_name);
@@ -43,7 +50,7 @@ public class RestaurantActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         ResturantTabAdapter adapter = new ResturantTabAdapter(getSupportFragmentManager());
-        adapter.addFragment(new AboutFragment(), "About");
+        adapter.addFragment(new AboutFragment(latitute,longitute), "About");
         adapter.addFragment(new MenusFragment(), "Menus");
         adapter.addFragment(new ReviewsFragment(), "Reviews");
         viewPager.setAdapter(adapter);

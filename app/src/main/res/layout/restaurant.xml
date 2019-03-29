@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="250dp"
+    android:layout_height="300dp"
     app:cardCornerRadius="4dp"
     app:cardBackgroundColor="@android:color/transparent"
     app:cardElevation="0dp"
@@ -11,9 +11,9 @@
 
     <LinearLayout
         android:id="@+id/restaurant"
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <ImageView
             android:id="@+id/restaurant_image"
@@ -23,53 +23,63 @@
             android:src="@drawable/shabu" />
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:paddingTop="5dp">
 
             <TextView
                 android:id="@+id/restaurant_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="#2d2d2d"
-                android:textSize="20sp"
+                android:fontFamily="@font/roboto_medium"
                 android:text="Kung Aob"
-                android:fontFamily="@font/roboto_medium" />
+                android:textColor="#2d2d2d"
+                android:textSize="20sp" />
+
+            <RatingBar
+                android:id="@+id/ratingBar2"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:numStars="5"
+                android:progressDrawable="@drawable/custom_ratingbar_selector"
+                android:rating="4.5"
+                android:stepSize="0.1" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp">
 
+
                 <TextView
                     android:id="@+id/restaurant_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/orange_button"
-                    android:textSize="7sp"
-                    android:textColor="@android:color/white"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
                     android:fontFamily="@font/roboto_regular"
-                    android:text="250 - 100 Baht" />
+                    android:paddingLeft="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="5dp"
+                    android:text="250 - 100 Baht"
+                    android:textColor="@android:color/white"
+                    android:textSize="7sp" />
 
                 <TextView
                     android:id="@+id/restaurant_type"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/orange_button"
-                    android:textSize="7sp"
-                    android:textColor="@android:color/white"
                     android:layout_marginLeft="5dp"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
+                    android:background="@drawable/orange_button"
                     android:fontFamily="@font/roboto_regular"
-                    android:text="THAI FOOD" />
+                    android:paddingLeft="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="5dp"
+                    android:text="THAI FOOD"
+                    android:textColor="@android:color/white"
+                    android:textSize="7sp" />
 
             </LinearLayout>
 
