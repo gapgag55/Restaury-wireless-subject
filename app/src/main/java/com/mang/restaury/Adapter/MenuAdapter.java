@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.mang.restaury.CustomizeActivity;
 import com.mang.restaury.Model.Menu;
 import com.mang.restaury.Model.Restaurant;
@@ -49,7 +51,8 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder>  {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, CustomizeActivity.class);
-//                intent.putExtra("restaurant_name", restaurant.getTitle());
+                intent.putExtra("menu_name", menu.getMenuName());
+                intent.putExtra("price", menu.getPrice());
 
                 mContext.startActivity(intent);
             }

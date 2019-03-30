@@ -1,5 +1,6 @@
 package com.mang.restaury;
 
+import android.app.Application;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -7,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
+import com.google.firebase.FirebaseApp;
 import com.mang.restaury.Fragments.CartFragment;
 import com.mang.restaury.Fragments.FavoriteFragment;
 import com.mang.restaury.Fragments.ProfileFragment;
@@ -51,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);

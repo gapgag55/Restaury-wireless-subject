@@ -67,11 +67,19 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/restaurant_name"
-                        android:text="Restaurant: Shabu Ha"
+                        android:text="With add ons available"
                         android:textSize="15sp"
                         android:fontFamily="@font/roboto_medium"
                         android:textColor="@color/colorFont"
                         />
+                    <TextView
+                        android:id="@+id/total_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="฿ 60.00"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textColor="@color/colorFont"
+                        android:layout_alignParentRight="true" />
 
                 </RelativeLayout>
 
@@ -103,53 +111,52 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:background="@drawable/input"
-                    android:padding="20dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="People:"
-                        android:fontFamily="@font/roboto_regular"
-                        android:textColor="@color/colorFont"
-                        android:layout_alignParentLeft="true" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="2 people"
-                        android:fontFamily="@font/roboto_regular"
-                        android:textColor="@color/colorFont"
-                        android:layout_alignParentRight="true" />
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:background="@drawable/divider"
                     android:padding="20dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <RelativeLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Reserve Date:"
-                        android:fontFamily="@font/roboto_regular"
-                        android:textColor="@color/colorFont"
-                        android:layout_alignParentLeft="true"
-                        />
+                        android:id="@+id/price_box">
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Regular"
+                            android:focusable="false"/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="+ ฿ 0.00"
+                            android:fontFamily="@font/roboto_regular"
+                            android:textColor="@color/colorFont"
+                            android:layout_alignParentRight="true" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="10/10/2019"
-                        android:fontFamily="@font/roboto_regular"
-                        android:textColor="@color/colorFont"
-                        android:layout_alignParentEnd="true"
-                        />
+                        android:layout_below="@id/price_box"
+                        android:id="@+id/price_box2">
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Extra"
+                            android:focusable="false"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="+ ฿ 10.00"
+                            android:fontFamily="@font/roboto_regular"
+                            android:textColor="@color/colorFont"
+                            android:layout_alignParentRight="true" />
+
+                    </RelativeLayout>
 
                 </RelativeLayout>
+
+
 
             </LinearLayout>
 
@@ -167,7 +174,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Choice of topping"
+                    android:text="Choice of entrails"
                     android:fontFamily="@font/roboto_medium"
                     android:textSize="18sp"
                     android:textColor="@color/colorFont"
@@ -178,18 +185,77 @@
                     android:background="@drawable/divider"
                     />
 
-                <EditText
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Some instruction here"
-                    android:textColorHint="@color/colorHint"
-                    android:padding="20dp"
-                    android:textSize="15sp"
-                    android:background="@drawable/input"
-                    android:singleLine="false"
-                    android:gravity="top"
-                    android:minHeight="130dp"
-                    />
+                    android:orientation="horizontal"
+                    android:background="@drawable/divider"
+                    android:padding="20dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/checkbox">
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Pork River"
+                            android:focusable="false"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="+ ฿ 0.00"
+                            android:fontFamily="@font/roboto_regular"
+                            android:textColor="@color/colorFont"
+                            android:layout_alignParentRight="true" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/checkbox"
+                        android:id="@+id/checkbox2">
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Pork Intestine"
+                            android:focusable="false"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="+ ฿ 0.00"
+                            android:fontFamily="@font/roboto_regular"
+                            android:textColor="@color/colorFont"
+                            android:layout_alignParentRight="true" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/checkbox2"
+                        android:id="@+id/checkbox3">
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="No Entrails"
+                            android:focusable="false"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="+ ฿ 0.00"
+                            android:fontFamily="@font/roboto_regular"
+                            android:textColor="@color/colorFont"
+                            android:layout_alignParentRight="true" />
+
+                    </RelativeLayout>
+
+
+                </RelativeLayout>
 
             </LinearLayout>
 
@@ -250,35 +316,44 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="150dp"
+                android:layout_centerVertical="true">
 
-            <!--<Button-->
-                <!--android:id="@+id/place_order"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:background="@drawable/yellow_button"-->
-                <!--android:text="-"-->
-                <!--android:fontFamily="@font/roboto_medium"-->
-                <!--android:textColor="@android:color/white"-->
-                <!--android:textSize="17sp"-->
-                <!--android:padding="15dp" />-->
+                <Button
+                    android:id="@+id/plus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/yellow_button"
+                    android:text="-"
+                    android:fontFamily="@font/roboto_medium"
+                    android:textColor="@android:color/white"
+                    android:textSize="20sp"
+                    android:padding="10dp" />
 
-            <!--<TextView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="1"/>-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/colorThirdary"/>
 
-            <!--<Button-->
-                <!--android:id="@+id/place_order"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:background="@drawable/yellow_button"-->
-                <!--android:text="-"-->
-                <!--android:fontFamily="@font/roboto_medium"-->
-                <!--android:textColor="@android:color/white"-->
-                <!--android:textSize="17sp"-->
-                <!--android:padding="15dp" />-->
+                <Button
+                    android:id="@+id/minus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/yellow_button"
+                    android:fontFamily="@font/roboto_medium"
+                    android:padding="10dp"
+                    android:text="+"
+                    android:textColor="@android:color/white"
+                    android:textSize="20sp"
+                    android:layout_alignParentRight="true"/>
 
-
+            </RelativeLayout>
             <Button
                 android:id="@+id/place_order"
                 android:layout_width="wrap_content"
@@ -292,7 +367,8 @@
                 android:paddingBottom="10dp"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
-                android:layout_alignParentRight="true" />
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"/>
 
         </RelativeLayout>
 

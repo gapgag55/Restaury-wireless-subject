@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.mang.restaury.Model.Restaurant;
 import com.mang.restaury.R;
 import com.mang.restaury.RestaurantActivity;
+import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
 
@@ -42,6 +43,10 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
 
         final Restaurant restaurant = mData.get(i);
 
+        // Reference to an image file in Firebase Storage
+        if(restaurant.getPicture() != null) Picasso.get().load(restaurant.getPicture()).into(viewHolder.restaurant_image);
+
+
         // viewHolder.restaurant_image.setImageURI();
         viewHolder.restaurant_name.setText(restaurant.getTitle());
         viewHolder.restaurant_price.setText("250 - 1000 Baht");
@@ -56,8 +61,12 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
                 Intent intent = new Intent(mContext, RestaurantActivity.class);
                 intent.putExtra("restaurant_name", restaurant.getTitle());
 
-                intent.putExtra("lat",restaurant.getLatitude());
-                intent.putExtra("long",restaurant.getLongtitude());
+                intent.putExtra("latitute",restaurant.getLatitude());
+                intent.putExtra("longitute",restaurant.getLongtitude());
+                intent.putExtra("picture",restaurant.getPicture());
+                intent.putExtra("about", restaurant.getRestaurant_about());
+                intent.putExtra("res_id", restaurant.getRestaurant_ID());
+                intent.putExtra("res_name",restaurant.getTitle());
 
                 mContext.startActivity(intent);
             }

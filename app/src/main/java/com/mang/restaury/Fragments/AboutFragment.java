@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -33,25 +34,30 @@ import com.mang.restaury.TableReservationActivity;
 public class AboutFragment extends Fragment {
 
 
-    private Float latitute;
-
-    private Float longitute;
+    private TextView about_text;
+    private double latitute;
+    private double longitute;
+    private String about;
 
     MapView mMapView;
     private GoogleMap googleMap;
 
 
     @SuppressLint("ValidFragment")
-    public AboutFragment(Float latitute, Float longitute) {
+    public AboutFragment(double latitute, double longitute,String about) {
         this.latitute = latitute;
         this.longitute = longitute;
+        this.about = about;
         // Required empty public constructor
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_about, container, false);
+        final View rootView = inflater.inflate(R.layout.fragment_about, container, false);
+
+        about_text = (TextView) rootView.findViewById(R.id.about);
+        about_text.setText(about);
 
         mMapView = (MapView) rootView.findViewById(R.id.mapView);
         mMapView.onCreate(savedInstanceState);
@@ -70,12 +76,25 @@ public class AboutFragment extends Fragment {
                 googleMap = mMap;
 
                 // For dropping a marker at a point on the Map
-                LatLng sydney = new LatLng(-34, 151);
+                LatLng sydney = new LatLng(latitute, longitute);
                 googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker Title").snippet("Marker Description"));
 
                 // For zooming automatically to the location of the marker
-                CameraPosition cameraPosition = new CameraPosition.Builder().target(sydney).zoom(12).build();
+                CameraPosition cameraPosition = new CameraPosition.Builder().target(sydney).zoom(15).build();
                 googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+            }
+        });
+
+        final Button bookTableButton = (Button) rootView.findViewById(R.id.table_book_button);
+
+        bookTableButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(rootView.getContext(), TableReservationActivity.class);
+                intent.putExtra("restaurant_name", "Shabu Ha");
+
+                rootView.getContext().startActivity(intent);
             }
         });
 

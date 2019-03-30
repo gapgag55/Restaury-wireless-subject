@@ -97,46 +97,46 @@ public class SearchActivity extends AppCompatActivity {
         renderFragment(new searchResultFragment());
 
         // right drawer
-//        t1 = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(t1);
-//        getSupportActionBar().setDisplayShowHomeEnabled(true);
-//        mDrawerLayout = (DrawerLayout) findViewById(R.id.activity_search);
-//        drawer_right = (LinearLayout) findViewById(R.id.drawer_right);
-//
-//        double width = getResources().getDisplayMetrics().widthPixels*0.8;
-//        DrawerLayout.LayoutParams params = (android.support.v4.widget.DrawerLayout.LayoutParams) drawer_right.getLayoutParams();
-//        params.width = (int)width;
-//        drawer_right.setLayoutParams(params);
-//
-//        filter = (ImageButton) findViewById(R.id.right_filler);
-//        mDrawerLayout.setDrawerListener(mDrawerToggle);
-//
-//        filter.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if(mDrawerLayout.isDrawerOpen(drawer_right)){
-//                    mDrawerLayout.closeDrawer(drawer_right);
-//                    mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_OPEN);
-//                }else if(!mDrawerLayout.isDrawerOpen(drawer_right)){
-//                    mDrawerLayout.openDrawer(drawer_right);
-//                    mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_OPEN);
-//                }
-//            }
-//        });
-//
-//        mDrawerLayout.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//                int x = (int) event.getX();
-//                int drawerWidth = (int)(getResources().getDisplayMetrics().widthPixels*0.8);
-//                if (x < drawerWidth) {
-//                    // inside scrim
-//                    mDrawerLayout.closeDrawers();
-//                    return true;
-//                }
-//                return false;
-//            }
-//        });
+        t1 = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(t1);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.activity_search);
+        drawer_right = (LinearLayout) findViewById(R.id.drawer_right);
+
+        double width = getResources().getDisplayMetrics().widthPixels*0.8;
+        DrawerLayout.LayoutParams params = (android.support.v4.widget.DrawerLayout.LayoutParams) drawer_right.getLayoutParams();
+        params.width = (int)width;
+        drawer_right.setLayoutParams(params);
+
+        filter = (ImageButton) findViewById(R.id.right_filler);
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+
+        filter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mDrawerLayout.isDrawerOpen(drawer_right)){
+                    mDrawerLayout.closeDrawer(drawer_right);
+                    mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_OPEN);
+                }else if(!mDrawerLayout.isDrawerOpen(drawer_right)){
+                    mDrawerLayout.openDrawer(drawer_right);
+                    mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_OPEN);
+                }
+            }
+        });
+
+        mDrawerLayout.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                int x = (int) event.getX();
+                int drawerWidth = (int)(getResources().getDisplayMetrics().widthPixels*0.8);
+                if (x < drawerWidth) {
+                    // inside scrim
+                    mDrawerLayout.closeDrawers();
+                    return true;
+                }
+                return false;
+            }
+        });
 
         // price range
         final RangeSeekBar rangeSeekbar = (RangeSeekBar) findViewById(R.id.rangeSeekbar1);
@@ -302,25 +302,6 @@ public class SearchActivity extends AppCompatActivity {
                 }
             }
         });
-
-//        restaurants = new ArrayList<>();
-//        restaurants.add(new Restaurant("Shabu Ha", 13.1670473, 100.9324348));
-//        restaurants.add(new Restaurant("Shabu Ha 2", 13.1670473, 100.9324348));
-//        restaurants.add(new Restaurant("Shabu Ha", 13.1670473, 100.9324348));
-//        restaurants.add(new Restaurant("Shabu Ha 2", 13.1670473, 100.9324348));
-//        restaurants.add(new Restaurant("Shabu Ha", 13.1670473, 100.9324348));
-//        restaurants.add(new Restaurant("Shabu Ha 2", 13.1670473, 100.9324348));
-//        restaurants.add(new Restaurant("Shabu Ha", 13.1670473, 100.9324348));
-//        restaurants.add(new Restaurant("Shabu Ha 2", 13.1670473, 100.9324348));
-//
-//        RecyclerView recycleView = (RecyclerView) findViewById(R.id.restaurant_cycle);
-//        RestaurantAdapter myAdapter = new RestaurantAdapter(this, restaurants);
-//        recycleView.setLayoutManager(new GridLayoutManager(this, 2));
-//        recycleView.setAdapter(myAdapter);
-
-
-
-
     }
 
     private void renderFragment(Fragment selectedFragment) {
