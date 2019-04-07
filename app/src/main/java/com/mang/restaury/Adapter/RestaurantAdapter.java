@@ -53,7 +53,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
         viewHolder.restaurant_type.setText("THAI FOOD");
 
 
-        // On Click
+        // On Clickope
         viewHolder.restaurant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
