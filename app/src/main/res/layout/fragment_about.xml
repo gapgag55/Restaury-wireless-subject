@@ -118,10 +118,10 @@
                     android:orientation="horizontal"
                     android:background="@drawable/divider">
 
-                    <com.google.android.gms.maps.MapView
-                        android:id="@+id/mapView"
-                        android:layout_width="match_parent"
-                        android:layout_height="200dp" />
+                    <!--<com.google.android.gms.maps.MapView-->
+                        <!--android:id="@+id/mapView"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="200dp" />-->
 
                 </RelativeLayout>
 

@@ -70,7 +70,7 @@
                         android:layout_below="@+id/restaurant_name"
                         android:text="The best shabu of Mahidol University"
                         android:textSize="15sp"
-                        android:fontFamily="@font/roboto_medium"
+                        android:fontFamily="@font/roboto_regular"
                         android:textColor="@color/colorFont"
                         />
 
