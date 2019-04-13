@@ -1,5 +1,6 @@
 package com.mang.restaury.Fragments;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,6 +11,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -25,6 +28,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.mang.restaury.R;
 
+import org.w3c.dom.Text;
+
 public class AuthenticationFragment extends BottomSheetDialogFragment {
 
     // for google sign in
@@ -36,6 +41,8 @@ public class AuthenticationFragment extends BottomSheetDialogFragment {
     // [END declare_auth]
 
     private GoogleSignInClient mGoogleSignInClient;
+
+    private boolean isLoginDisplay = true;
 
 
     public static AuthenticationFragment getInstance() {
@@ -49,7 +56,14 @@ public class AuthenticationFragment extends BottomSheetDialogFragment {
 
         initFBGoogleSignIn();
 
-        view.findViewById(R.id.login_google).setOnClickListener(new View.OnClickListener() {
+        final LinearLayout loginLayout = (LinearLayout) view.findViewById(R.id.login_layout);
+
+        LinearLayout loginGoogle = (LinearLayout) view.findViewById(R.id.login_google);
+        LinearLayout loginFacebook = (LinearLayout) view.findViewById(R.id.login_facebook);
+
+        TextView linker = (TextView) view.findViewById(R.id.linker);
+
+        loginGoogle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 signInWithGoogleSignIn();
@@ -107,7 +121,7 @@ public class AuthenticationFragment extends BottomSheetDialogFragment {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
 //                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "signInWithCredential:success");
+                            Log.w(TAG, "signInWithCredential:success");
 //                            FirebaseUser user = mAuth.getCurrentUser();
 ////                            updateUI(user);
                         } else {
