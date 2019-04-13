@@ -21,10 +21,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.mang.restaury.Activity.SearchActivity;
 import com.mang.restaury.Adapter.RestaurantAdapter;
 import com.mang.restaury.Model.Restaurant;
 import com.mang.restaury.R;
-import com.mang.restaury.SearchActivity;
+import com.mang.restaury.Activity.SearchActivity;
 
 import java.util.ArrayList;
 
@@ -36,28 +37,11 @@ import static android.support.constraint.Constraints.TAG;
  */
 public class SearchFragment extends Fragment {
 
-    public static class Table {
-
-        public int restaurant_ID;
-        public int table_id;
-        public int table_seat;
-
-        public Table(int restaurant_ID, int table_id,int table_seat) {
-            // ...
-        }
-
-        public Table() {
-            // ...
-        }
-
-    }
-
     private ArrayList<Restaurant> restaurants;
 
     public SearchFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -74,30 +58,27 @@ public class SearchFragment extends Fragment {
         DatabaseReference ref = database.getReference();
         DatabaseReference tableRef = ref.child("Restaurant");
 
-
-
         ValueEventListener eventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot ds : dataSnapshot.getChildren()) {
 
-                    int restaurant_ID = ds.child("restaurant_ID").getValue(int.class);
-                    String restaurant_about = ds.child("restaurant_about").getValue(String.class);
-                    int restaurant_deliverFee = ds.child("restaurant_deliverFee").getValue(int.class);
-                    double restaurant_latitute = ds.child("restaurant_latitute").getValue(double.class);
-                    double restaurant_longtitute = ds.child("restaurant_longtitute").getValue(double.class);
-                    String restaurant_name = ds.child("restaurant_name").getValue(String.class);
+                    int restaurantID = ds.child("restaurant_ID").getValue(int.class);
+                    String restaurantAbout = ds.child("restaurant_about").getValue(String.class);
+                    int restaurantDeliverFee = ds.child("restaurant_deliverFee").getValue(int.class);
+                    double restaurantLatitute = ds.child("restaurant_latitute").getValue(double.class);
+                    double restaurantLongtitute = ds.child("restaurant_longtitute").getValue(double.class);
+                    String restaurantName = ds.child("restaurant_name").getValue(String.class);
                     String picture = ds.child("restaurant_pic").getValue(String.class);
 
-                    Log.d(TAG,restaurant_ID+"/"+restaurant_about+picture);
+                    Log.d(TAG,restaurantID+"/"+restaurantAbout+picture);
 
-
-                    restaurants.add(new Restaurant(restaurant_name,
-                            restaurant_latitute,
-                            restaurant_longtitute,
-                            restaurant_ID,
-                            restaurant_about,
-                            restaurant_deliverFee,
+                    restaurants.add(new Restaurant(restaurantName,
+                            restaurantLatitute,
+                            restaurantLongtitute,
+                            restaurantID,
+                            restaurantAbout,
+                            restaurantDeliverFee,
                             picture));
                 }
 
@@ -112,20 +93,6 @@ public class SearchFragment extends Fragment {
         };
 
         tableRef.addListenerForSingleValueEvent(eventListener);
-
-
-//        restaurants = new ArrayList<>();
-//        restaurants.add(new Restaurant("Shabu Ha", 13.1670473, 100.9324348));
-//        restaurants.add(new Restaurant("Shabu Ha 2", 13.1670473, 100.9324348));
-//        restaurants.add(new Restaurant("Shabu Ha", 13.1670473, 100.9324348));
-//        restaurants.add(new Restaurant("Shabu Ha 2", 13.1670473, 100.9324348));
-//        restaurants.add(new Restaurant("Shabu Ha", 13.1670473, 100.9324348));
-//        restaurants.add(new Restaurant("Shabu Ha 2", 13.1670473, 100.9324348));
-//        restaurants.add(new Restaurant("Shabu Ha", 13.1670473, 100.9324348));
-//        restaurants.add(new Restaurant("Shabu Ha 2", 13.1670473, 100.9324348));
-
-
-
 
         search.setOnKeyListener(new View.OnKeyListener() {
             @Override

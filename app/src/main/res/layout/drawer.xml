@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/drawer_right"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:orientation="vertical"
+    android:layout_gravity="end">
+
+    <!--Filter header-->
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/filter_header"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@android:color/white"
+        android:textAlignment="center"
+        android:elevation="1dp">
+
+        <TextView
+            android:id="@+id/filter_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/roboto_medium"
+            android:text="Filterer"
+            android:textColor="@color/colorFont"
+            android:textSize="20dp" />
+
+    </android.support.v7.widget.Toolbar>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!--Food type-->
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:id="@+id/food_type">
+
+            <TextView
+                android:id="@+id/food_type_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Food Type"
+                android:layout_margin="20dp"
+                android:textSize="16dp"
+                android:textColor="#000"
+                android:textStyle="bold"/>
+
+            <HorizontalScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/thai_food"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:background="@drawable/round_button"
+                        android:text="Thai Food"
+                        android:textAllCaps="false"
+                        android:textColor="@color/colorFont"
+                        android:textSize="15dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"/>
+
+                    <Button
+                        android:id="@+id/intalian_food"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:background="@drawable/round_button"
+                        android:text="Intalian Food"
+                        android:textAllCaps="false"
+                        android:textColor="@color/colorFont"
+                        android:textSize="15dp"
+                        android:layout_marginLeft="10dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"/>
+
+                    <Button
+                        android:id="@+id/japanese_food"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:background="@drawable/round_button"
+                        android:text="Japanese Food"
+                        android:textAllCaps="false"
+                        android:textColor="@color/colorFont"
+                        android:textSize="15dp"
+                        android:layout_marginLeft="10dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"/>
+
+                    <Button
+                        android:id="@+id/indian_food"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:background="@drawable/round_button"
+                        android:text="Indian Food"
+                        android:textAllCaps="false"
+                        android:textColor="@color/colorFont"
+                        android:textSize="15dp"
+                        android:layout_marginLeft="10dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"/>
+
+                </LinearLayout>
+            </HorizontalScrollView>
+        </LinearLayout>
+
+        <!--Price Range-->
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:id="@+id/price_range"
+            android:layout_below="@+id/food_type">
+
+            <TextView
+                android:id="@+id/price_range_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Price Length"
+                android:layout_margin="20dp"
+                android:textSize="16dp"
+                android:textColor="#000"
+                android:textStyle="bold"/>
+
+            <com.mang.restaury.Utility.RangeSeekBar
+                android:id="@+id/rangeSeekbar1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:left_thumb_color_pressed="@color/colorSecondary"
+                app:right_thumb_color_pressed="@color/colorSecondary"
+                app:left_thumb_color="@color/colorSecondary"
+                app:right_thumb_color="@color/colorSecondary"
+                app:bar_highlight_color="@color/colorSecondary"
+                app:bar_color="@color/colorLine"
+                app:min_value="0"
+                app:max_value="5000"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/rangeSeekbar1"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp">
+
+                <TextView
+                    android:id="@+id/textMin1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:layout_marginTop="5dp"
+                    android:textSize="16dp"
+                    android:textColor="#000"/>
+
+                <TextView
+                    android:id="@+id/textMax1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:layout_marginTop="5dp"
+                    android:textSize="16dp"
+                    android:textColor="#000"
+                    android:layout_alignParentRight="true"/>
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+        <!--Rating-->
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:id="@+id/rating"
+            android:layout_below="@+id/price_range">
+
+            <TextView
+                android:id="@+id/rating_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rating Stars"
+                android:layout_margin="20dp"
+                android:textSize="16dp"
+                android:textColor="#000"
+                android:textStyle="bold"/>
+
+            <HorizontalScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:id="@+id/one_star"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/one_star"
+                        android:background="@color/white"/>
+
+                    <ImageButton
+                        android:id="@+id/two_star"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/two_star"
+                        android:background="@color/white"
+                        android:layout_marginLeft="10dp"/>
+
+                    <ImageButton
+                        android:id="@+id/three_star"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/three_star"
+                        android:background="@color/white"
+                        android:layout_marginLeft="10dp"/>
+
+                    <ImageButton
+                        android:id="@+id/four_star"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/four_star"
+                        android:background="@color/white"
+                        android:layout_marginLeft="10dp"/>
+
+                    <ImageButton
+                        android:id="@+id/five_star"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/five_star"
+                        android:background="@color/white"
+                        android:layout_marginLeft="10dp"/>
+
+
+                </LinearLayout>
+            </HorizontalScrollView>
+
+
+        </LinearLayout>
+
+        <!--End-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:padding="15dp"
+            android:layout_alignParentBottom="true"
+            android:backgroundTint="@color/colorPrimary"
+            android:elevation="10dp">
+
+            <Button
+                android:id="@+id/place_order"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/yellow_button"
+                android:text="APPLY"
+                android:fontFamily="@font/roboto_medium"
+                android:textColor="@android:color/white"
+                android:textSize="17sp"
+                android:padding="10dp"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,4 +1,4 @@
-package com.mang.restaury;
+package com.mang.restaury.Utility;
 
 import android.content.Context;
 import android.util.AttributeSet;

@@ -13,11 +13,11 @@ import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.mang.restaury.CustomizeActivity;
+import com.mang.restaury.Activity.CustomizeActivity;
 import com.mang.restaury.Model.Menu;
 import com.mang.restaury.Model.Restaurant;
 import com.mang.restaury.R;
-import com.mang.restaury.RestaurantActivity;
+import com.mang.restaury.Activity.RestaurantActivity;
 
 import java.util.List;
 

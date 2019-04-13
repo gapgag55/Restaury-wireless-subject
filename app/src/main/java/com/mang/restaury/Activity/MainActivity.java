@@ -1,4 +1,4 @@
-package com.mang.restaury;
+package com.mang.restaury.Activity;
 
 import android.app.Application;
 import android.os.Bundle;
@@ -13,6 +13,7 @@ import com.mang.restaury.Fragments.CartFragment;
 import com.mang.restaury.Fragments.FavoriteFragment;
 import com.mang.restaury.Fragments.ProfileFragment;
 import com.mang.restaury.Fragments.SearchFragment;
+import com.mang.restaury.R;
 
 public class MainActivity extends AppCompatActivity {
 

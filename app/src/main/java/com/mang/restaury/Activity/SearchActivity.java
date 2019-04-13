@@ -1,4 +1,4 @@
-package com.mang.restaury;
+package com.mang.restaury.Activity;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -9,8 +9,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
@@ -19,21 +17,20 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.crystal.crystalrangeseekbar.interfaces.OnRangeSeekbarChangeListener;
 import com.crystal.crystalrangeseekbar.interfaces.OnRangeSeekbarFinalValueListener;
-import com.mang.restaury.Adapter.RestaurantAdapter;
 import com.mang.restaury.Fragments.CartFragment;
 import com.mang.restaury.Fragments.FavoriteFragment;
 import com.mang.restaury.Fragments.ProfileFragment;
 import com.mang.restaury.Fragments.SearchFragment;
 import com.mang.restaury.Fragments.searchResultFragment;
 import com.mang.restaury.Model.Restaurant;
+import com.mang.restaury.R;
+import com.mang.restaury.Utility.RangeSeekBar;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class SearchActivity extends AppCompatActivity {
 
@@ -95,6 +92,9 @@ public class SearchActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         renderFragment(new searchResultFragment());
+
+        TextView searchTitle = (TextView) findViewById(R.id.search_title);
+        searchTitle.setText("Search: " + getIntent().getExtras().getString("keyword"));
 
         // right drawer
         t1 = (Toolbar) findViewById(R.id.toolbar);

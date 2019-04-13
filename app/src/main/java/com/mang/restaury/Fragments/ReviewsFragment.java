@@ -1,22 +1,17 @@
 package com.mang.restaury.Fragments;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.mang.restaury.Adapter.CommentAdapter;
-import com.mang.restaury.Adapter.RestaurantAdapter;
 import com.mang.restaury.Model.Comment;
-import com.mang.restaury.Model.Restaurant;
 import com.mang.restaury.R;
-import com.mang.restaury.SearchActivity;
 
 import java.util.ArrayList;
 

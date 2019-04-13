@@ -18,7 +18,7 @@
         <ImageView
             android:id="@+id/restaurant_image"
             android:layout_width="match_parent"
-            android:layout_height="170dp"
+            android:layout_height="150dp"
             android:scaleType="centerCrop"
             android:src="@drawable/shabu" />
 
@@ -35,7 +35,8 @@
                 android:fontFamily="@font/roboto_medium"
                 android:text="Kung Aob"
                 android:textColor="#2d2d2d"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:layout_marginBottom="10dp" />
 
             <RatingBar
                 android:id="@+id/ratingBar2"
@@ -50,7 +51,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp">
-
 
                 <TextView
                     android:id="@+id/restaurant_price"

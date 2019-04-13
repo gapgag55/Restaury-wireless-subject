@@ -1,17 +1,13 @@
 package com.mang.restaury.Fragments;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -23,8 +19,7 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.mang.restaury.R;
-import com.mang.restaury.RestaurantActivity;
-import com.mang.restaury.TableReservationActivity;
+import com.mang.restaury.Activity.TableReservationActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -33,8 +28,9 @@ import com.mang.restaury.TableReservationActivity;
 @SuppressLint("ValidFragment")
 public class AboutFragment extends Fragment {
 
-
-    private TextView about_text;
+    private TextView description;
+    private int resID;
+    private String restaurantName;
     private double latitute;
     private double longitute;
     private String about;
@@ -42,22 +38,21 @@ public class AboutFragment extends Fragment {
     MapView mMapView;
     private GoogleMap googleMap;
 
-
-    @SuppressLint("ValidFragment")
-    public AboutFragment(double latitute, double longitute,String about) {
+    public AboutFragment(int resID, String restaurantName, double latitute, double longitute, String about) {
+        this.resID = resID;
+        this.restaurantName = restaurantName;
         this.latitute = latitute;
         this.longitute = longitute;
         this.about = about;
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.fragment_about, container, false);
 
-        about_text = (TextView) rootView.findViewById(R.id.about);
-        about_text.setText(about);
+        TextView description = (TextView) rootView.findViewById(R.id.about);
+        description.setText(about);
 
         mMapView = (MapView) rootView.findViewById(R.id.mapView);
         mMapView.onCreate(savedInstanceState);
@@ -92,7 +87,8 @@ public class AboutFragment extends Fragment {
             public void onClick(View v) {
 
                 Intent intent = new Intent(rootView.getContext(), TableReservationActivity.class);
-                intent.putExtra("restaurant_name", "Shabu Ha");
+                intent.putExtra("resID", resID);
+                intent.putExtra("restaurantName", restaurantName);
 
                 rootView.getContext().startActivity(intent);
             }

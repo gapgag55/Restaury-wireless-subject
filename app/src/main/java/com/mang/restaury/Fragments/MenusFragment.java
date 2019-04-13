@@ -37,12 +37,10 @@ public class MenusFragment extends Fragment {
 
     private ArrayList<Menu> menus;
     int rest_id;
-    String res_name;
 
-    public MenusFragment(int rest_id, String res_name) {
+    public MenusFragment(int rest_id) {
         // Required empty public constructor
         this.rest_id = rest_id;
-        this.res_name = res_name;
     }
 
 
@@ -59,8 +57,6 @@ public class MenusFragment extends Fragment {
         DatabaseReference ref = database.getReference();
         DatabaseReference tableRef = ref.child("Menu");
 
-
-
         ValueEventListener eventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -74,8 +70,9 @@ public class MenusFragment extends Fragment {
 
                     Log.d(TAG,menu_ID+"/"+rest_id+"/"+menu_basePrice);
 
-                    if(restaurant_ID == rest_id) menus.add(new Menu(menu_ID,menu_name,menu_basePrice,menu_pictureURL,restaurant_ID,res_name));
-
+                    if(restaurant_ID == rest_id) {
+                        menus.add(new Menu(menu_ID, menu_name, menu_basePrice, menu_pictureURL, restaurant_ID));
+                    }
                 }
 
                 RecyclerView recycleView = (RecyclerView) view.findViewById(R.id.menu_cycle);
@@ -87,6 +84,7 @@ public class MenusFragment extends Fragment {
             @Override
             public void onCancelled(DatabaseError databaseError) {}
         };
+
         tableRef.addListenerForSingleValueEvent(eventListener);
 
         return view;

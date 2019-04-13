@@ -13,10 +13,8 @@ import android.widget.TextView;
 
 import com.mang.restaury.Model.Restaurant;
 import com.mang.restaury.R;
-import com.mang.restaury.RestaurantActivity;
+import com.mang.restaury.Activity.RestaurantActivity;
 import com.squareup.picasso.Picasso;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -53,7 +51,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
         viewHolder.restaurant_type.setText("THAI FOOD");
 
 
-        // On Clickope
+        // On Click
         viewHolder.restaurant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

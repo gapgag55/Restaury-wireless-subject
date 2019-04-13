@@ -1,8 +1,10 @@
-package com.mang.restaury;
+package com.mang.restaury.Activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
+
+import com.mang.restaury.R;
 
 public class CustomizeActivity extends AppCompatActivity {
 

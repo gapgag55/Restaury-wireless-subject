@@ -7,7 +7,19 @@ public class Menu {
     private double price;
     private String menu_pictureURL;
     private int restaurant_ID;
-    private String res_name;
+
+    public Menu(String menuName, Double price) {
+        this.menuName = menuName;
+        this.price = price;
+    }
+
+    public Menu(int menu_ID, String menuName, double price, String menu_pictureURL, int restaurant_ID){
+        this.menu_ID = menu_ID;
+        this.menuName = menuName;
+        this.price = price;
+        this.menu_pictureURL = menu_pictureURL;
+        this.restaurant_ID = restaurant_ID;
+    }
 
     public int getMenu_ID() {
         return menu_ID;
@@ -36,21 +48,6 @@ public class Menu {
     public void setRestaurant_ID(int restaurant_ID) {
         this.restaurant_ID = restaurant_ID;
     }
-
-    public Menu(String menuName, Double price) {
-        this.menuName = menuName;
-        this.price = price;
-    }
-
-    public Menu(int menu_ID, String menuName, double price, String menu_pictureURL, int restaurant_ID, String res_name){
-        this.menu_ID = menu_ID;
-        this.menuName = menuName;
-        this.price = price;
-        this.menu_pictureURL = menu_pictureURL;
-        this.restaurant_ID = restaurant_ID;
-        this.res_name = res_name;
-    }
-
 
     public String getMenuName() {
         return menuName;
