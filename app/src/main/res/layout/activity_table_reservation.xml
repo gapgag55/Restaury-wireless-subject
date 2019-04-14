@@ -181,6 +181,19 @@
 
                 </RelativeLayout>
 
+                <TextView
+                    android:id="@+id/reservation_status"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Table is not available"
+                    android:paddingTop="10dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:textColor="@android:color/holo_red_dark"
+                    android:textAlignment="textEnd"
+                    android:paddingBottom="10dp"/>
+
             </LinearLayout>
 
             <LinearLayout
@@ -209,6 +222,7 @@
                     android:background="@drawable/divider" />
 
                 <EditText
+                    android:id="@+id/instruction"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Some instruction here"

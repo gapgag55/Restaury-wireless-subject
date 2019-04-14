@@ -67,7 +67,7 @@ public class AboutFragment extends Fragment {
                     bookTable();
                 } else {
                     auth.show(getFragmentManager(), "Authentication");
-                    bookTable();
+//                    bookTable();
                 }
 
             }
@@ -81,6 +81,7 @@ public class AboutFragment extends Fragment {
         intent.putExtra("resID", resID);
         intent.putExtra("restaurantName", restaurantName);
         rootView.getContext().startActivity(intent);
+        getActivity().overridePendingTransition(R.anim.slide_in_up, R.anim.stay);
     }
 
 //

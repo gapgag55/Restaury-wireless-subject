@@ -1,6 +1,7 @@
 package com.mang.restaury.Activity;
 
 import android.app.DatePickerDialog;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
@@ -28,9 +29,14 @@ import com.mang.restaury.Model.Restaurant;
 import com.mang.restaury.Model.Table;
 import com.mang.restaury.R;
 
+import java.lang.reflect.Array;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -54,7 +60,7 @@ public class TableReservationActivity extends AppCompatActivity {
 
 
         // Set Maximum people can book
-        Spinner people = (Spinner) findViewById(R.id.maximum_people);
+        final Spinner people = (Spinner) findViewById(R.id.maximum_people);
 
         // Spinner Drop down elements
         List<String> numbers = new ArrayList<String>();
@@ -68,21 +74,19 @@ public class TableReservationActivity extends AppCompatActivity {
 
 
         // Set Maximum people can book
-        Spinner reserveDate = (Spinner) findViewById(R.id.reserve_date);
+        final Spinner date = (Spinner) findViewById(R.id.reserve_date);
 
         // Spinner Drop down elements
         List<String> dateData = new ArrayList<String>();
         dateData.add("Today");
         dateData.add("Tomorrow");
-        dateData.add("16/04/2562");
-        dateData.add("17/04/2562");
 
-        setSpinner(reserveDate, dateData);
+        setSpinner(date, dateData);
 
 
 
         // Set Maximum people can book
-        Spinner reserveTime = (Spinner) findViewById(R.id.reserve_time);
+        final Spinner time = (Spinner) findViewById(R.id.reserve_time);
 
         // Spinner Drop down elements
         List<String> timeData = new ArrayList<String>();
@@ -92,83 +96,117 @@ public class TableReservationActivity extends AppCompatActivity {
         timeData.add("16:00");
         timeData.add("17:00");
 
-        setSpinner(reserveTime, timeData);
+        setSpinner(time, timeData);
 
-
-
-
-//        final FirebaseDatabase database = FirebaseDatabase.getInstance();
-//        DatabaseReference ref = database.getReference();
-//        Query tableRef = ref.child("Table").orderByChild("restaurant_ID").equalTo(resID);
-//
-//        ValueEventListener eventListener = new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                for(DataSnapshot ds : dataSnapshot.getChildren()) {
-//
-//                    int restaurantID = ds.child("restaurant_ID").getValue(int.class);
-//                    int tableID = ds.child("table_id").getValue(int.class);
-//                    int tableSeat = ds.child("table_seat").getValue(int.class);
-//
-//                    Log.d(TAG,restaurantID + ":" + tableID + ":" + tableSeat + "\n");
-//
-//                   // Load table of this restaurant
-//                    tables.add(new Table(restaurantID, tableID, tableSeat));
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {}
-//        };
-
+        final EditText instruction = (EditText) findViewById(R.id.instruction);
 
 
         // Submit Reservation
+        final TextView status = (TextView) findViewById(R.id.reservation_status);
+        status.setVisibility(View.GONE);
+
         Button reserveTableButton = (Button) findViewById(R.id.reserve_table);
         reserveTableButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 final FirebaseDatabase database = FirebaseDatabase.getInstance();
-                DatabaseReference ref = database.getReference();
+                final DatabaseReference ref = database.getReference();
 
                 // Get Current User ID
-                String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                final String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+                // Get Request from user
+                final int reservePeople = Integer.parseInt(people.getSelectedItem().toString());
+                final String reserveInstruction = instruction.getText().toString();
+                String reserveDate = date.getSelectedItem().toString();
+                String reserveTime = time.getSelectedItem().toString();
+
+//                System.out.println(reservePeople + " : " + reserveDate + " : " + reserveTime);
+
+                if (reserveDate.equals("Today")) {
+                    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                    Date date = new Date();
+                    reserveDate = dateFormat.format(date);
+                }
+
+                if (reserveDate.equals("Tomorrow")) {
+                    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                    Date date = new Date((new Date()).getTime() + (1000 * 60 * 60 * 24));
+                    reserveDate = dateFormat.format(date);
+                }
+
+                final String reserveDateTime = reserveDate + " " + reserveTime;
+//                System.out.println(dateTime);
 
 
-                //
+               // Get available table of this restaurant
+                Query tableRef = ref.child("Table").orderByChild("restaurant_ID").equalTo(1);
+                tableRef.addListenerForSingleValueEvent(new ValueEventListener() {
 
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()) {
+                            // dataSnapshot is the "issue" node with all children with id 0
 
-                // Get appropriate Table of this restaurant
-//                Query tableRef = ref.child("Table").orderByChild("restaurant_ID").equalTo(resID);
-//                tableRef.addListenerForSingleValueEvent(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(DataSnapshot dataSnapshot) {
-//                        if (dataSnapshot.exists()) {
-//                            // dataSnapshot is the "issue" node with all children with id 0
-//                            for (DataSnapshot ds : dataSnapshot.getChildren()) {
-//
-//
-//                                if (ds.child("table_seat").getValue(int.class) > 2) {
-//
-//                                }
-//
-//                            }
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(DatabaseError databaseError) { }
-//                });
+                            final HashMap<String, Boolean> temp = new HashMap<>();
+                            final ArrayList<Integer> tables = new ArrayList<>();
 
+                            for (DataSnapshot ds : dataSnapshot.getChildren()) {
 
-                // if error show message
+                                int seats = ds.child("table_seat").getValue(int.class);
+                                final int tableID = ds.child("table_id").getValue(int.class);
 
+                                if (seats >= reservePeople) {
+                                    tables.add(tableID);
+                                }
+                            }
 
-                // Save Data
-                ref.child("Reservation").push().setValue(
-                        new Reservation("I have some request", "04/04/2016 13:00", 1, 1)
-                );
+                            // Check table that is available
+                            Query reservation = ref.child("Reservation").orderByChild("restaurantId").equalTo(resID);
+                            reservation.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                                    for (Integer tableID : tables) {
+                                        // Set default
+                                        temp.put("isTableAvailable", true);
+
+                                        for (DataSnapshot ds : dataSnapshot.getChildren()) {
+
+                                            int reserveTableID = ds.child("tableId").getValue(int.class);
+                                            String dateTime = ds.child("dateTime").getValue(String.class);
+
+                                            if (tableID == reserveTableID && dateTime.equals(reserveDateTime)) {
+                                                temp.put("isTableAvailable", false);
+                                                break;
+                                            }
+                                        }
+
+                                        if (temp.get("isTableAvailable")) {
+                                            // Save Data
+                                            ref.child("Reservation").push().setValue(
+                                                    new Reservation(reserveInstruction, reserveDateTime, tableID, resID, userID)
+                                            );
+
+                                            status.setVisibility(View.GONE);
+                                            break;
+                                        } else {
+                                            status.setVisibility(View.VISIBLE);
+                                        }
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) { }
+                            });
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) { }
+                });
+
             }
         });
     }
@@ -186,4 +224,9 @@ public class TableReservationActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onBackPressed() {
+        finish();
+        overridePendingTransition(R.anim.stay, R.anim.slide_out_down);
+    }
 }
