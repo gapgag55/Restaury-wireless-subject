@@ -14,6 +14,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -21,6 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.mang.restaury.Adapter.RestaurantAdapter;
+import com.mang.restaury.Model.Reservation;
 import com.mang.restaury.Model.Restaurant;
 import com.mang.restaury.Model.Table;
 import com.mang.restaury.R;
@@ -130,18 +133,42 @@ public class TableReservationActivity extends AppCompatActivity {
                 DatabaseReference ref = database.getReference();
 
                 // Get Current User ID
-//                FirebaseAuth user = firebaseAuth.
+                String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
 
-                Query tableRef = ref.child("Table").orderByChild("restaurant_ID").equalTo(resID);
-
+                //
 
 
                 // Get appropriate Table of this restaurant
+//                Query tableRef = ref.child("Table").orderByChild("restaurant_ID").equalTo(resID);
+//                tableRef.addListenerForSingleValueEvent(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(DataSnapshot dataSnapshot) {
+//                        if (dataSnapshot.exists()) {
+//                            // dataSnapshot is the "issue" node with all children with id 0
+//                            for (DataSnapshot ds : dataSnapshot.getChildren()) {
+//
+//
+//                                if (ds.child("table_seat").getValue(int.class) > 2) {
+//
+//                                }
+//
+//                            }
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(DatabaseError databaseError) { }
+//                });
 
 
                 // if error show message
 
+
+                // Save Data
+                ref.child("Reservation").push().setValue(
+                        new Reservation("I have some request", "04/04/2016 13:00", 1, 1)
+                );
             }
         });
     }
