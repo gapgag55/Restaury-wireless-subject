@@ -115,13 +115,14 @@
                         android:textColor="@color/colorFont"
                         android:layout_alignParentLeft="true" />
 
-                    <TextView
+                    <Spinner
+                        android:id="@+id/maximum_people"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="2 people"
-                        android:fontFamily="@font/roboto_regular"
-                        android:textColor="@color/colorFont"
-                        android:layout_alignParentRight="true" />
+                        android:spinnerMode="dropdown"
+                        android:minWidth="100dp"
+                        android:layout_alignParentRight="true"
+                        android:textAlignment="textEnd" />
 
                 </RelativeLayout>
 
@@ -141,14 +142,15 @@
                         android:layout_alignParentLeft="true"
                         />
 
-                    <TextView
+                    <Spinner
+                        android:id="@+id/reserve_date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="10/10/2019"
-                        android:fontFamily="@font/roboto_regular"
-                        android:textColor="@color/colorFont"
-                        android:layout_alignParentEnd="true"
-                        />
+                        android:spinnerMode="dropdown"
+                        android:layout_alignParentRight="true"
+                        android:minWidth="100dp"
+                        android:textAlignment="textEnd" />
+
 
                 </RelativeLayout>
 
@@ -168,14 +170,14 @@
                         android:layout_alignParentLeft="true"
                         />
 
-                    <TextView
+                    <Spinner
+                        android:id="@+id/reserve_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="13:00"
-                        android:fontFamily="@font/roboto_regular"
-                        android:textColor="@color/colorFont"
-                        android:layout_alignParentEnd="true"
-                        />
+                        android:spinnerMode="dropdown"
+                        android:layout_alignParentRight="true"
+                        android:minWidth="100dp"
+                        android:textAlignment="textEnd" />
 
                 </RelativeLayout>
 
@@ -235,7 +237,7 @@
         android:elevation="10dp">
 
         <Button
-            android:id="@+id/place_order"
+            android:id="@+id/reserve_table"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/yellow_button"

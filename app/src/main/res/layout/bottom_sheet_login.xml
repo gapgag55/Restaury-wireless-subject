@@ -9,7 +9,7 @@
     app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Login"
         android:fontFamily="@font/roboto_medium"
@@ -19,25 +19,17 @@
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
         android:textColor="@color/colorFont"
-        android:layout_alignParentLeft="true"
+        android:background="@drawable/divider"
         />
 
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/divider"
         android:orientation="horizontal"
         android:padding="20dp">
 
-
-        <RelativeLayout
-            android:id="@+id/login_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-
-            <LinearLayout
+        <LinearLayout
                 android:id="@+id/login_google"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -57,7 +49,7 @@
 
             </LinearLayout>
 
-            <LinearLayout
+        <LinearLayout
                 android:id="@+id/login_facebook"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -77,8 +69,6 @@
                     android:textSize="17sp" />
 
             </LinearLayout>
-
-        </RelativeLayout>
 
     </RelativeLayout>
 

@@ -15,6 +15,8 @@ import com.mang.restaury.Fragments.ProfileFragment;
 import com.mang.restaury.Fragments.SearchFragment;
 import com.mang.restaury.R;
 
+import io.realm.Realm;
+
 public class MainActivity extends AppCompatActivity {
 
     private Fragment selectedFragment;
@@ -54,6 +56,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        Realm.init(this);
 
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);

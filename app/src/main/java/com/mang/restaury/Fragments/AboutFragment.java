@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.mang.restaury.Activity.CustomizeActivity;
 import com.mang.restaury.R;
 import com.mang.restaury.Activity.TableReservationActivity;
 
@@ -58,13 +60,27 @@ public class AboutFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                AuthenticationFragment bottomSheetDialog = AuthenticationFragment.getInstance();
-                bottomSheetDialog.show(getFragmentManager(), "Authentication");
+                AuthenticationFragment auth = AuthenticationFragment.getInstance();
+
+                // Check Login
+                if (auth.getCurrentUser() != null) {
+                    bookTable();
+                } else {
+                    auth.show(getFragmentManager(), "Authentication");
+                    bookTable();
+                }
 
             }
         });
 
         return rootView;
+    }
+
+    public void bookTable() {
+        Intent intent = new Intent(rootView.getContext(), TableReservationActivity.class);
+        intent.putExtra("resID", resID);
+        intent.putExtra("restaurantName", restaurantName);
+        rootView.getContext().startActivity(intent);
     }
 
 //

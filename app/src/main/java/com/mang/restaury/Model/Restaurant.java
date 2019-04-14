@@ -1,6 +1,8 @@
 package com.mang.restaury.Model;
 
-public class Restaurant {
+import io.realm.RealmObject;
+
+public class Restaurant extends RealmObject {
 
     private int restaurant_ID;
     private String restaurant_about;

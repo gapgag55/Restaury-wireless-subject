@@ -1,18 +1,15 @@
 package com.mang.restaury.Fragments;
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialogFragment;
-import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -28,22 +25,14 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.mang.restaury.R;
 
-import org.w3c.dom.Text;
-
 public class AuthenticationFragment extends BottomSheetDialogFragment {
 
     // for google sign in
     private static final String TAG = "GoogleActivity";
     private static final int RC_SIGN_IN = 9001;
 
-    // [START declare_auth]
     private FirebaseAuth mAuth;
-    // [END declare_auth]
-
     private GoogleSignInClient mGoogleSignInClient;
-
-    private boolean isLoginDisplay = true;
-
 
     public static AuthenticationFragment getInstance() {
         return new AuthenticationFragment();
@@ -56,12 +45,8 @@ public class AuthenticationFragment extends BottomSheetDialogFragment {
 
         initFBGoogleSignIn();
 
-        final LinearLayout loginLayout = (LinearLayout) view.findViewById(R.id.login_layout);
-
         LinearLayout loginGoogle = (LinearLayout) view.findViewById(R.id.login_google);
         LinearLayout loginFacebook = (LinearLayout) view.findViewById(R.id.login_facebook);
-
-        TextView linker = (TextView) view.findViewById(R.id.linker);
 
         loginGoogle.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,8 +55,20 @@ public class AuthenticationFragment extends BottomSheetDialogFragment {
             }
         });
 
+        loginFacebook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                signInWithFacebookSignIn();
+            }
+        });
+
         return view;
     }
+
+    public FirebaseUser getCurrentUser() {
+        return mAuth.getInstance().getCurrentUser();
+    }
+
 
     private void initFBGoogleSignIn() {
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -81,13 +78,6 @@ public class AuthenticationFragment extends BottomSheetDialogFragment {
 
         mGoogleSignInClient = GoogleSignIn.getClient(getContext(), gso);
         mAuth = FirebaseAuth.getInstance();
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        FirebaseUser currentUser = mAuth.getCurrentUser();
     }
 
     @Override
@@ -104,9 +94,6 @@ public class AuthenticationFragment extends BottomSheetDialogFragment {
             } catch (ApiException e) {
                 // Google Sign In failed, update UI appropriately
                 Log.w(TAG, "Google sign in failed", e);
-                // [START_EXCLUDE]
-//                updateUI(null);
-                // [END_EXCLUDE]
             }
         }
     }
@@ -114,19 +101,18 @@ public class AuthenticationFragment extends BottomSheetDialogFragment {
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
         Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
 
+        this.dismiss();
+
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-//                            // Sign in success, update UI with the signed-in user's information
-                            Log.w(TAG, "signInWithCredential:success");
-//                            FirebaseUser user = mAuth.getCurrentUser();
-////                            updateUI(user);
+//                            currentUser = mAuth.getCurrentUser();
                         } else {
                             // If sign in fails, display a message to the user.
-                            Log.w(TAG, "signInWithCredential:failure", task.getException());
+//                            Log.w(TAG, "signInWithCredential:failure", task.getException());
 //                            Snackbar.make(findViewById(R.id.main_layout), "Authentication Failed.", Snackbar.LENGTH_SHORT).show();
 //                            updateUI(null);
                         }
@@ -137,6 +123,11 @@ public class AuthenticationFragment extends BottomSheetDialogFragment {
     private void signInWithGoogleSignIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
+    }
+
+    private void signInWithFacebookSignIn() {
+//        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+//        startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
     private void signOutWithGoogleSignIn() {
