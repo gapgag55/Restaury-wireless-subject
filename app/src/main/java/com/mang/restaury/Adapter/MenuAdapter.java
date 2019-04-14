@@ -1,5 +1,6 @@
 package com.mang.restaury.Adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -24,10 +25,12 @@ import java.util.List;
 public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder>  {
     private Context mContext;
     private List<Menu> mData;
+    private Activity getActivity;
 
-    public MenuAdapter(Context mContext, List<Menu> mData) {
+    public MenuAdapter(Context mContext, List<Menu> mData, Activity getActivity) {
         this.mContext = mContext;
         this.mData = mData;
+        this.getActivity = getActivity;
     }
 
     @NonNull
@@ -55,6 +58,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder>  {
                 intent.putExtra("price", menu.getPrice());
 
                 mContext.startActivity(intent);
+                getActivity.overridePendingTransition(R.anim.slide_in_up, R.anim.stay);
             }
         });
     }

@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.mang.restaury.R;
@@ -23,6 +24,15 @@ public class CustomizeActivity extends AppCompatActivity {
 
         menu = findViewById(R.id.restaurant_name);
         menu.setText(menu_name);
+
+        // Set Close
+        ImageButton closeButton = (ImageButton) findViewById(R.id.close_button);
+        closeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                close();
+            }
+        });
 
 
         Button removeButton = (Button) findViewById(R.id.remove_button);
@@ -57,5 +67,15 @@ public class CustomizeActivity extends AppCompatActivity {
         // String restaurant_name = getIntent().getExtras().getString("restaurant_name");
 
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        close();
+    }
+
+    private void close() {
+        finish();
+        overridePendingTransition(R.anim.stay, R.anim.slide_out_down);
     }
 }

@@ -76,7 +76,7 @@ public class MenusFragment extends Fragment {
                 }
 
                 RecyclerView recycleView = (RecyclerView) view.findViewById(R.id.menu_cycle);
-                MenuAdapter myAdapter = new MenuAdapter(view.getContext(), menus);
+                MenuAdapter myAdapter = new MenuAdapter(view.getContext(), menus, getActivity());
                 recycleView.setLayoutManager(new GridLayoutManager(view.getContext(), 1));
                 recycleView.setAdapter(myAdapter);
             }
