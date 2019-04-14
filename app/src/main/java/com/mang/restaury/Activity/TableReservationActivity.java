@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -57,6 +58,15 @@ public class TableReservationActivity extends AppCompatActivity {
         // Set Display
         TextView restaurantNameText = (TextView) findViewById(R.id.restaurant_name);
         restaurantNameText.setText(restaurantName);
+
+        // Set Close
+        ImageButton closeButton = (ImageButton) findViewById(R.id.close_button);
+        closeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                close();
+            }
+        });
 
 
         // Set Maximum people can book
@@ -190,6 +200,8 @@ public class TableReservationActivity extends AppCompatActivity {
                                             );
 
                                             status.setVisibility(View.GONE);
+                                            close();
+
                                             break;
                                         } else {
                                             status.setVisibility(View.VISIBLE);
@@ -226,7 +238,12 @@ public class TableReservationActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        close();
+    }
+
+    private void close() {
         finish();
         overridePendingTransition(R.anim.stay, R.anim.slide_out_down);
     }
+
 }
