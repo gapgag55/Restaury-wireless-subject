@@ -2,49 +2,37 @@ package com.mang.restaury.Model;
 
 public class Comment {
 
-    private String fullname;
-    private String date;
-    private String comment;
-    private int stars;
+    private String dateTime;
+    private String detail;
+    private int rating;
+    private int restaurantID;
+    private String userId;
 
-    public Comment() {}
-
-    public Comment(String fullname, String date, String comment, int stars) {
-        this.fullname = fullname;
-        this.date = date;
-        this.comment = comment;
-        this.stars = stars;
+    public Comment(String dateTime, String detail, int rating, int restaurantID, String userId) {
+        this.dateTime = dateTime;
+        this.detail = detail;
+        this.rating = rating;
+        this.restaurantID = restaurantID;
+        this.userId = userId;
     }
 
-    public String getFullname() {
-        return fullname;
+    public String getDateTime() {
+        return dateTime;
     }
 
-    public void setFullname(String fullname) {
-        this.fullname = fullname;
+    public String getDetail() {
+        return detail;
     }
 
-    public String getDate() {
-        return date;
+    public int getRating() {
+        return rating;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public int getRestaurantID() {
+        return restaurantID;
     }
 
-    public String getComment() {
-        return comment;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
-
-    public int getStars() {
-        return stars;
-    }
-
-    public void setStars(int stars) {
-        this.stars = stars;
+    public String getUserId() {
+        return userId;
     }
 }

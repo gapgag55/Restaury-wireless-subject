@@ -49,7 +49,7 @@
                         android:textSize="15sp"
                         android:background="@drawable/input"
                         android:singleLine="false"
-                        android:height="150dp"
+                        android:height="120dp"
                         android:gravity="top" />
 
                     <RelativeLayout
@@ -72,6 +72,7 @@
                             android:layout_centerVertical="true" />
 
                         <Button
+                            android:id="@+id/send_comment_button"
                             android:layout_width="wrap_content"
                             android:layout_height="40dp"
                             android:background="@drawable/orange_button"

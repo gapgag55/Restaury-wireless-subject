@@ -134,7 +134,7 @@ public class RestaurantActivity extends AppCompatActivity {
         ResturantTabAdapter adapter = new ResturantTabAdapter(getSupportFragmentManager());
         adapter.addFragment(new AboutFragment(resID, resName, latitute, longitute, about), "About");
         adapter.addFragment(new MenusFragment(resID), "Menus");
-        adapter.addFragment(new ReviewsFragment(), "Reviews");
+        adapter.addFragment(new ReviewsFragment(resID), "Reviews");
         viewPager.setAdapter(adapter);
     }
 }
