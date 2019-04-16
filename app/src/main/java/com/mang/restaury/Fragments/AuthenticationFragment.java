@@ -97,8 +97,10 @@ public class AuthenticationFragment extends BottomSheetDialogFragment {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
                 // Google Sign In was successful, authenticate with Firebase
+                System.out.println("Before account");
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 firebaseAuthWithGoogle(account);
+                System.out.println("After account");
             } catch (ApiException e) {
                 // Google Sign In failed, update UI appropriately
                 Log.w(TAG, "Google sign in failed", e);
@@ -107,8 +109,6 @@ public class AuthenticationFragment extends BottomSheetDialogFragment {
     }
 
     private void firebaseAuthWithGoogle(final GoogleSignInAccount acct) {
-
-        final String uid = mAuth.getCurrentUser().getUid();
 
         this.dismiss();
 
@@ -119,6 +119,9 @@ public class AuthenticationFragment extends BottomSheetDialogFragment {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
 
+                            System.out.println("Before mAuth account");
+                            final String uid = mAuth.getCurrentUser().getUid();
+                            System.out.println("After mAuth account");
 
                             final FirebaseDatabase database = FirebaseDatabase.getInstance();
                             final DatabaseReference ref = database.getReference();
@@ -134,7 +137,6 @@ public class AuthenticationFragment extends BottomSheetDialogFragment {
                                         if (ds.child("userId").getValue(String.class).equals(uid)) {
                                             hasProfile = true;
                                         }
-
                                     }
 
                                     if (!hasProfile) {
