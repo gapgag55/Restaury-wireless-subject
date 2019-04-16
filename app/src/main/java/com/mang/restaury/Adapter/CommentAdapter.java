@@ -54,7 +54,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         final DatabaseReference ref = database.getReference();
 
         Query users = ref.child("User").child(comment.getUserId());
-
         users.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -62,7 +61,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                 String firstName = dataSnapshot.child("firstName").getValue(String.class);
                 String lastName = dataSnapshot.child("lastName").getValue(String.class);
                 String fullname = firstName + " " + lastName;
-
 
                 SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy");
 
@@ -77,7 +75,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-
             }
 
             @Override
