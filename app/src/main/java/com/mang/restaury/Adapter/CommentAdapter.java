@@ -11,10 +11,17 @@ import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.mang.restaury.Model.Comment;
 import com.mang.restaury.R;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -43,10 +50,41 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 
         final Comment comment = mData.get(i);
 
-        viewHolder.commentName.setText(comment.getUserId());
-        viewHolder.commentText.setText(comment.getDetail());
-        viewHolder.commentRating.setRating(comment.getRating());
-        viewHolder.commentDate.setText(comment.getDateTime());
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final DatabaseReference ref = database.getReference();
+
+        Query users = ref.child("User").child(comment.getUserId());
+
+        users.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                String firstName = dataSnapshot.child("firstName").getValue(String.class);
+                String lastName = dataSnapshot.child("lastName").getValue(String.class);
+                String fullname = firstName + " " + lastName;
+
+
+                SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy");
+
+                try {
+                    Date date = formatter.parse(comment.getDateTime());
+
+                    viewHolder.commentName.setText(fullname);
+                    viewHolder.commentText.setText(comment.getDetail());
+                    viewHolder.commentRating.setRating(comment.getRating());
+                    viewHolder.commentDate.setText(formatter.format(comment.getDateTime()));
+
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Override

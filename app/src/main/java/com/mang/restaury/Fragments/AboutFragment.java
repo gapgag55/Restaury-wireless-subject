@@ -67,7 +67,6 @@ public class AboutFragment extends Fragment {
                     bookTable();
                 } else {
                     auth.show(getFragmentManager(), "Authentication");
-//                    bookTable();
                 }
 
             }

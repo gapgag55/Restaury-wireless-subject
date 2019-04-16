@@ -23,6 +23,14 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+import com.mang.restaury.Model.Reservation;
+import com.mang.restaury.Model.User;
 import com.mang.restaury.R;
 
 public class AuthenticationFragment extends BottomSheetDialogFragment {
@@ -98,8 +106,9 @@ public class AuthenticationFragment extends BottomSheetDialogFragment {
         }
     }
 
-    private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
-        Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
+    private void firebaseAuthWithGoogle(final GoogleSignInAccount acct) {
+
+        final String uid = mAuth.getCurrentUser().getUid();
 
         this.dismiss();
 
@@ -109,7 +118,38 @@ public class AuthenticationFragment extends BottomSheetDialogFragment {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-//                            currentUser = mAuth.getCurrentUser();
+
+
+                            final FirebaseDatabase database = FirebaseDatabase.getInstance();
+                            final DatabaseReference ref = database.getReference();
+
+                            Query userRef = ref.child("User").orderByChild("userId").equalTo(uid);
+                            userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                                    boolean hasProfile = false;
+
+                                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                                        if (ds.child("userId").getValue(String.class).equals(uid)) {
+                                            hasProfile = true;
+                                        }
+
+                                    }
+
+                                    if (!hasProfile) {
+                                        // Do create
+                                        ref.child("User").child(uid).setValue(
+                                                new User(uid, acct.getGivenName(), acct.getFamilyName(), "", "", acct.getEmail())
+                                        );
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) { }
+                            });
+
+
                         } else {
                             // If sign in fails, display a message to the user.
 //                            Log.w(TAG, "signInWithCredential:failure", task.getException());
