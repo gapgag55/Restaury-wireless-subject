@@ -26,6 +26,7 @@ import com.mang.restaury.R;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 @SuppressLint("ValidFragment")
 public class ReviewsFragment extends Fragment {
@@ -46,61 +47,11 @@ public class ReviewsFragment extends Fragment {
         rootView =  inflater.inflate(R.layout.fragment_reviews, container, false);
 
 
-
-
-
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference ref = database.getReference();
 
 
-
-
-
-
-        Button sendButton = (Button) rootView.findViewById(R.id.send_comment_button);
-        sendButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                // Check Authentication
-                AuthenticationFragment auth = AuthenticationFragment.getInstance();
-
-                // Check Login
-                if (auth.getCurrentUser() != null) {
-
-                    EditText commentBox = (EditText) rootView.findViewById(R.id.comment_box);
-
-                    String detail = commentBox.getText().toString();
-                    String dateTime = new Date().toString();
-                    String uid = auth.getCurrentUser().getUid();
-                    int rating = 5;
-
-                    if (detail.length() > 0) {
-
-                        ref.child("Comment").push().setValue(
-                                new Comment(dateTime, detail, rating, resID, uid)
-                        );
-
-                    } else {
-                        // Throw error there is no detail to submit for
-                    }
-
-
-                    // Reset value
-                    commentBox.setText("");
-
-
-                } else {
-                    auth.show(getFragmentManager(), "Authentication");
-                }
-
-            }
-        });
-
-
-
-
-        Query comments = ref.child("Comment").orderByChild("restaurantId").equalTo(resID);
+        Query comments = ref.child("Comment").orderByChild("restaurant_ID").equalTo(resID);
         comments.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -110,31 +61,26 @@ public class ReviewsFragment extends Fragment {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
 
                     // Get User profile
+                    String uid = ds.child("user_ID").getValue(String.class);
 
 
                     // Get comment
-                    String comment = ds.child("detail").getValue(String.class);
-                    String dateTime = ds.child("commentDateTime").getValue(String.class);
-                    int rating = Integer.parseInt(ds.child("commentRating").getValue(String.class));
+                    String comment = ds.child("comment_detail").getValue(String.class);
+                    String dateTime = ds.child("comment_dateTime").getValue(String.class);
+                    int rating = ds.child("comment_rating").getValue(int.class);
 
                     comments.add(
-                            new Comment(dateTime, comment, rating);
+                            new Comment(dateTime, comment, rating, resID, uid)
                     );
-
 
                 }
 
-
-                comments = new ArrayList<>();
-//        comments.add(new Comment("Sarayut Lawilai", "10 January 2018", "Food was great. I could not speak Thai, so communication is a bit of an issue. Everthing was find in the end. The owner was so nice.", 5));
-//        comments.add(new Comment("Sarayut Lawilai", "10 January 2018", "Food was great. I could not speak Thai, so communication is a bit of an issue. Everthing was find in the end. The owner was so nice.", 5));
-//        comments.add(new Comment("Sarayut Lawilai", "10 January 2018", "Food was great. I could not speak Thai, so communication is a bit of an issue. Everthing was find in the end. The owner was so nice.", 5));
-//
-//        RecyclerView recycleView = (RecyclerView) rootView.findViewById(R.id.comment_cycle);
-//        CommentAdapter myAdapter = new CommentAdapter(rootView.getContext(), comments);
-//        recycleView.setLayoutManager(new GridLayoutManager(rootView.getContext(), 1));
-//        recycleView.setAdapter(myAdapter);
-
+                // Print comment to view
+//                System.out.println(comments.toArray());
+                RecyclerView recycleView = (RecyclerView) rootView.findViewById(R.id.comment_cycle);
+                CommentAdapter myAdapter = new CommentAdapter(rootView.getContext(), comments);
+                recycleView.setLayoutManager(new GridLayoutManager(rootView.getContext(), 1));
+                recycleView.setAdapter(myAdapter);
 
             }
 
@@ -143,6 +89,56 @@ public class ReviewsFragment extends Fragment {
 
             }
         });
+
+
+
+//
+//
+//
+//
+//
+//
+//        Button sendButton = (Button) rootView.findViewById(R.id.send_comment_button);
+//        sendButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                // Check Authentication
+//                AuthenticationFragment auth = AuthenticationFragment.getInstance();
+//
+//                // Check Login
+//                if (auth.getCurrentUser() != null) {
+//
+//                    EditText commentBox = (EditText) rootView.findViewById(R.id.comment_box);
+//
+//                    String detail = commentBox.getText().toString();
+//                    String dateTime = new Date().toString();
+//                    String uid = auth.getCurrentUser().getUid();
+//                    int rating = 5;
+//
+//                    if (detail.length() > 0) {
+//
+//                        ref.child("Comment").push().setValue(
+//                                new Comment(dateTime, detail, rating, resID, uid)
+//                        );
+//
+//                    } else {
+//                        // Throw error there is no detail to submit for
+//                    }
+//
+//
+//                    // Reset value
+//                    commentBox.setText("");
+//
+//
+//                } else {
+//                    auth.show(getFragmentManager(), "Authentication");
+//                }
+//
+//            }
+//        });
+//
+//
 
 
 

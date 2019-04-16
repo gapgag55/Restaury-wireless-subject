@@ -5,17 +5,14 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.mang.restaury.Adapter.RestaurantAdapter;
-import com.mang.restaury.Model.Favorite;
 import com.mang.restaury.Model.Restaurant;
 import com.mang.restaury.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.realm.Realm;

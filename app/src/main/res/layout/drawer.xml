@@ -6,13 +6,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="@color/colorBackground"
     android:orientation="vertical"
     android:layout_gravity="end">
 
     <!--Filter header-->
     <android.support.v7.widget.Toolbar
-        android:id="@+id/filter_header"
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@android:color/white"
@@ -36,11 +36,10 @@
         android:layout_height="match_parent">
 
         <!--Food type-->
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
             android:id="@+id/food_type">
 
             <TextView
@@ -56,8 +55,10 @@
             <HorizontalScrollView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp">
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:clipToPadding="false"
+                android:scrollbars="none">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -68,7 +69,7 @@
                         android:id="@+id/thai_food"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
-                        android:background="@drawable/round_button"
+                        android:background="@drawable/orange_border"
                         android:text="Thai Food"
                         android:textAllCaps="false"
                         android:textColor="@color/colorFont"
@@ -80,7 +81,7 @@
                         android:id="@+id/intalian_food"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
-                        android:background="@drawable/round_button"
+                        android:background="@drawable/orange_border"
                         android:text="Intalian Food"
                         android:textAllCaps="false"
                         android:textColor="@color/colorFont"
@@ -93,7 +94,7 @@
                         android:id="@+id/japanese_food"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
-                        android:background="@drawable/round_button"
+                        android:background="@drawable/orange_border"
                         android:text="Japanese Food"
                         android:textAllCaps="false"
                         android:textColor="@color/colorFont"
@@ -106,7 +107,7 @@
                         android:id="@+id/indian_food"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
-                        android:background="@drawable/round_button"
+                        android:background="@drawable/orange_border"
                         android:text="Indian Food"
                         android:textAllCaps="false"
                         android:textColor="@color/colorFont"
@@ -124,7 +125,6 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
             android:id="@+id/price_range"
             android:layout_below="@+id/food_type">
 
@@ -189,7 +189,6 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
             android:id="@+id/rating"
             android:layout_below="@+id/price_range">
 
@@ -206,8 +205,10 @@
             <HorizontalScrollView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp">
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:clipToPadding="false"
+                android:scrollbars="none">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -219,14 +220,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/one_star"
-                        android:background="@color/white"/>
+                        android:background="@android:color/transparent"/>
 
                     <ImageButton
                         android:id="@+id/two_star"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/two_star"
-                        android:background="@color/white"
+                        android:background="@android:color/transparent"
                         android:layout_marginLeft="10dp"/>
 
                     <ImageButton
@@ -234,7 +235,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/three_star"
-                        android:background="@color/white"
+                        android:background="@android:color/transparent"
                         android:layout_marginLeft="10dp"/>
 
                     <ImageButton
@@ -242,7 +243,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/four_star"
-                        android:background="@color/white"
+                        android:background="@android:color/transparent"
                         android:layout_marginLeft="10dp"/>
 
                     <ImageButton
@@ -250,7 +251,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/five_star"
-                        android:background="@color/white"
+                        android:background="@android:color/transparent"
                         android:layout_marginLeft="10dp"/>
 
 

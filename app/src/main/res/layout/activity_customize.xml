@@ -25,7 +25,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:fontFamily="@font/roboto_medium"
-                android:text="Table Reservation"
+                android:text="Customize"
                 android:layout_centerHorizontal="true"
                 android:textColor="@color/colorFont"
                 android:textSize="20dp" />
@@ -130,49 +130,60 @@
                     android:orientation="horizontal"
                     android:background="@drawable/divider"
                     android:padding="20dp">
-                    <RelativeLayout
+
+
+                    <ListView
+                        android:id="@+id/variation_list"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/price_box">
-                        <CheckBox
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Regular"
-                            android:focusable="false"/>
+                        android:layout_height="wrap_content"></ListView>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="+ ฿ 0.00"
-                            android:fontFamily="@font/roboto_regular"
-                            android:textColor="@color/colorFont"
-                            android:layout_alignParentRight="true" />
 
-                    </RelativeLayout>
+                        <!--<RelativeLayout-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:id="@+id/price_box">-->
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/price_box"
-                        android:id="@+id/price_box2">
-                        <CheckBox
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Extra"
-                            android:focusable="false"/>
+                            <!--<RadioButton-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:text="Regular"-->
+                                <!--android:checked="true"-->
+                                <!--android:buttonTint="@color/colorSecondary" />-->
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="+ ฿ 10.00"
-                            android:fontFamily="@font/roboto_regular"
-                            android:textColor="@color/colorFont"
-                            android:layout_alignParentRight="true" />
 
-                    </RelativeLayout>
+                            <!--<TextView-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:text="+ ฿ 0.00"-->
+                                <!--android:fontFamily="@font/roboto_regular"-->
+                                <!--android:textColor="@color/colorFont"-->
+                                <!--android:layout_alignParentRight="true" />-->
+
+                        <!--</RelativeLayout>-->
+
+                        <!--<RelativeLayout-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:layout_below="@id/price_box"-->
+                            <!--android:id="@+id/price_box2">-->
+
+                            <!--<RadioButton-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:text="Extra"-->
+                                <!--android:buttonTint="@color/colorSecondary" />-->
+
+                            <!--<TextView-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:text="+ ฿ 10.00"-->
+                                <!--android:fontFamily="@font/roboto_regular"-->
+                                <!--android:textColor="@color/colorFont"-->
+                                <!--android:layout_alignParentRight="true" />-->
+
+                        <!--</RelativeLayout>-->
 
                 </RelativeLayout>
-
 
 
             </LinearLayout>

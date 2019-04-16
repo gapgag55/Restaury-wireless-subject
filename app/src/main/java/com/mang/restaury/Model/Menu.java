@@ -1,12 +1,17 @@
 package com.mang.restaury.Model;
 
-public class Menu {
+import io.realm.RealmObject;
+
+public class Menu extends RealmObject  {
 
     private int menu_ID ;
     private String menuName;
     private double price;
     private String menu_pictureURL;
     private int restaurant_ID;
+
+    public Menu() {
+    }
 
     public Menu(String menuName, Double price) {
         this.menuName = menuName;

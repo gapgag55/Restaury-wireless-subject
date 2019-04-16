@@ -5,9 +5,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.mang.restaury.R;
+
+import java.util.ArrayList;
 
 public class CustomizeActivity extends AppCompatActivity {
 
@@ -58,6 +61,21 @@ public class CustomizeActivity extends AppCompatActivity {
                 itemAmount.setText(String.valueOf(number));
             }
         });
+
+
+
+
+
+
+
+
+        // Variation paint out
+        ListView variationList = (ListView) findViewById(R.id.variation_list);
+
+
+
+
+
 
 
 //        res = findViewById(R.id.total_price);

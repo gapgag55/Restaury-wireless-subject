@@ -7,55 +7,58 @@
     tools:context=".Fragments.MenusFragment"
     android:background="@color/colorBackground">
 
+    <LinearLayout
+        android:id="@+id/menus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:background="@android:color/white">
 
-            <LinearLayout
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@android:color/white">
+                android:text="Menus"
+                android:fontFamily="@font/roboto_medium"
+                android:textSize="18sp"
+                android:textColor="@color/colorFont"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:background="@drawable/divider" />
 
-                <TextView
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/menu_cycle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Menus"
-                    android:fontFamily="@font/roboto_medium"
-                    android:textSize="18sp"
-                    android:textColor="@color/colorFont"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="20dp"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
-                    android:background="@drawable/divider" />
+                    android:layout_below="@+id/near_layout">
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                </android.support.v7.widget.RecyclerView>
 
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/menu_cycle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/near_layout">
-
-                    </android.support.v7.widget.RecyclerView>
-
-                </RelativeLayout>
-
-            </LinearLayout>
+            </RelativeLayout>
 
         </LinearLayout>
+
+        </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/white"
+        android:layout_below="@+id/menus"
         android:padding="15dp"
-        android:layout_alignParentBottom="true"
+        android:layout_marginTop="20dp"
         android:elevation="10dp">
 
         <Button
@@ -67,8 +70,7 @@
             android:fontFamily="@font/roboto_medium"
             android:textColor="@android:color/white"
             android:textSize="17sp"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp" />
+            android:padding="15dp"/>
 
     </LinearLayout>
 

@@ -1,12 +1,7 @@
 package com.mang.restaury.Activity;
 
-import android.app.Person;
-import android.content.res.Resources;
-import android.graphics.Color;
-import android.media.Image;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -49,6 +44,8 @@ public class RestaurantActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restaurant);
 
+        final Realm realm = Realm.getDefaultInstance();
+
         // Intent from RestaurantAdapter.java
 
         final String restaurant_name = getIntent().getExtras().getString("restaurant_name");
@@ -89,8 +86,6 @@ public class RestaurantActivity extends AppCompatActivity {
         });
 
         // onSave
-
-        final Realm realm = Realm.getDefaultInstance();
 
         final ImageButton saveIcon = (ImageButton) findViewById(R.id.save_button);
         RealmResults<Restaurant> restaurants = realm.where(Restaurant.class).equalTo("restaurant_ID", resID).findAll();

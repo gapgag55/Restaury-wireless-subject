@@ -90,6 +90,7 @@
 
             </LinearLayout>
 
+
             <LinearLayout
                 android:id="@+id/comment_rating_layout"
                 android:layout_width="match_parent"
@@ -97,6 +98,7 @@
                 android:orientation="vertical"
                 android:layout_below="@+id/comment_box_layout"
                 android:background="@android:color/white"
+                android:minHeight="200dp"
                 android:layout_marginTop="20dp">
 
                 <TextView

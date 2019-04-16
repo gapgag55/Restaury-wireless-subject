@@ -168,7 +168,7 @@ public class SearchActivity extends AppCompatActivity {
                     thai_food_button.setTextColor(Color.WHITE);
                     thai_food = 1;
                 }else{
-                    thai_food_button.setBackgroundResource(R.drawable.round_button);
+                    thai_food_button.setBackgroundResource(R.drawable.orange_border);
                     thai_food_button.setTextColor(Color.BLACK);
                     thai_food = 0;
                 }
@@ -185,7 +185,7 @@ public class SearchActivity extends AppCompatActivity {
                     intalian_food_button.setTextColor(Color.WHITE);
                     intalian_food = 1;
                 }else{
-                    intalian_food_button.setBackgroundResource(R.drawable.round_button);
+                    intalian_food_button.setBackgroundResource(R.drawable.orange_border);
                     intalian_food_button.setTextColor(Color.BLACK);
                     intalian_food = 0;
                 }
@@ -202,7 +202,7 @@ public class SearchActivity extends AppCompatActivity {
                     japanese_food_button.setTextColor(Color.WHITE);
                     japanese_food = 1;
                 }else{
-                    japanese_food_button.setBackgroundResource(R.drawable.round_button);
+                    japanese_food_button.setBackgroundResource(R.drawable.orange_border);
                     japanese_food_button.setTextColor(Color.BLACK);
                     japanese_food = 0;
                 }
@@ -219,7 +219,7 @@ public class SearchActivity extends AppCompatActivity {
                     indian_food_button.setTextColor(Color.WHITE);
                     indian_food = 1;
                 }else{
-                    indian_food_button.setBackgroundResource(R.drawable.round_button);
+                    indian_food_button.setBackgroundResource(R.drawable.orange_border);
                     indian_food_button.setTextColor(Color.BLACK);
                     indian_food = 0;
                 }

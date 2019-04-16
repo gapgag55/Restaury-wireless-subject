@@ -22,41 +22,19 @@ public class WrapHeightViewPager extends ViewPager  {
     }
 
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        widthMeasuredSpec = widthMeasureSpec;
-        int mode = MeasureSpec.getMode(heightMeasureSpec);
 
-        if (mode == MeasureSpec.UNSPECIFIED || mode == MeasureSpec.AT_MOST) {
-            if (height == 0) {
-                // measure vertical decors based on ViewPager implementation
-                decorHeight = 0;
-                for (int i = 0; i < getChildCount(); i++) {
-                    View child = getChildAt(i);
-                    LayoutParams lp = (LayoutParams) child.getLayoutParams();
-                    if (lp != null) {
-                        if (lp.isDecor) {
-                            int vgrav = lp.gravity & Gravity.VERTICAL_GRAVITY_MASK;
-                            boolean consumeVertical = vgrav == Gravity.TOP || vgrav == Gravity.BOTTOM;
-                            if (consumeVertical) {
-                                decorHeight += child.getMeasuredHeight();
-                            }
-                        } else {
-                            height = Math.max(height, measureViewHeight(child));
-                        }
-                    }
-                }
-            }
-            int totalHeight = height + decorHeight + getPaddingBottom() + getPaddingTop();
-            heightMeasureSpec = MeasureSpec.makeMeasureSpec(totalHeight, MeasureSpec.EXACTLY);
+        int height = 0;
+        for(int i = 0; i < getChildCount(); i++) {
+            View child = getChildAt(i);
+            child.measure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
+            int h = child.getMeasuredHeight();
+            if(h > height) height = h;
+        }
+
+        if (height != 0) {
+            heightMeasureSpec = MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY);
         }
 
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-    }
-
-    private int measureViewHeight(View view) {
-        view.measure(getChildMeasureSpec(widthMeasuredSpec,
-                getPaddingLeft() + getPaddingRight(),
-                view.getLayoutParams().width),
-                MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
-        return view.getMeasuredHeight();
     }
 }
