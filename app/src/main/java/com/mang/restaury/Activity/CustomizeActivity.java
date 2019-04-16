@@ -1,16 +1,35 @@
 package com.mang.restaury.Activity;
 
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+import com.mang.restaury.Adapter.VariationAdapter;
+import com.mang.restaury.Model.Cart;
+import com.mang.restaury.Model.CartItem;
+import com.mang.restaury.Model.Customize;
+import com.mang.restaury.Model.Favorite;
+import com.mang.restaury.Model.Restaurant;
 import com.mang.restaury.R;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+
+import io.realm.Realm;
 
 public class CustomizeActivity extends AppCompatActivity {
 
@@ -22,11 +41,16 @@ public class CustomizeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customize);
 
-        String menu_name = getIntent().getExtras().getString("menu_name");
-//        int price = getIntent().getExtras().getInt("price");
+        final Realm realm = Realm.getDefaultInstance();
 
-        menu = findViewById(R.id.restaurant_name);
-        menu.setText(menu_name);
+        // From MenuAdapter.java
+        final int menuID = getIntent().getExtras().getInt("menuID");
+        String menuName = getIntent().getExtras().getString("menuName");
+        String menuPrice = getIntent().getExtras().getString("menuPrice");
+
+        ((TextView) findViewById(R.id.restaurant_name)).setText(menuName);
+        ((TextView) findViewById(R.id.total_price)).setText("฿" + menuPrice);
+
 
         // Set Close
         ImageButton closeButton = (ImageButton) findViewById(R.id.close_button);
@@ -64,28 +88,116 @@ public class CustomizeActivity extends AppCompatActivity {
 
 
 
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final DatabaseReference ref = database.getReference();
+
+        final HashMap<Integer, String> sizeMap = new HashMap<>();
+        final Query size = ref.child("Size");
+        size.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+
+                    int sizeID = ds.child("size_ID").getValue(int.class);
+                    String sizeName = ds.child("size_name").getValue(String.class);
+
+                    sizeMap.put(sizeID, sizeName);
+                }
+
+                System.out.println(sizeMap);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) { }
+        });
 
 
+        final CustomizeActivity context = this;
+
+        // Printout Menu Size
+        final Query menuSize = ref.child("MenuSize").orderByChild("menu_ID").equalTo(menuID);
+        menuSize.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                // Variation paint out
+                ListView variationList = (ListView) findViewById(R.id.variation_list);
+                variationList.setDivider(null);
+
+                final ArrayList<Customize> variations = new ArrayList<>();
+
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+
+                    int sizeId = ds.child("size_ID").getValue(int.class);
+                    String sizeName = sizeMap.get(sizeId);
+                    int sizePrice = ds.child("menuSize_additionalprice").getValue(int.class);
+
+                    variations.add(new Customize(sizeId, sizeName, sizePrice));
+                }
 
 
-
-        // Variation paint out
-        ListView variationList = (ListView) findViewById(R.id.variation_list);
-
-
+                final VariationAdapter variationAdapter = new VariationAdapter(context, variations);
+                variationList.setAdapter(variationAdapter);
+                setListViewHeightBasedOnChildren(variationList);
 
 
+                // place_order
+                Button placeOrderButton = (Button) findViewById(R.id.place_order);
+                placeOrderButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        EditText instruction = (EditText) findViewById(R.id.instruction);
+                        int totalNumber = Integer.parseInt(itemAmount.getText().toString());
+
+                        // add to cart
+                        CartItem cartItem = new CartItem(menuID, variationAdapter.selectedVariation, instruction.getText().toString(), totalNumber);
+
+                        realm.beginTransaction();
+
+                        final CartItem managedCartItem = realm.copyToRealm(cartItem);
+                        Cart cart = realm.createObject(Cart.class);
+                        cart.getCartItems().add(managedCartItem);
+
+                        realm.commitTransaction();
+
+                        close();
+                    }
+                });
 
 
+            }
 
-//        res = findViewById(R.id.total_price);
-//        res.setText("฿ "+String.format("%.2f", (float)price));
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-        // GET QUERY HERE
-        // String restaurant_name = getIntent().getExtras().getString("restaurant_name");
+            }
+        });
 
 
     }
+
+    public static void setListViewHeightBasedOnChildren(ListView listView) {
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter == null)
+            return;
+
+        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.UNSPECIFIED);
+        int totalHeight = 0;
+        View view = null;
+        for (int i = 0; i < listAdapter.getCount(); i++) {
+            view = listAdapter.getView(i, view, listView);
+            if (i == 0)
+                view.setLayoutParams(new ViewGroup.LayoutParams(desiredWidth, ViewGroup.LayoutParams.WRAP_CONTENT));
+
+            view.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+            totalHeight += view.getMeasuredHeight();
+        }
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+        listView.setLayoutParams(params);
+    }
+
 
     @Override
     public void onBackPressed() {

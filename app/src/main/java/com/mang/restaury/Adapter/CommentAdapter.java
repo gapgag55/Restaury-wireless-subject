@@ -62,15 +62,16 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                 String lastName = dataSnapshot.child("lastName").getValue(String.class);
                 String fullname = firstName + " " + lastName;
 
+                SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
                 SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy");
 
                 try {
-                    Date date = formatter.parse(comment.getDateTime());
+                    Date date = parser.parse(comment.getDateTime());
 
                     viewHolder.commentName.setText(fullname);
                     viewHolder.commentText.setText(comment.getDetail());
                     viewHolder.commentRating.setRating(comment.getRating());
-                    viewHolder.commentDate.setText(formatter.format(comment.getDateTime()));
+                    viewHolder.commentDate.setText(formatter.format(date));
 
                 } catch (ParseException e) {
                     e.printStackTrace();

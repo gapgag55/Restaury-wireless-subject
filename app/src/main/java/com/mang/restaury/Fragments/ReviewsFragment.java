@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -89,11 +90,7 @@ public class ReviewsFragment extends Fragment {
 
 
                         // Simple Dialog
-                        new AlertDialog.Builder(getContext())
-                                .setTitle("Success")
-                                .setMessage("Are you sure you want to delete this entry?")
-                                .show();
-
+                        Toast.makeText(getContext(), "Success", Toast.LENGTH_SHORT).show();
                         loadReview(ref);
 
                     } else {

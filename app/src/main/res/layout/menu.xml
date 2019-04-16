@@ -37,7 +37,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#2d2d2d"
-                android:textSize="20sp"
+                android:textSize="17sp"
                 android:text="60.00"
                 android:fontFamily="@font/roboto_regular"
                 android:layout_alignParentRight="true"/>

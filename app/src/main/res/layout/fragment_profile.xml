@@ -28,8 +28,8 @@
 
     </android.support.v7.widget.Toolbar>
 
-
     <ScrollView
+        android:id="@+id/profile_scrollview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar">
@@ -235,6 +235,7 @@
 
 
                     <TextView
+                        android:id="@+id/logout_button"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Logout"

@@ -1,6 +1,7 @@
 package com.mang.restaury.Fragments;
 
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -9,6 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ScrollView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -25,6 +29,8 @@ import com.mang.restaury.R;
  */
 public class ProfileFragment extends Fragment {
 
+    private View rootView;
+
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -35,7 +41,7 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        final View rootView = inflater.inflate(R.layout.fragment_profile, container, false);
+        rootView = inflater.inflate(R.layout.fragment_profile, container, false);
 
 
         final EditText fullNameEditText = (EditText) rootView.findViewById(R.id.fullname);
@@ -47,6 +53,18 @@ public class ProfileFragment extends Fragment {
 
         final AuthenticationFragment auth = AuthenticationFragment.getInstance();
         final String uid = auth.getCurrentUser().getUid();
+
+
+        // Check Authorization
+        if (auth.getCurrentUser() == null) {
+            logout();
+
+            auth.show(getFragmentManager(), "Authentication");
+
+            return rootView;
+        }
+
+
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference ref = database.getReference();
@@ -82,36 +100,45 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
+                String[] splitFullName = fullNameEditText.getText().toString().split(" ");
+                String firstName = splitFullName[0];
+                String lastName = splitFullName[1];
 
-                Query userRef = ref.child("User").orderByChild("userId").equalTo(uid);
-                userRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String phone = phoneEditText.getText().toString();
+                String address = addressEditText.getText().toString();
 
-//                        String[] splitFullName = fullNameEditText.getText().toString().split(" ");
-//                        String firstName = splitFullName[0];
-//                        String lastName = splitFullName[1];
-//
-//                        String phone = phoneEditText.getText().toString();
-//                        String address = addressEditText.getText().toString();
-//
-//
-//                        ref.child("User").child(uid).setValue(
-//                                new User(uid, acct.getGivenName(), acct.getFamilyName(), "", "", acct.getEmail())
-//                        );
-                    }
+                DatabaseReference userRef = ref.child("User").child(uid);
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                userRef.child("firstName").setValue(firstName);
+                userRef.child("lastName").setValue(lastName);
+                userRef.child("phoneNumber").setValue(phone);
+                userRef.child("address").setValue(address);
 
-                    }
-                });
+                Toast.makeText(getContext(), "Update Successfully", Toast.LENGTH_SHORT).show();
+
             }
         });
 
 
+        TextView logoutButton = (TextView) rootView.findViewById(R.id.logout_button);
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logout();
+//                auth.signOut();
+            }
+        });
+
 
         return rootView;
+    }
+
+
+    private void logout() {
+
+        ScrollView logout = (ScrollView) rootView.findViewById(R.id.profile_scrollview);
+        logout.setVisibility(View.GONE);
+
     }
 
 }

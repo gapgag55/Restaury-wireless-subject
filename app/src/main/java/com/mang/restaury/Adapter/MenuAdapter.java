@@ -12,14 +12,19 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.mang.restaury.Activity.CustomizeActivity;
 import com.mang.restaury.Model.Menu;
 import com.mang.restaury.Model.Restaurant;
 import com.mang.restaury.R;
 import com.mang.restaury.Activity.RestaurantActivity;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder>  {
@@ -47,18 +52,50 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder>  {
         final Menu menu = mData.get(i);
 
         viewHolder.menuName.setText(menu.getMenuName());
-        viewHolder.menuPrice.setText(menu.getPrice().toString());
+        viewHolder.menuPrice.setText("฿ " + menu.getPrice().toString());
+
+
+        // Enable and Disable intent for add ons
+
+        final HashMap<String, Boolean> temp = new HashMap<>();
+        temp.put("addonsAvailable", false);
+
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final DatabaseReference ref = database.getReference();
+
+        final Query menuSize = ref.child("MenuSize").orderByChild("menu_ID").equalTo(menu.getMenu_ID());
+        menuSize.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                if (dataSnapshot.exists()) {
+                    temp.put("addonsAvailable", true);
+                } else {
+                    viewHolder.menuAddons.setVisibility(View.GONE);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         // On Click
         viewHolder.menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, CustomizeActivity.class);
-                intent.putExtra("menu_name", menu.getMenuName());
-                intent.putExtra("price", menu.getPrice());
 
-                mContext.startActivity(intent);
-                getActivity.overridePendingTransition(R.anim.slide_in_up, R.anim.stay);
+                if (temp.get("addonsAvailable")) {
+                    Intent intent = new Intent(mContext, CustomizeActivity.class);
+                    intent.putExtra("menuName", menu.getMenuName());
+                    intent.putExtra("menuID", menu.getMenu_ID());
+                    intent.putExtra("menuPrice", menu.getPrice().toString());
+
+                    mContext.startActivity(intent);
+                    getActivity.overridePendingTransition(R.anim.slide_in_up, R.anim.stay);
+                }
             }
         });
     }
@@ -74,6 +111,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder>  {
         LinearLayout menu;
         TextView menuName;
         TextView menuPrice;
+        TextView menuAddons;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -83,6 +121,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder>  {
             menu = (LinearLayout) itemView.findViewById(R.id.menu_layout);
             menuName = (TextView) itemView.findViewById(R.id.menu_name);
             menuPrice = (TextView) itemView.findViewById(R.id.menu_price);
+            menuAddons = (TextView) itemView.findViewById(R.id.menu_addons);
         }
     }
 

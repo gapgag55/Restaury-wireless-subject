@@ -17,6 +17,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.mang.restaury.Adapter.MenuAdapter;
 import com.mang.restaury.Adapter.RestaurantAdapter;
@@ -26,6 +27,7 @@ import com.mang.restaury.R;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Queue;
 
 import static android.support.constraint.Constraints.TAG;
 
@@ -36,11 +38,11 @@ import static android.support.constraint.Constraints.TAG;
 public class MenusFragment extends Fragment {
 
     private ArrayList<Menu> menus;
-    int rest_id;
+    int resID;
 
-    public MenusFragment(int rest_id) {
+    public MenusFragment(int resID) {
         // Required empty public constructor
-        this.rest_id = rest_id;
+        this.resID = resID;
     }
 
 
@@ -55,7 +57,7 @@ public class MenusFragment extends Fragment {
         // Get a reference to our posts
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference();
-        DatabaseReference tableRef = ref.child("Menu");
+        Query menuRef = ref.child("Menu").orderByChild("restaurant_ID").equalTo(resID);
 
         ValueEventListener eventListener = new ValueEventListener() {
             @Override
@@ -66,14 +68,13 @@ public class MenusFragment extends Fragment {
                     int menu_basePrice = ds.child("menu_basePrice").getValue(int.class);
                     String menu_name = ds.child("menu_name").getValue(String.class);
                     String menu_pictureURL = ds.child("menu_pictureURL").getValue(String.class);
-                    int restaurant_ID = ds.child("restaurant_ID").getValue(int.class);
 
-                    Log.d(TAG,menu_ID+"/"+rest_id+"/"+menu_basePrice);
+                    Log.d(TAG,menu_ID+"/"+resID+"/"+menu_basePrice);
 
-                    if(restaurant_ID == rest_id) {
-                        menus.add(new Menu(menu_ID, menu_name, menu_basePrice, menu_pictureURL, restaurant_ID));
-                    }
+                    menus.add(new Menu(menu_ID, menu_name, menu_basePrice, menu_pictureURL, resID));
                 }
+
+                System.out.println(menus.toArray());
 
                 RecyclerView recycleView = (RecyclerView) view.findViewById(R.id.menu_cycle);
                 MenuAdapter myAdapter = new MenuAdapter(view.getContext(), menus, getActivity());
@@ -85,7 +86,7 @@ public class MenusFragment extends Fragment {
             public void onCancelled(DatabaseError databaseError) {}
         };
 
-        tableRef.addListenerForSingleValueEvent(eventListener);
+        menuRef.addListenerForSingleValueEvent(eventListener);
 
         return view;
     }

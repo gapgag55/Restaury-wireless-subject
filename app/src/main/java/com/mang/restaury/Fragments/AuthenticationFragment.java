@@ -170,17 +170,21 @@ public class AuthenticationFragment extends BottomSheetDialogFragment {
 //        startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
-    private void signOutWithGoogleSignIn() {
-        // Firebase sign out
+    public void signOut() {
         mAuth.signOut();
-
-        // Google sign out
-        mGoogleSignInClient.signOut().addOnCompleteListener(
-                new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-//                        updateUI(null);
-                    }
-                });
     }
+//
+//    private void signOutWithGoogleSignIn() {
+//        // Firebase sign out
+//        mAuth.signOut();
+//
+//        // Google sign out
+//        mGoogleSignInClient.signOut().addOnCompleteListener(
+//                new OnCompleteListener<Void>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<Void> task) {
+////                        updateUI(null);
+//                    }
+//                });
+//    }
 }

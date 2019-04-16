@@ -86,7 +86,7 @@
                         android:layout_below="@+id/restaurant_name"
                         android:text="With add ons available"
                         android:textSize="15sp"
-                        android:fontFamily="@font/roboto_medium"
+                        android:fontFamily="@font/roboto_regular"
                         android:textColor="@color/colorFont"
                         />
                     <TextView
@@ -128,15 +128,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:background="@drawable/divider"
-                    android:padding="20dp">
-
+                    android:background="@drawable/divider">
 
                     <ListView
                         android:id="@+id/variation_list"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"></ListView>
-
+                        android:layout_height="wrap_content"
+                        android:choiceMode="singleChoice"></ListView>
 
                         <!--<RelativeLayout-->
                             <!--android:layout_width="match_parent"-->
@@ -189,106 +187,6 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/customize_topping"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/customize_heading"
-                android:orientation="vertical"
-                android:background="@android:color/white"
-                android:layout_marginTop="20dp"
-                android:focusable="true"
-                android:focusableInTouchMode="true">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Choice of entrails"
-                    android:fontFamily="@font/roboto_medium"
-                    android:textSize="18sp"
-                    android:textColor="@color/colorFont"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="20dp"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
-                    android:background="@drawable/divider"
-                    />
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:background="@drawable/divider"
-                    android:padding="20dp">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/checkbox">
-
-                        <CheckBox
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Pork River"
-                            android:focusable="false"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="+ ฿ 0.00"
-                            android:fontFamily="@font/roboto_regular"
-                            android:textColor="@color/colorFont"
-                            android:layout_alignParentRight="true" />
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/checkbox"
-                        android:id="@+id/checkbox2">
-                        <CheckBox
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Pork Intestine"
-                            android:focusable="false"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="+ ฿ 0.00"
-                            android:fontFamily="@font/roboto_regular"
-                            android:textColor="@color/colorFont"
-                            android:layout_alignParentRight="true" />
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/checkbox2"
-                        android:id="@+id/checkbox3">
-                        <CheckBox
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="No Entrails"
-                            android:focusable="false"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="+ ฿ 0.00"
-                            android:fontFamily="@font/roboto_regular"
-                            android:textColor="@color/colorFont"
-                            android:layout_alignParentRight="true" />
-
-                    </RelativeLayout>
-
-
-                </RelativeLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/customize_topping"
@@ -314,6 +212,7 @@
                     />
 
                 <EditText
+                    android:id="@+id/instruction"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Some instruction here"
