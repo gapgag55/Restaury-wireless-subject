@@ -4,11 +4,11 @@ public class Comment {
 
     private String dateTime;
     private String detail;
-    private int rating;
+    private float rating;
     private int restaurantID;
     private String userId;
 
-    public Comment(String dateTime, String detail, int rating, int restaurantID, String userId) {
+    public Comment(String dateTime, String detail, float rating, int restaurantID, String userId) {
         this.dateTime = dateTime;
         this.detail = detail;
         this.rating = rating;
@@ -24,7 +24,7 @@ public class Comment {
         return detail;
     }
 
-    public int getRating() {
+    public float getRating() {
         return rating;
     }
 

@@ -1,17 +1,23 @@
 package com.mang.restaury.Adapter;
 
 import android.content.Context;
+import android.media.Rating;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.mang.restaury.Model.Comment;
 import com.mang.restaury.R;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHolder> {
@@ -38,8 +44,9 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         final Comment comment = mData.get(i);
 
         viewHolder.commentName.setText(comment.getUserId());
-        viewHolder.commentDate.setText(comment.getDateTime());
         viewHolder.commentText.setText(comment.getDetail());
+        viewHolder.commentRating.setRating(comment.getRating());
+        viewHolder.commentDate.setText(comment.getDateTime());
     }
 
     @Override
@@ -54,6 +61,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         TextView commentName;
         TextView commentDate;
         TextView commentText;
+        RatingBar commentRating;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -63,6 +71,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
             commentName = (TextView) itemView.findViewById(R.id.comment_name);
             commentDate = (TextView) itemView.findViewById(R.id.comment_date);
             commentText = (TextView) itemView.findViewById(R.id.comment_text);
+            commentRating = (RatingBar) itemView.findViewById(R.id.rating);
         }
     }
 

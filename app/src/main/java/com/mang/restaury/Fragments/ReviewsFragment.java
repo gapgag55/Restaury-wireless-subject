@@ -2,6 +2,9 @@ package com.mang.restaury.Fragments;
 
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.media.Rating;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -12,6 +15,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RatingBar;
+import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -24,6 +29,9 @@ import com.mang.restaury.Model.Comment;
 import com.mang.restaury.Model.Reservation;
 import com.mang.restaury.R;
 
+import org.w3c.dom.Text;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -50,8 +58,123 @@ public class ReviewsFragment extends Fragment {
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference ref = database.getReference();
 
+        loadReview(ref);
 
-        Query comments = ref.child("Comment").orderByChild("restaurant_ID").equalTo(resID);
+
+        final RatingBar reviewRating = (RatingBar) rootView.findViewById(R.id.review_rating);
+
+        Button sendButton = (Button) rootView.findViewById(R.id.send_comment_button);
+        sendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                // Check Authentication
+                AuthenticationFragment auth = AuthenticationFragment.getInstance();
+
+                // Check Login
+                if (auth.getCurrentUser() != null) {
+
+                    EditText commentBox = (EditText) rootView.findViewById(R.id.comment_box);
+
+                    String detail = commentBox.getText().toString();
+                    String dateTime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date());
+                    String uid = auth.getCurrentUser().getUid();
+                    float rating = reviewRating.getRating();
+
+                    if (detail.length() > 0 && rating > 0) {
+
+                        ref.child("Comment").push().setValue(
+                                new Comment(dateTime, detail, rating, resID, uid)
+                        );
+
+
+                        // Simple Dialog
+                        new AlertDialog.Builder(getContext())
+                                .setTitle("Success")
+                                .setMessage("Are you sure you want to delete this entry?")
+                                .show();
+
+                        loadReview(ref);
+
+                    } else {
+                        // Throw error there is no detail to submit for
+                    }
+
+
+                    // Reset value
+                    commentBox.setText("");
+                    reviewRating.setRating(0);
+
+
+                } else {
+                    auth.show(getFragmentManager(), "Authentication");
+                }
+
+            }
+        });
+
+
+        return rootView;
+    }
+
+    private void countReview(ArrayList<Comment> comments) {
+
+        HashMap<Integer, Integer> statistic = new HashMap<>();
+        float averageRating = 0;
+        int rating, value;
+
+        for (Comment comment : comments) {
+
+            rating = (int) comment.getRating();
+
+            if (statistic.get(rating) != null) {
+                value = statistic.get(rating) + 1;
+            } else {
+                value = 1;
+            }
+
+            statistic.put(rating, value);
+
+            System.out.println(rating);
+
+            averageRating += comment.getRating();
+        }
+
+        averageRating /= comments.size();
+
+
+        String fiveAmount = String.valueOf(statistic.get(5));
+        String fourAmount = String.valueOf(statistic.get(4));
+        String threeAmount = String.valueOf(statistic.get(3));
+        String twoAmount = String.valueOf(statistic.get(2));
+        String oneAmount = String.valueOf(statistic.get(1));
+
+
+        if (fiveAmount.equals("null"))  fiveAmount  = "0";
+        if (fourAmount.equals("null"))  fourAmount  = "0";
+        if (threeAmount.equals("null")) threeAmount = "0";
+        if (twoAmount.equals("null"))   twoAmount   = "0";
+        if (oneAmount.equals("null"))   oneAmount   = "0";
+
+
+        ((TextView) rootView.findViewById(R.id.statistic_five_number)).setText(fiveAmount);
+        ((TextView) rootView.findViewById(R.id.statistic_four_number)).setText(fourAmount);
+        ((TextView) rootView.findViewById(R.id.statistic_three_number)).setText(threeAmount);
+        ((TextView) rootView.findViewById(R.id.statistic_two_number)).setText(twoAmount);
+        ((TextView) rootView.findViewById(R.id.statistic_one_number)).setText(oneAmount);
+
+
+        ((TextView) rootView.findViewById(R.id.average_number)).setText(String.valueOf(averageRating));
+        ((RatingBar) rootView.findViewById(R.id.average_star)).setRating(averageRating);
+
+    }
+
+    private void loadReview(DatabaseReference ref) {
+
+        final TextView commentRatingTitle = (TextView) rootView.findViewById(R.id.commentRatingTitle);
+        final TextView commentsTitle = (TextView) rootView.findViewById(R.id.comments);
+
+        Query comments = ref.child("Comment").orderByChild("restaurantID").equalTo(resID);
         comments.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -61,13 +184,13 @@ public class ReviewsFragment extends Fragment {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
 
                     // Get User profile
-                    String uid = ds.child("user_ID").getValue(String.class);
+                    String uid = ds.child("userId").getValue(String.class);
 
 
                     // Get comment
-                    String comment = ds.child("comment_detail").getValue(String.class);
-                    String dateTime = ds.child("comment_dateTime").getValue(String.class);
-                    int rating = ds.child("comment_rating").getValue(int.class);
+                    String comment = ds.child("detail").getValue(String.class);
+                    String dateTime = ds.child("dateTime").getValue(String.class);
+                    float rating = ds.child("rating").getValue(float.class);
 
                     comments.add(
                             new Comment(dateTime, comment, rating, resID, uid)
@@ -75,13 +198,17 @@ public class ReviewsFragment extends Fragment {
 
                 }
 
+                commentRatingTitle.setText("Comment Ratings (" + comments.size() + ")");
+                commentsTitle.setText("Customer Reviews (" + comments.size() + ")");
+
                 // Print comment to view
-//                System.out.println(comments.toArray());
                 RecyclerView recycleView = (RecyclerView) rootView.findViewById(R.id.comment_cycle);
                 CommentAdapter myAdapter = new CommentAdapter(rootView.getContext(), comments);
                 recycleView.setLayoutManager(new GridLayoutManager(rootView.getContext(), 1));
                 recycleView.setAdapter(myAdapter);
 
+
+                countReview(comments);
             }
 
             @Override
@@ -89,59 +216,5 @@ public class ReviewsFragment extends Fragment {
 
             }
         });
-
-
-
-//
-//
-//
-//
-//
-//
-//        Button sendButton = (Button) rootView.findViewById(R.id.send_comment_button);
-//        sendButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                // Check Authentication
-//                AuthenticationFragment auth = AuthenticationFragment.getInstance();
-//
-//                // Check Login
-//                if (auth.getCurrentUser() != null) {
-//
-//                    EditText commentBox = (EditText) rootView.findViewById(R.id.comment_box);
-//
-//                    String detail = commentBox.getText().toString();
-//                    String dateTime = new Date().toString();
-//                    String uid = auth.getCurrentUser().getUid();
-//                    int rating = 5;
-//
-//                    if (detail.length() > 0) {
-//
-//                        ref.child("Comment").push().setValue(
-//                                new Comment(dateTime, detail, rating, resID, uid)
-//                        );
-//
-//                    } else {
-//                        // Throw error there is no detail to submit for
-//                    }
-//
-//
-//                    // Reset value
-//                    commentBox.setText("");
-//
-//
-//                } else {
-//                    auth.show(getFragmentManager(), "Authentication");
-//                }
-//
-//            }
-//        });
-//
-//
-
-
-
-        return rootView;
     }
 }
