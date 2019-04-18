@@ -15,4 +15,8 @@
     <string name="title_activity_maps">Map</string>
 
     <!-- TODO: Remove or change this placeholder text -->
+
+    <string name="facebook_app_id">814679415574139</string>
+    <string name="fb_login_protocol_scheme">fb814679415574139</string>
+
 </resources>

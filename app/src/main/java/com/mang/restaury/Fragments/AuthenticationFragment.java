@@ -9,8 +9,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -20,6 +27,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
@@ -29,18 +37,29 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.mang.restaury.Model.Reservation;
 import com.mang.restaury.Model.User;
 import com.mang.restaury.R;
+
+import java.util.Arrays;
 
 public class AuthenticationFragment extends BottomSheetDialogFragment {
 
     // for google sign in
     private static final String TAG = "GoogleActivity";
-    private static final int RC_SIGN_IN = 9001;
+    private static final int GOOGLE_SIGN_IN_REQUEST_CODE = 0;
+
+    // for facebook sign in
+    private final int FACEBOOK_LOG_IN_REQUEST_CODE = 64206;
+
 
     private FirebaseAuth mAuth;
+
+
     private GoogleSignInClient mGoogleSignInClient;
+    private CallbackManager callbackManager;
+
+    Button loginGoogle;
+    LoginButton loginFacebook;
 
     public static AuthenticationFragment getInstance() {
         return new AuthenticationFragment();
@@ -51,10 +70,11 @@ public class AuthenticationFragment extends BottomSheetDialogFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.bottom_sheet_login, container, false);
 
-        initFBGoogleSignIn();
+        loginGoogle = (Button) view.findViewById(R.id.login_google);
+        loginFacebook = (LoginButton) view.findViewById(R.id.login_facebook);
 
-        LinearLayout loginGoogle = (LinearLayout) view.findViewById(R.id.login_google);
-        LinearLayout loginFacebook = (LinearLayout) view.findViewById(R.id.login_facebook);
+        initFBGoogleSignIn();
+        initFBFacebookLogIn();
 
         loginGoogle.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,12 +83,7 @@ public class AuthenticationFragment extends BottomSheetDialogFragment {
             }
         });
 
-        loginFacebook.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                signInWithFacebookSignIn();
-            }
-        });
+        mAuth = FirebaseAuth.getInstance();
 
         return view;
     }
@@ -85,26 +100,70 @@ public class AuthenticationFragment extends BottomSheetDialogFragment {
                 .build();
 
         mGoogleSignInClient = GoogleSignIn.getClient(getContext(), gso);
-        mAuth = FirebaseAuth.getInstance();
     }
+
+    // [START auth_with_facebook]
+    private void initFBFacebookLogIn() {
+        callbackManager = CallbackManager.Factory.create();
+        loginFacebook.setFragment(this);
+        loginFacebook.setReadPermissions("email", "public_profile");
+        loginFacebook.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                System.out.println("facebook:onSuccess:" + loginResult);
+                firebasAuthWithFacebook(loginResult.getAccessToken());
+            }
+
+            @Override
+            public void onCancel() {
+                System.out.println("facebook:cancel:");
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                System.out.println("facebook:onError: " + error);
+            }
+        });
+    }
+
+    private void firebasAuthWithFacebook(AccessToken token) {
+
+        this.dismiss();
+
+        AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(AuthenticationFragment.this.getActivity(), new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        String message;
+                        if (task.isSuccessful()) {
+                            message = "success firebaseAuthWithFacebook";
+                        } else {
+                            message = "fail firebaseAuthWithFacebook";
+                        }
+                    }
+                });
+    }
+    // [END auth_with_facebook]
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
-        if (requestCode == RC_SIGN_IN) {
+        if (requestCode == GOOGLE_SIGN_IN_REQUEST_CODE) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
                 // Google Sign In was successful, authenticate with Firebase
-                System.out.println("Before account");
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 firebaseAuthWithGoogle(account);
-                System.out.println("After account");
             } catch (ApiException e) {
                 // Google Sign In failed, update UI appropriately
                 Log.w(TAG, "Google sign in failed", e);
             }
+        } else if (requestCode == FACEBOOK_LOG_IN_REQUEST_CODE) {
+            callbackManager.onActivityResult(requestCode, resultCode, data);
         }
     }
 
@@ -148,7 +207,8 @@ public class AuthenticationFragment extends BottomSheetDialogFragment {
                                 }
 
                                 @Override
-                                public void onCancelled(@NonNull DatabaseError databaseError) { }
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+                                }
                             });
 
 
@@ -164,29 +224,10 @@ public class AuthenticationFragment extends BottomSheetDialogFragment {
 
     private void signInWithGoogleSignIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-        startActivityForResult(signInIntent, RC_SIGN_IN);
-    }
-
-    private void signInWithFacebookSignIn() {
-//        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-//        startActivityForResult(signInIntent, RC_SIGN_IN);
+        startActivityForResult(signInIntent, GOOGLE_SIGN_IN_REQUEST_CODE);
     }
 
     public void signOut() {
         mAuth.signOut();
     }
-//
-//    private void signOutWithGoogleSignIn() {
-//        // Firebase sign out
-//        mAuth.signOut();
-//
-//        // Google sign out
-//        mGoogleSignInClient.signOut().addOnCompleteListener(
-//                new OnCompleteListener<Void>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<Void> task) {
-////                        updateUI(null);
-//                    }
-//                });
-//    }
 }

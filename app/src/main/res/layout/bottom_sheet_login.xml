@@ -30,45 +30,45 @@
         android:padding="20dp">
 
         <LinearLayout
+            android:id="@+id/login_google_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/google_button"
+            android:orientation="horizontal">
+
+            <Button
                 android:id="@+id/login_google"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/google_button"
-                android:orientation="horizontal">
+                android:fontFamily="@font/roboto_medium"
+                android:padding="10dp"
+                android:text="Login with Google"
+                android:textAlignment="center"
+                android:textColor="@android:color/white"
+                android:textSize="15sp" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/google_button"
-                    android:fontFamily="@font/roboto_medium"
-                    android:padding="10dp"
-                    android:text="Login with Google"
-                    android:textAlignment="center"
-                    android:textColor="@android:color/white"
-                    android:textSize="17sp" />
-
-            </LinearLayout>
+        </LinearLayout>
 
         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/login_google_layout"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/google_button">
+
+            <com.facebook.login.widget.LoginButton
                 android:id="@+id/login_facebook"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/login_google"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/google_button">
+                android:background="@drawable/facebook_button"
+                android:fontFamily="@font/roboto_medium"
+                android:padding="10dp"
+                android:textAlignment="center"
+                android:textColor="@android:color/white"
+                android:textSize="15sp" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/facebook_button"
-                    android:fontFamily="@font/roboto_medium"
-                    android:padding="10dp"
-                    android:text="Login with Google"
-                    android:textAlignment="center"
-                    android:textColor="@android:color/white"
-                    android:textSize="17sp" />
-
-            </LinearLayout>
+        </LinearLayout>
 
     </RelativeLayout>
 
