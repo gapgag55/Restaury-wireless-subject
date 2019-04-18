@@ -62,7 +62,7 @@
         android:elevation="10dp">
 
         <Button
-            android:id="@+id/place_order"
+            android:id="@+id/view_cart_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/orange_button"

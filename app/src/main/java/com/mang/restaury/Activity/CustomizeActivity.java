@@ -57,7 +57,7 @@ public class CustomizeActivity extends AppCompatActivity {
         closeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                close();
+                closeFragment();
             }
         });
 
@@ -87,7 +87,6 @@ public class CustomizeActivity extends AppCompatActivity {
         });
 
 
-
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference ref = database.getReference();
 
@@ -98,13 +97,12 @@ public class CustomizeActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
 
-                    int sizeID = ds.child("size_ID").getValue(int.class);
-                    String sizeName = ds.child("size_name").getValue(String.class);
+                    int sizeID = ds.child("sizeID").getValue(int.class);
+                    String sizeName = ds.child("sizeName").getValue(String.class);
 
                     sizeMap.put(sizeID, sizeName);
                 }
 
-                System.out.println(sizeMap);
             }
 
             @Override
@@ -161,11 +159,9 @@ public class CustomizeActivity extends AppCompatActivity {
 
                         realm.commitTransaction();
 
-                        close();
+                        closeFragment();
                     }
                 });
-
-
             }
 
             @Override
@@ -201,10 +197,10 @@ public class CustomizeActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        close();
+        closeFragment();
     }
 
-    private void close() {
+    private void closeFragment() {
         finish();
         overridePendingTransition(R.anim.stay, R.anim.slide_out_down);
     }

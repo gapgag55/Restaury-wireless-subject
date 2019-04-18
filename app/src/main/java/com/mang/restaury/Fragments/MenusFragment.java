@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -50,7 +51,7 @@ public class MenusFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        final View view = inflater.inflate(R.layout.fragment_menus, container, false);
+        final View rootView = inflater.inflate(R.layout.fragment_menus, container, false);
 
         menus = new ArrayList<>();
 
@@ -76,9 +77,9 @@ public class MenusFragment extends Fragment {
 
                 System.out.println(menus.toArray());
 
-                RecyclerView recycleView = (RecyclerView) view.findViewById(R.id.menu_cycle);
-                MenuAdapter myAdapter = new MenuAdapter(view.getContext(), menus, getActivity());
-                recycleView.setLayoutManager(new GridLayoutManager(view.getContext(), 1));
+                RecyclerView recycleView = (RecyclerView) rootView.findViewById(R.id.menu_cycle);
+                MenuAdapter myAdapter = new MenuAdapter(rootView.getContext(), menus, getActivity());
+                recycleView.setLayoutManager(new GridLayoutManager(rootView.getContext(), 1));
                 recycleView.setAdapter(myAdapter);
             }
 
@@ -88,7 +89,17 @@ public class MenusFragment extends Fragment {
 
         menuRef.addListenerForSingleValueEvent(eventListener);
 
-        return view;
+
+        Button viewCartButton = (Button) rootView.findViewById(R.id.view_cart_button);
+        viewCartButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                // Go to cart
+            }
+        });
+
+        return rootView;
     }
 
 }
