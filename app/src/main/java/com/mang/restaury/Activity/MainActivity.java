@@ -5,10 +5,13 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.mang.restaury.Fragments.AuthenticationFragment;
 import com.mang.restaury.Fragments.CartFragment;
 import com.mang.restaury.Fragments.FavoriteFragment;
 import com.mang.restaury.Fragments.ProfileFragment;
@@ -20,6 +23,7 @@ import io.realm.Realm;
 public class MainActivity extends AppCompatActivity {
 
     private Fragment selectedFragment;
+    private String fragmentTag;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -29,25 +33,38 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.search_page:
                     selectedFragment = new SearchFragment();
+                    fragmentTag = "search_fragment";
                     break;
 
                 case R.id.favorite_page:
                     selectedFragment = new FavoriteFragment();
+                    fragmentTag = "favorite_fragment";
                     break;
 
                 case R.id.cart_page:
                     selectedFragment = new CartFragment();
+                    fragmentTag = "cart_fragment";
                     break;
 
                 case R.id.profile_page:
+                    final AuthenticationFragment auth = AuthenticationFragment.getInstance();
+                    if (auth.getCurrentUser() == null) {
+                        auth.show(getSupportFragmentManager(), "Authentication");
+
+                        return true;
+                    }
+
                     selectedFragment = new ProfileFragment();
+                    fragmentTag = "profile_fragment";
                     break;
+
                 default:
                     selectedFragment = new SearchFragment();
+                    fragmentTag = "search_fragment";
                     break;
             }
 
-            renderFragment(selectedFragment);
+            renderFragment(selectedFragment, fragmentTag);
             return true;
         }
     };
@@ -65,13 +82,14 @@ public class MainActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         selectedFragment = new SearchFragment();
-        renderFragment(selectedFragment);
+        fragmentTag = "search_fragment";
+        renderFragment(selectedFragment, fragmentTag);
     }
 
-    private void renderFragment(Fragment selectedFragment) {
+    private void renderFragment(Fragment selectedFragment, String fragmentTag) {
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.wrapper, selectedFragment)
+                .replace(R.id.wrapper, selectedFragment, fragmentTag)
                 .commit();
     }
 

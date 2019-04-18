@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -47,27 +49,15 @@ public class ProfileFragment extends Fragment {
         final EditText fullNameEditText = (EditText) rootView.findViewById(R.id.fullname);
         final EditText phoneEditText = (EditText) rootView.findViewById(R.id.phone);
         final EditText addressEditText = (EditText) rootView.findViewById(R.id.address);
-
+        final ScrollView logout = (ScrollView) rootView.findViewById(R.id.profile_scrollview);
 
         // Query User Profile
 
         final AuthenticationFragment auth = AuthenticationFragment.getInstance();
-        final String uid = auth.getCurrentUser().getUid();
-
-
-        // Check Authorization
-        if (auth.getCurrentUser() == null) {
-            changeToLogoutView();
-
-            auth.show(getFragmentManager(), "Authentication");
-
-            return rootView;
-        }
-
-
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference ref = database.getReference();
+        final String uid = auth.getCurrentUser().getUid();
 
         Query users = ref.child("User").child(uid);
         users.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -84,7 +74,6 @@ public class ProfileFragment extends Fragment {
                 fullNameEditText.setText(fullname);
                 phoneEditText.setText(phone);
                 addressEditText.setText(address);
-
             }
 
             @Override
@@ -92,7 +81,6 @@ public class ProfileFragment extends Fragment {
 
             }
         });
-
 
 
         Button updateButton = rootView.findViewById(R.id.update_button);
@@ -115,7 +103,6 @@ public class ProfileFragment extends Fragment {
                 userRef.child("address").setValue(address);
 
                 Toast.makeText(getContext(), "Update Successfully", Toast.LENGTH_SHORT).show();
-
             }
         });
 
@@ -126,6 +113,13 @@ public class ProfileFragment extends Fragment {
             public void onClick(View v) {
                 changeToLogoutView();
                 auth.signOut();
+
+                // Going to SearchFragment
+                getActivity()
+                        .getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.wrapper, new SearchFragment(), "search_fragment")
+                        .commit();
             }
         });
 
@@ -135,10 +129,12 @@ public class ProfileFragment extends Fragment {
 
 
     private void changeToLogoutView() {
-
         ScrollView logout = (ScrollView) rootView.findViewById(R.id.profile_scrollview);
         logout.setVisibility(View.GONE);
-
     }
 
+    private void changeToLogoutView2() {
+        ScrollView logout = (ScrollView) rootView.findViewById(R.id.profile_scrollview);
+        logout.setVisibility(View.VISIBLE);
+    }
 }

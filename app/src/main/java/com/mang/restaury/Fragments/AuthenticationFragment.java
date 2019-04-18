@@ -97,7 +97,6 @@ public class AuthenticationFragment extends BottomSheetDialogFragment {
         });
 
         mAuth = FirebaseAuth.getInstance();
-        System.out.print(mAuth);
 
         return view;
     }
@@ -152,43 +151,32 @@ public class AuthenticationFragment extends BottomSheetDialogFragment {
 
                         if (task.isSuccessful()) {
 
-                            System.out.println(mAuth);
-//                            final String uid = mAuth.getCurrentUser().getUid();
-//                            System.out.println(uid);
-////
-//                            String[] splitFullName = mAuth.getCurrentUser().getDisplayName().toString().split(" ");
-//                            final String firstName = splitFullName[0];
-//                            final String lastName = splitFullName[1];
-//                            final String email = mAuth.getCurrentUser().getEmail();
+                            final String uid = mAuth.getCurrentUser().getUid();
+                            System.out.println(uid);
 //
-//                            final FirebaseDatabase database = FirebaseDatabase.getInstance();
-//                            final DatabaseReference ref = database.getReference();
-//
-//                            Query userRef = ref.child("User").orderByChild("userId").equalTo(uid);
-//                            userRef.addListenerForSingleValueEvent(new ValueEventListener() {
-//                               @Override
-//                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//
-//                                    boolean hasProfile = false;
-//
-//                                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
-//                                        if (ds.child("userId").getValue(String.class).equals(uid)) {
-//                                            hasProfile = true;
-//                                        }
-//                                    }
-//
-//                                    if (!hasProfile) {
-//                                        // Do create
-//                                        ref.child("User").child(uid).setValue(
-//                                                new User(uid, firstName, lastName, "", "", email)
-//                                        );
-//                                    }
-//                                }
-//
-//                                @Override
-//                                public void onCancelled(@NonNull DatabaseError databaseError) {
-//                                }
-//                            });
+                            String[] splitFullName = mAuth.getCurrentUser().getDisplayName().toString().split(" ");
+                            final String firstName = splitFullName[0];
+                            final String lastName = splitFullName[1];
+                            final String email = mAuth.getCurrentUser().getEmail();
+
+                            final FirebaseDatabase database = FirebaseDatabase.getInstance();
+                            final DatabaseReference ref = database.getReference();
+
+                            Query userRef = ref.child("User").child(uid);
+                            userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                               @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                   if (!dataSnapshot.exists()) {
+                                       ref.child("User").child(uid).setValue(
+                                               new User(firstName, lastName, "", "", email)
+                                       );
+                                   }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+                                }
+                            });
 
 
                         } else {
@@ -215,23 +203,13 @@ public class AuthenticationFragment extends BottomSheetDialogFragment {
                             final FirebaseDatabase database = FirebaseDatabase.getInstance();
                             final DatabaseReference ref = database.getReference();
 
-                            Query userRef = ref.child("User").orderByChild("userId").equalTo(uid);
+                            Query userRef = ref.child("User").child(uid);
                             userRef.addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                                    boolean hasProfile = false;
-
-                                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                                        if (ds.child("userId").getValue(String.class).equals(uid)) {
-                                            hasProfile = true;
-                                        }
-                                    }
-
-                                    if (!hasProfile) {
-                                        // Do create
+                                    if (!dataSnapshot.exists()) {
                                         ref.child("User").child(uid).setValue(
-                                                new User(uid, acct.getGivenName(), acct.getFamilyName(), "", "", acct.getEmail())
+                                                new User(acct.getGivenName(), acct.getFamilyName(), "", "", acct.getEmail())
                                         );
                                     }
                                 }
@@ -243,10 +221,7 @@ public class AuthenticationFragment extends BottomSheetDialogFragment {
 
 
                         } else {
-                            // If sign in fails, display a message to the user.
-//                            Log.w(TAG, "signInWithCredential:failure", task.getException());
-//                            Snackbar.make(findViewById(R.id.main_layout), "Authentication Failed.", Snackbar.LENGTH_SHORT).show();
-//                            updateUI(null);
+
                         }
                     }
                 });
