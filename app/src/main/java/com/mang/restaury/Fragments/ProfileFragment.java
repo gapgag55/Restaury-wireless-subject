@@ -57,7 +57,7 @@ public class ProfileFragment extends Fragment {
 
         // Check Authorization
         if (auth.getCurrentUser() == null) {
-            logout();
+            changeToLogoutView();
 
             auth.show(getFragmentManager(), "Authentication");
 
@@ -124,8 +124,8 @@ public class ProfileFragment extends Fragment {
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                logout();
-//                auth.signOut();
+                changeToLogoutView();
+                auth.signOut();
             }
         });
 
@@ -134,7 +134,7 @@ public class ProfileFragment extends Fragment {
     }
 
 
-    private void logout() {
+    private void changeToLogoutView() {
 
         ScrollView logout = (ScrollView) rootView.findViewById(R.id.profile_scrollview);
         logout.setVisibility(View.GONE);

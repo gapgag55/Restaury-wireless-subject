@@ -16,6 +16,7 @@ import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -59,7 +60,8 @@ public class AuthenticationFragment extends BottomSheetDialogFragment {
     private CallbackManager callbackManager;
 
     Button loginGoogle;
-    LoginButton loginFacebook;
+    Button loginFacebook;
+    LoginButton loginFacebookHide;
 
     public static AuthenticationFragment getInstance() {
         return new AuthenticationFragment();
@@ -71,7 +73,11 @@ public class AuthenticationFragment extends BottomSheetDialogFragment {
         final View view = inflater.inflate(R.layout.bottom_sheet_login, container, false);
 
         loginGoogle = (Button) view.findViewById(R.id.login_google);
-        loginFacebook = (LoginButton) view.findViewById(R.id.login_facebook);
+        loginFacebook = (Button) view.findViewById(R.id.login_facebook);
+
+        loginFacebookHide = (LoginButton) view.findViewById(R.id.login_facebook_hide);
+        loginFacebookHide.setVisibility(View.GONE);
+
 
         initFBGoogleSignIn();
         initFBFacebookLogIn();
@@ -83,15 +89,23 @@ public class AuthenticationFragment extends BottomSheetDialogFragment {
             }
         });
 
+        loginFacebook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loginFacebookHide.performClick();
+            }
+        });
+
         mAuth = FirebaseAuth.getInstance();
+        System.out.print(mAuth);
 
         return view;
     }
 
     public FirebaseUser getCurrentUser() {
-        return mAuth.getInstance().getCurrentUser();
+        mAuth = FirebaseAuth.getInstance();
+        return mAuth.getCurrentUser() != null ? mAuth.getCurrentUser() : null;
     }
-
 
     private void initFBGoogleSignIn() {
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -105,9 +119,9 @@ public class AuthenticationFragment extends BottomSheetDialogFragment {
     // [START auth_with_facebook]
     private void initFBFacebookLogIn() {
         callbackManager = CallbackManager.Factory.create();
-        loginFacebook.setFragment(this);
-        loginFacebook.setReadPermissions("email", "public_profile");
-        loginFacebook.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+        loginFacebookHide.setFragment(this);
+        loginFacebookHide.setReadPermissions("email", "public_profile");
+        loginFacebookHide.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 System.out.println("facebook:onSuccess:" + loginResult);
@@ -135,37 +149,55 @@ public class AuthenticationFragment extends BottomSheetDialogFragment {
                 .addOnCompleteListener(AuthenticationFragment.this.getActivity(), new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        String message;
+
                         if (task.isSuccessful()) {
-                            message = "success firebaseAuthWithFacebook";
+
+                            System.out.println(mAuth);
+//                            final String uid = mAuth.getCurrentUser().getUid();
+//                            System.out.println(uid);
+////
+//                            String[] splitFullName = mAuth.getCurrentUser().getDisplayName().toString().split(" ");
+//                            final String firstName = splitFullName[0];
+//                            final String lastName = splitFullName[1];
+//                            final String email = mAuth.getCurrentUser().getEmail();
+//
+//                            final FirebaseDatabase database = FirebaseDatabase.getInstance();
+//                            final DatabaseReference ref = database.getReference();
+//
+//                            Query userRef = ref.child("User").orderByChild("userId").equalTo(uid);
+//                            userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+//                               @Override
+//                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//
+//                                    boolean hasProfile = false;
+//
+//                                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
+//                                        if (ds.child("userId").getValue(String.class).equals(uid)) {
+//                                            hasProfile = true;
+//                                        }
+//                                    }
+//
+//                                    if (!hasProfile) {
+//                                        // Do create
+//                                        ref.child("User").child(uid).setValue(
+//                                                new User(uid, firstName, lastName, "", "", email)
+//                                        );
+//                                    }
+//                                }
+//
+//                                @Override
+//                                public void onCancelled(@NonNull DatabaseError databaseError) {
+//                                }
+//                            });
+
+
                         } else {
-                            message = "fail firebaseAuthWithFacebook";
+
                         }
                     }
                 });
     }
     // [END auth_with_facebook]
-
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
-        if (requestCode == GOOGLE_SIGN_IN_REQUEST_CODE) {
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            try {
-                // Google Sign In was successful, authenticate with Firebase
-                GoogleSignInAccount account = task.getResult(ApiException.class);
-                firebaseAuthWithGoogle(account);
-            } catch (ApiException e) {
-                // Google Sign In failed, update UI appropriately
-                Log.w(TAG, "Google sign in failed", e);
-            }
-        } else if (requestCode == FACEBOOK_LOG_IN_REQUEST_CODE) {
-            callbackManager.onActivityResult(requestCode, resultCode, data);
-        }
-    }
 
     private void firebaseAuthWithGoogle(final GoogleSignInAccount acct) {
 
@@ -178,9 +210,7 @@ public class AuthenticationFragment extends BottomSheetDialogFragment {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
 
-                            System.out.println("Before mAuth account");
                             final String uid = mAuth.getCurrentUser().getUid();
-                            System.out.println("After mAuth account");
 
                             final FirebaseDatabase database = FirebaseDatabase.getInstance();
                             final DatabaseReference ref = database.getReference();
@@ -222,12 +252,34 @@ public class AuthenticationFragment extends BottomSheetDialogFragment {
                 });
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
+        if (requestCode == GOOGLE_SIGN_IN_REQUEST_CODE) {
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            try {
+                // Google Sign In was successful, authenticate with Firebase
+                GoogleSignInAccount account = task.getResult(ApiException.class);
+                firebaseAuthWithGoogle(account);
+            } catch (ApiException e) {
+                // Google Sign In failed, update UI appropriately
+                Log.w(TAG, "Google sign in failed", e);
+            }
+        } else if (requestCode == FACEBOOK_LOG_IN_REQUEST_CODE) {
+            callbackManager.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
     private void signInWithGoogleSignIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, GOOGLE_SIGN_IN_REQUEST_CODE);
     }
 
     public void signOut() {
-        mAuth.signOut();
+        FirebaseAuth.getInstance().signOut();
+        LoginManager.getInstance().logOut();
     }
+
 }

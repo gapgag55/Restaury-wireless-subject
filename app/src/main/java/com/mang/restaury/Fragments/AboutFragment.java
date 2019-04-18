@@ -61,6 +61,7 @@ public class AboutFragment extends Fragment {
             public void onClick(View v) {
 
                 AuthenticationFragment auth = AuthenticationFragment.getInstance();
+                System.out.println(auth.getCurrentUser());
 
                 // Check Login
                 if (auth.getCurrentUser() != null) {
