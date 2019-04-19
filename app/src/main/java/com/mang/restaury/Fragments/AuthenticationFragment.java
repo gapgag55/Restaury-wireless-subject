@@ -152,7 +152,6 @@ public class AuthenticationFragment extends BottomSheetDialogFragment {
                         if (task.isSuccessful()) {
 
                             final String uid = mAuth.getCurrentUser().getUid();
-                            System.out.println(uid);
 //
                             String[] splitFullName = mAuth.getCurrentUser().getDisplayName().toString().split(" ");
                             final String firstName = splitFullName[0];

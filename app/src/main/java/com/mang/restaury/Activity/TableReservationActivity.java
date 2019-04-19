@@ -52,7 +52,8 @@ public class TableReservationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_table_reservation);
 
-        final int resID = getIntent().getExtras().getInt("resID");
+        // From AboutFragment.java
+        final String resID = getIntent().getExtras().getString("resID");
         String restaurantName = getIntent().getExtras().getString("restaurantName");
 
         // Set Display
@@ -108,6 +109,7 @@ public class TableReservationActivity extends AppCompatActivity {
 
         setSpinner(time, timeData);
 
+
         final EditText instruction = (EditText) findViewById(R.id.instruction);
 
 
@@ -147,11 +149,9 @@ public class TableReservationActivity extends AppCompatActivity {
                 }
 
                 final String reserveDateTime = reserveDate + " " + reserveTime;
-//                System.out.println(dateTime);
-
 
                // Get available table of this restaurant
-                Query tableRef = ref.child("Table").orderByChild("restaurant_ID").equalTo(1);
+                Query tableRef = ref.child("Table").orderByChild("restaurantID").equalTo(resID);
                 tableRef.addListenerForSingleValueEvent(new ValueEventListener() {
 
                     @Override
@@ -160,12 +160,12 @@ public class TableReservationActivity extends AppCompatActivity {
                             // dataSnapshot is the "issue" node with all children with id 0
 
                             final HashMap<String, Boolean> temp = new HashMap<>();
-                            final ArrayList<Integer> tables = new ArrayList<>();
+                            final ArrayList<String> tables = new ArrayList<>();
 
                             for (DataSnapshot ds : dataSnapshot.getChildren()) {
 
-                                int seats = ds.child("table_seat").getValue(int.class);
-                                final int tableID = ds.child("table_id").getValue(int.class);
+                                int seats = ds.child("seat").getValue(int.class);
+                                final String tableID = ds.getKey();
 
                                 if (seats >= reservePeople) {
                                     tables.add(tableID);
@@ -178,7 +178,7 @@ public class TableReservationActivity extends AppCompatActivity {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                                    for (Integer tableID : tables) {
+                                    for (String tableID : tables) {
                                         // Set default
                                         temp.put("isTableAvailable", true);
 
@@ -187,7 +187,7 @@ public class TableReservationActivity extends AppCompatActivity {
                                             int reserveTableID = ds.child("tableId").getValue(int.class);
                                             String dateTime = ds.child("dateTime").getValue(String.class);
 
-                                            if (tableID == reserveTableID && dateTime.equals(reserveDateTime)) {
+                                            if (tableID.equals(reserveTableID) && dateTime.equals(reserveDateTime)) {
                                                 temp.put("isTableAvailable", false);
                                                 break;
                                             }

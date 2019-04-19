@@ -4,9 +4,9 @@ import io.realm.RealmObject;
 
 public class Restaurant extends RealmObject {
 
-    private String restaurant_ID;
-    private String restaurant_about;
-    private double restaurant_deliverFee;
+    private String restaurantID;
+    private String restaurantAbout;
+    private double restaurantDeliverFee;
     private String title;
     private double latitude;
     private double longtitude;
@@ -16,13 +16,13 @@ public class Restaurant extends RealmObject {
     public Restaurant() {
     }
 
-    public Restaurant(String title, double latitude, double longtitude, String restaurant_ID, String restaurant_about, double restaurant_deliverFee,String picture) {
+    public Restaurant(String title, double latitude, double longtitude, String restaurantID, String restaurantAbout, double restaurantDeliverFee, String picture) {
         this.title = title;
         this.latitude = latitude;
         this.longtitude = longtitude;
-        this.restaurant_about = restaurant_about;
-        this.restaurant_ID = restaurant_ID;
-        this.restaurant_deliverFee = restaurant_deliverFee;
+        this.restaurantAbout = restaurantAbout;
+        this.restaurantID = restaurantID;
+        this.restaurantDeliverFee = restaurantDeliverFee;
         this.picture = picture;
     }
 
@@ -49,28 +49,28 @@ public class Restaurant extends RealmObject {
         this.title = title;
     }
 
-    public String getRestaurant_ID() {
-        return restaurant_ID;
+    public String getRestaurantID() {
+        return restaurantID;
     }
 
-    public void setRestaurant_ID(String restaurant_ID) {
-        this.restaurant_ID = restaurant_ID;
+    public void setRestaurantID(String restaurantID) {
+        this.restaurantID = restaurantID;
     }
 
-    public String getRestaurant_about() {
-        return restaurant_about;
+    public String getRestaurantAbout() {
+        return restaurantAbout;
     }
 
-    public void setRestaurant_about(String restaurant_about) {
-        this.restaurant_about = restaurant_about;
+    public void setRestaurantAbout(String restaurantAbout) {
+        this.restaurantAbout = restaurantAbout;
     }
 
-    public double getRestaurant_deliverFee() {
-        return restaurant_deliverFee;
+    public double getRestaurantDeliverFee() {
+        return restaurantDeliverFee;
     }
 
-    public void setRestaurant_deliverFee(double restaurant_deliverFee) {
-        this.restaurant_deliverFee = restaurant_deliverFee;
+    public void setRestaurantDeliverFee(double restaurantDeliverFee) {
+        this.restaurantDeliverFee = restaurantDeliverFee;
     }
 
     public double getLatitude() {

@@ -89,7 +89,7 @@ public class SearchFragment extends Fragment {
                             String restaurantID = ds.child("restaurantID").getValue(String.class);
                             String restaurantPictureURL = ds.child("restaurantPictureURL").getValue(String.class);
                             for(Restaurant r : restaurants){
-                                if(r.getRestaurant_ID().equals(restaurantID)){
+                                if(r.getRestaurantID().equals(restaurantID)){
                                     r.setPicture(restaurantPictureURL);
                                 }
                             }

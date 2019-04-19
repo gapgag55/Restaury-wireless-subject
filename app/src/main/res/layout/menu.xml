@@ -26,11 +26,12 @@
                 android:id="@+id/menu_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#2d2d2d"
-                android:textSize="17sp"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="0dp"
+                android:fontFamily="@font/roboto_regular"
                 android:text="Thai Fried Rice with Prawns"
-                android:fontFamily="@font/roboto_medium"
-                android:layout_alignParentLeft="true" />
+                android:textColor="#2d2d2d"
+                android:textSize="17sp" />
 
             <TextView
                 android:id="@+id/menu_price"

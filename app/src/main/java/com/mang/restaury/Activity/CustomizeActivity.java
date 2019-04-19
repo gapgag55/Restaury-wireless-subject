@@ -102,7 +102,6 @@ public class CustomizeActivity extends AppCompatActivity {
 
                     sizeMap.put(sizeID, sizeName);
                 }
-
             }
 
             @Override
@@ -113,7 +112,7 @@ public class CustomizeActivity extends AppCompatActivity {
         final CustomizeActivity context = this;
 
         // Printout Menu Size
-        final Query menuSize = ref.child("MenuSize").orderByChild("menu_ID").equalTo(menuID);
+        final Query menuSize = ref.child("MenuSize").orderByChild("menuID").equalTo(menuID);
         menuSize.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -169,8 +168,6 @@ public class CustomizeActivity extends AppCompatActivity {
 
             }
         });
-
-
     }
 
     public static void setListViewHeightBasedOnChildren(ListView listView) {

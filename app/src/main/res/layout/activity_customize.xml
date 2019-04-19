@@ -77,6 +77,7 @@
                         android:fontFamily="@font/roboto_medium"
                         android:textColor="@color/colorFont"
                         android:layout_marginBottom="10dp"
+                        android:maxWidth="250dp"
                         />
 
                     <TextView

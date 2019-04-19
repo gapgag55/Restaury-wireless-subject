@@ -88,7 +88,7 @@ public class RestaurantActivity extends AppCompatActivity {
         // onSave
 
         final ImageButton saveIcon = (ImageButton) findViewById(R.id.save_button);
-        RealmResults<Restaurant> restaurants = realm.where(Restaurant.class).equalTo("restaurant_ID", resID).findAll();
+        RealmResults<Restaurant> restaurants = realm.where(Restaurant.class).equalTo("restaurantID", resID).findAll();
 
         if (restaurants.size() > 0) {
             saveIcon.setBackgroundResource(R.drawable.ic_save_active);
@@ -100,7 +100,7 @@ public class RestaurantActivity extends AppCompatActivity {
 
                 realm.beginTransaction();
 
-                RealmResults<Restaurant> restaurants = realm.where(Restaurant.class).equalTo("restaurant_ID", resID).findAll();
+                RealmResults<Restaurant> restaurants = realm.where(Restaurant.class).equalTo("restaurantID", resID).findAll();
 
                 if (restaurants.size() > 0) {
 

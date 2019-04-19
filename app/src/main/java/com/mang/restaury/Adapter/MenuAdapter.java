@@ -83,7 +83,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder>  {
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference ref = database.getReference();
 
-        final Query menuSize = ref.child("MenuSize").orderByChild("menu_ID").equalTo(menu.getMenu_ID());
+        final Query menuSize = ref.child("MenuSize").orderByChild("menuID").equalTo(menu.getMenuID());
         menuSize.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -109,7 +109,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder>  {
                 if (temp.get("addonsAvailable")) {
                     Intent intent = new Intent(mContext, CustomizeActivity.class);
                     intent.putExtra("menuName", menu.getMenuName());
-                    intent.putExtra("menuID", menu.getMenu_ID());
+                    intent.putExtra("menuID", menu.getMenuID());
                     intent.putExtra("menuPrice", menu.getPrice().toString());
 
                     mContext.startActivity(intent);
