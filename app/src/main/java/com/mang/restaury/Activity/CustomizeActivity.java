@@ -45,10 +45,10 @@ public class CustomizeActivity extends AppCompatActivity {
 
         // From MenuAdapter.java
         final String menuID = getIntent().getExtras().getString("menuID");
-        String menuName = getIntent().getExtras().getString("menuName");
-        String menuPrice = getIntent().getExtras().getString("menuPrice");
+        final String menuName = getIntent().getExtras().getString("menuName");
+        final String menuPrice = getIntent().getExtras().getString("menuPrice");
 
-        ((TextView) findViewById(R.id.restaurant_name)).setText(menuName);
+        ((TextView) findViewById(R.id.menu_name)).setText(menuName);
         ((TextView) findViewById(R.id.total_price)).setText("฿" + menuPrice);
 
 
@@ -147,8 +147,17 @@ public class CustomizeActivity extends AppCompatActivity {
                         EditText instruction = (EditText) findViewById(R.id.instruction);
                         int totalNumber = Integer.parseInt(itemAmount.getText().toString());
 
+                        // variation
+                        Customize variation = variationAdapter.selectedVariation;
+                        int variationPrice = variation.getPrice();
+                        String variationSize = variation.getSizeId();
+
+                        // total price
+                        int basePrice = (int) Double.parseDouble(menuPrice);
+                        int totalPrice = (basePrice + variationPrice) * totalNumber;
+
                         // add to cart
-                        CartItem cartItem = new CartItem(menuID, variationAdapter.selectedVariation, instruction.getText().toString(), totalNumber);
+                        CartItem cartItem = new CartItem(menuID, menuName, variationSize, instruction.getText().toString(), totalPrice, totalNumber);
 
                         realm.beginTransaction();
 

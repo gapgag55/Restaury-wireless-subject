@@ -22,22 +22,30 @@ import com.mang.restaury.R;
 
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CartAdapter extends BaseAdapter {
 
-    private ArrayList<CartItem> items;
-    public static int totalPrice = 0;
+    private List<CartItem> items;
+    public static int subtotal = 0;
 
     LayoutInflater inflter;
     Context context;
-    CartFragment parent;
+    private CartFragment cartFragment;
 
-    public CartAdapter(Context context, CartFragment fragment, ArrayList<CartItem> items) {
+    public CartAdapter(CartFragment fragment, Context context, List<CartItem> items) {
+        this.cartFragment = fragment;
         this.context = context;
         this.items = items;
-        this.parent = fragment;
 
         inflter = (LayoutInflater.from(context));
+
+        // Calculate Default
+        for (CartItem item : items) {
+            subtotal += item.getTotalPrice();
+        }
+
+        cartFragment.updateValue();
     }
 
     @Override
@@ -72,7 +80,7 @@ public class CartAdapter extends BaseAdapter {
             view.setTag(holder);
 
         } else {
-            holder = (CartAdapter.ViewHolder)view.getTag();
+            holder = (CartAdapter.ViewHolder) view.getTag();
         }
 
         final CartItem cartItem = items.get(i);
@@ -95,7 +103,8 @@ public class CartAdapter extends BaseAdapter {
 
 
                     // set totalPrice
-
+                    subtotal -= basePrice;
+                    cartFragment.updateValue();
                 }
             }
         });
@@ -114,46 +123,16 @@ public class CartAdapter extends BaseAdapter {
                 // Set realm amount && price
                 holder.itemAmount.setText(String.valueOf(itemAmount));
                 holder.menuPrice.setText("฿ " + totalPrice);
+
+
+                subtotal += basePrice;
+                cartFragment.updateValue();
             }
         });
 
-
-        final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        final DatabaseReference ref = database.getReference();
-
-        // Load data from firebase
-        final Query menu = ref.child("Menu").child(cartItem.getMenuID());
-        menu.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-
-                System.out.println(dataSnapshot);
-                if (dataSnapshot.exists()) {
-
-                    String menuName = dataSnapshot.child("menuName").getValue(String.class);
-                    int price = dataSnapshot.child("menuBasePrice").getValue(int.class);
-                    int total = cartItem.getTotalNumber();
-
-                    int menuPrice = price * total;
-
-                    holder.menuName.setText(menuName);
-                    holder.menuPrice.setText("฿ " +  menuPrice);
-                    holder.itemAmount.setText(String.valueOf(total));
-
-
-                    // set total price
-                    totalPrice += menuPrice;
-                }
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
+        holder.menuName.setText(String.valueOf(cartItem.getMenuName()));
+        holder.menuPrice.setText("฿ " +  String.valueOf(cartItem.getTotalPrice()));
+        holder.itemAmount.setText(String.valueOf(cartItem.getTotalNumber()));
 
         return view;
     }

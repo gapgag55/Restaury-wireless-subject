@@ -58,8 +58,8 @@ public class MenusFragment extends Fragment {
         // Get a reference to our posts
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference();
-        Query menuRef = ref.child("Menu").orderByChild("restaurantID").equalTo(resID);
 
+        Query menuRef = ref.child("Menu").orderByChild("restaurantID").equalTo(resID);
         ValueEventListener eventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

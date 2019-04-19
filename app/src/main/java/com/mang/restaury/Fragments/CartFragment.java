@@ -22,10 +22,14 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.mang.restaury.Adapter.CartAdapter;
 import com.mang.restaury.Model.CartItem;
+import com.mang.restaury.Model.Restaurant;
 import com.mang.restaury.R;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.realm.Realm;
+import io.realm.RealmResults;
 
 
 /**
@@ -50,15 +54,19 @@ public class CartFragment extends Fragment {
         ListView cartItems = (ListView) rootView.findViewById(R.id.cart_items);
         cartItems.setDivider(null);
 
-        final ArrayList<CartItem> cart = new ArrayList<>();
 
         // Load Cart Item from Realm
+        final Realm realm = Realm.getDefaultInstance();
 
-        cart.add(new CartItem("-LckkWamP46Z8HlTLlip", "-LckkoAKqVghSSaDWSyK", "", 2));
-        cart.add(new CartItem("-Lckn4HATn-t0DC_0niW", "-LcknnBLXT9Z5Qdq5Zbj", "", 1));
+        final RealmResults<CartItem> items = realm.where(CartItem.class).findAll();
+        final List<CartItem> cart = items.subList(0, items.size());
+
+//
+//        cart.add(new CartItem("-LckkWamP46Z8HlTLlip", "Stir Fried Meat and Basil Leaves with Rice", "-LckkoAKqVghSSaDWSyK", "", 110, 2));
+//        cart.add(new CartItem("-Lckn4HATn-t0DC_0niW", "Teriyaki Meat with Rice", "-LcknnBLXT9Z5Qdq5Zbj", "", 65, 1));
 
 
-        cartAdapter = new CartAdapter(getActivity(), this, cart);
+        cartAdapter = new CartAdapter(CartFragment.this, getActivity(), cart);
         cartItems.setAdapter(cartAdapter);
         setListViewHeightBasedOnChildren(cartItems);
 
@@ -132,6 +140,7 @@ public class CartFragment extends Fragment {
 
 
 
+        System.out.println("OKKKKKKKK");
 
         return rootView;
     }
@@ -175,8 +184,16 @@ public class CartFragment extends Fragment {
         TextView vat = (TextView) rootView.findViewById(R.id.vat);
         TextView total = (TextView) rootView.findViewById(R.id.total);
 
-        subtotal.setText(cartAdapter.totalPrice);
 
+        int subTotalCal = cartAdapter.subtotal;
+        double vatCal = subTotalCal * 0.07;
+        int deliverFeeCal = 20;
+        double totalCal = subTotalCal + deliverFeeCal + vatCal;
+
+        subtotal.setText(String.valueOf("฿ " + subTotalCal));
+        deliveryFee.setText(String.valueOf("฿ " + deliverFeeCal));
+        vat.setText(String.valueOf("฿ " + String.format("%.2f", vatCal)));
+        total.setText(String.valueOf("฿ " + String.format("%.2f", totalCal)));
     }
 
 }

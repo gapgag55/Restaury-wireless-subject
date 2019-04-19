@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class VariationAdapter extends BaseAdapter {
 
     private ArrayList<Customize> variations;
-    public static String selectedVariation;
+    public static Customize selectedVariation;
 
     LayoutInflater inflter;
     Context context;
@@ -78,7 +78,7 @@ public class VariationAdapter extends BaseAdapter {
                 selectedPosition = i;
                 button = (RadioButton) v;
 
-                selectedVariation = variations.get(i).getSizeId();
+                selectedVariation = variations.get(i);
             }
         });
 
