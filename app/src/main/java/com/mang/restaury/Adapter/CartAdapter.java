@@ -24,6 +24,9 @@ import com.mang.restaury.R;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.realm.Realm;
+import io.realm.RealmResults;
+
 public class CartAdapter extends BaseAdapter {
 
     private List<CartItem> items;
@@ -32,13 +35,17 @@ public class CartAdapter extends BaseAdapter {
     LayoutInflater inflter;
     Context context;
     private CartFragment cartFragment;
+    private Realm realm;
 
     public CartAdapter(CartFragment fragment, Context context, List<CartItem> items) {
         this.cartFragment = fragment;
         this.context = context;
         this.items = items;
+        realm = Realm.getDefaultInstance();
 
         inflter = (LayoutInflater.from(context));
+
+        subtotal = 0;
 
         // Calculate Default
         for (CartItem item : items) {
@@ -91,13 +98,23 @@ public class CartAdapter extends BaseAdapter {
             public void onClick(View v) {
                 int totalPrice = Integer.parseInt(holder.menuPrice.getText().toString().split(" ")[1]);
                 int itemAmount = Integer.parseInt(holder.itemAmount.getText().toString());
-                int basePrice = totalPrice / itemAmount;
+                final int basePrice = totalPrice / itemAmount;
 
                 itemAmount = itemAmount - 1;
                 totalPrice = itemAmount * basePrice;
 
+                final int amount = itemAmount;
+                final int price = totalPrice;
+
                 if (itemAmount > 0) {
                     // Set realm amount && price
+                    realm.beginTransaction();
+                    CartItem item = realm.where(CartItem.class).equalTo("menuID", cartItem.getMenuID().toString()).findFirst();
+                    item.setTotalPrice(price);
+                    item.setTotalNumber(amount);
+                    realm.commitTransaction();
+
+                    // set Text
                     holder.itemAmount.setText(String.valueOf(itemAmount));
                     holder.menuPrice.setText("฿ " + totalPrice);
 
@@ -121,6 +138,13 @@ public class CartAdapter extends BaseAdapter {
 
 
                 // Set realm amount && price
+                realm.beginTransaction();
+                CartItem item = realm.where(CartItem.class).equalTo("menuID", cartItem.getMenuID().toString()).findFirst();
+                item.setTotalPrice(totalPrice);
+                item.setTotalNumber(itemAmount);
+                realm.commitTransaction();
+
+                //set text
                 holder.itemAmount.setText(String.valueOf(itemAmount));
                 holder.menuPrice.setText("฿ " + totalPrice);
 

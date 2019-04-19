@@ -263,8 +263,7 @@
                 android:layout_below="@+id/cart_delivery"
                 android:orientation="vertical"
                 android:background="@android:color/white"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="180dp">
+                android:layout_marginTop="20dp">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -318,31 +317,34 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:padding="15dp"
+                android:layout_below="@+id/cart_contact"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="180dp"
+                android:elevation="10dp">
+
+                <Button
+                    android:id="@+id/place_order"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/orange_button"
+                    android:text="PLACE YOUR ORDER"
+                    android:fontFamily="@font/roboto_medium"
+                    android:textColor="@android:color/white"
+                    android:textSize="17sp"
+                    android:padding="15dp"/>
+
+            </LinearLayout>
+
+
         </LinearLayout>
 
     </ScrollView>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/white"
-        android:padding="15dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="50dp"
-        android:elevation="10dp">
-
-        <Button
-            android:id="@+id/place_order"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/orange_button"
-            android:text="PLACE YOUR ORDER"
-            android:fontFamily="@font/roboto_medium"
-            android:textColor="@android:color/white"
-            android:textSize="17sp"
-            android:padding="15dp"/>
-
-    </LinearLayout>
 
 
 </RelativeLayout>

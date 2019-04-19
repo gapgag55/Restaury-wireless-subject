@@ -61,15 +61,9 @@ public class CartFragment extends Fragment {
         final RealmResults<CartItem> items = realm.where(CartItem.class).findAll();
         final List<CartItem> cart = items.subList(0, items.size());
 
-//
-//        cart.add(new CartItem("-LckkWamP46Z8HlTLlip", "Stir Fried Meat and Basil Leaves with Rice", "-LckkoAKqVghSSaDWSyK", "", 110, 2));
-//        cart.add(new CartItem("-Lckn4HATn-t0DC_0niW", "Teriyaki Meat with Rice", "-LcknnBLXT9Z5Qdq5Zbj", "", 65, 1));
-
-
         cartAdapter = new CartAdapter(CartFragment.this, getActivity(), cart);
         cartItems.setAdapter(cartAdapter);
         setListViewHeightBasedOnChildren(cartItems);
-
 
 
         // Set Maximum people can book
@@ -137,10 +131,6 @@ public class CartFragment extends Fragment {
                 }
             });
         }
-
-
-
-        System.out.println("OKKKKKKKK");
 
         return rootView;
     }

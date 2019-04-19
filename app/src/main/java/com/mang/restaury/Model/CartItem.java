@@ -47,4 +47,12 @@ public class CartItem extends RealmObject {
     public int getTotalNumber() {
         return totalNumber;
     }
+
+    public void setTotalPrice(int totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public void setTotalNumber(int totalNumber) {
+        this.totalNumber = totalNumber;
+    }
 }
