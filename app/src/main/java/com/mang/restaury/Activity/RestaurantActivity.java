@@ -35,7 +35,7 @@ public class RestaurantActivity extends AppCompatActivity {
     private double longitute;
     private String picture;
     private String about;
-    private int resID;
+    private String resID;
     private String resName;
     private int resDeliverFee;
 
@@ -53,7 +53,7 @@ public class RestaurantActivity extends AppCompatActivity {
         longitute = getIntent().getExtras().getDouble("longitute");
         picture = getIntent().getExtras().getString("picture");
         about = getIntent().getExtras().getString("about");
-        resID = getIntent().getExtras().getInt("res_id");
+        resID = getIntent().getExtras().getString("res_id");
         resName = getIntent().getExtras().getString("res_name");
         resDeliverFee =  getIntent().getExtras().getInt("res_deliverFee");
 

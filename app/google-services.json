@@ -1,108 +1,34 @@
 {
   "project_info": {
-    "project_number": "561825470864",
-    "firebase_url": "https://restaury-d0fc6.firebaseio.com",
-    "project_id": "restaury-d0fc6",
-    "storage_bucket": "restaury-d0fc6.appspot.com"
+    "project_number": "400002432414",
+    "firebase_url": "https://restaurytest.firebaseio.com",
+    "project_id": "restaurytest",
+    "storage_bucket": "restaurytest.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:561825470864:android:4d973ce8611ae520",
-        "android_client_info": {
-          "package_name": "com.android.application"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "561825470864-osp43mq1ebrmj8tmsg8m2aq8g6vcgkb2.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyD594DVpShnueyYjx8uSuKtL4kEjsJKYGY"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "561825470864-osp43mq1ebrmj8tmsg8m2aq8g6vcgkb2.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:561825470864:android:39edc59b7833da50",
-        "android_client_info": {
-          "package_name": "com.example.test"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "561825470864-hi72hr5cui0eilt5lh3etjjs8t5pqsop.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.test",
-            "certificate_hash": "94f7c33f10cf81a586f20d64ecf9b181e2106a3c"
-          }
-        },
-        {
-          "client_id": "561825470864-osp43mq1ebrmj8tmsg8m2aq8g6vcgkb2.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyD594DVpShnueyYjx8uSuKtL4kEjsJKYGY"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "561825470864-osp43mq1ebrmj8tmsg8m2aq8g6vcgkb2.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:561825470864:android:3e9a219ad4dd5602",
+        "mobilesdk_app_id": "1:400002432414:android:3e9a219ad4dd5602",
         "android_client_info": {
           "package_name": "com.mang.restaury"
         }
       },
       "oauth_client": [
         {
-          "client_id": "561825470864-mr8vo1udab097fr43paj0b6q4qcs4695.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.mang.restaury",
-            "certificate_hash": "94f7c33f10cf81a586f20d64ecf9b181e2106a3c"
-          }
-        },
-        {
-          "client_id": "561825470864-osp43mq1ebrmj8tmsg8m2aq8g6vcgkb2.apps.googleusercontent.com",
+          "client_id": "400002432414-v96v0m5h426ijhfl3pqj7h252jrh59bq.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyD594DVpShnueyYjx8uSuKtL4kEjsJKYGY"
+          "current_key": "AIzaSyAmAkHuwLhh4pcNAVPKfBjIuhTLeFOrJhU"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "561825470864-osp43mq1ebrmj8tmsg8m2aq8g6vcgkb2.apps.googleusercontent.com",
+              "client_id": "400002432414-v96v0m5h426ijhfl3pqj7h252jrh59bq.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

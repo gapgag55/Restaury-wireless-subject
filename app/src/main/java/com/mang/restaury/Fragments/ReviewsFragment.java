@@ -43,11 +43,13 @@ public class ReviewsFragment extends Fragment {
     private ArrayList<Comment> comments;
     private View rootView;
 
-    private int resID;
+    private String resID;
 
-    public ReviewsFragment(int resID) {
+    public ReviewsFragment(String resID) {
         this.resID = resID;
     }
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

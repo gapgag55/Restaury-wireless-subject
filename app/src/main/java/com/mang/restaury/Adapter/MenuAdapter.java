@@ -26,6 +26,7 @@ import com.mang.restaury.Activity.RestaurantActivity;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.StringTokenizer;
 
 public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder>  {
     private Context mContext;
@@ -46,19 +47,38 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder>  {
         return new MenuAdapter.ViewHolder(view);
     }
 
+    public String addLinebreaks(String input, int maxLineLength) {
+        StringTokenizer tok = new StringTokenizer(input, " ");
+        StringBuilder output = new StringBuilder(input.length());
+        int lineLen = 0;
+        while (tok.hasMoreTokens()) {
+            String word = tok.nextToken();
+
+            if (lineLen + word.length() > maxLineLength) {
+                output.append("\n");
+                lineLen = 0;
+
+            }
+            output.append(word+" ");
+            lineLen += word.length();
+        }
+        return output.toString();
+    }
+
     @Override
     public void onBindViewHolder(@NonNull final MenuAdapter.ViewHolder viewHolder, int i) {
 
         final Menu menu = mData.get(i);
 
-        viewHolder.menuName.setText(menu.getMenuName());
+        viewHolder.menuName.setText(addLinebreaks(menu.getMenuName(),30));
+
         viewHolder.menuPrice.setText("฿ " + menu.getPrice().toString());
 
 
         // Enable and Disable intent for add ons
 
         final HashMap<String, Boolean> temp = new HashMap<>();
-        temp.put("addonsAvailable", false);
+        temp.put("addonsAvailable", true);
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference ref = database.getReference();
@@ -75,7 +95,6 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder>  {
                 }
 
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 

@@ -63,29 +63,49 @@ public class SearchFragment extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot ds : dataSnapshot.getChildren()) {
 
-                    int restaurantID = ds.child("restaurant_ID").getValue(int.class);
-                    String restaurantAbout = ds.child("restaurant_about").getValue(String.class);
-                    int restaurantDeliverFee = ds.child("restaurant_deliverFee").getValue(int.class);
-                    double restaurantLatitute = ds.child("restaurant_latitute").getValue(double.class);
-                    double restaurantLongtitute = ds.child("restaurant_longtitute").getValue(double.class);
-                    String restaurantName = ds.child("restaurant_name").getValue(String.class);
-                    String picture = ds.child("restaurant_pic").getValue(String.class);
-
-                    Log.d(TAG,restaurantID+"/"+restaurantAbout+picture);
+                    String restaurantAbout = ds.child("restaurantAbout").getValue(String.class);
+                    Double restaurantDeliverFee = ds.child("restaurantDeliverFee").getValue(Double.class);
+                    Double restaurantLatitute = ds.child("restaurantLatitute").getValue(Double.class);
+                    Double restaurantLongtitute = ds.child("restaurantLongtitute").getValue(Double.class);
+                    String restaurantName = ds.child("restaurantName").getValue(String.class);
 
                     restaurants.add(new Restaurant(restaurantName,
                             restaurantLatitute,
                             restaurantLongtitute,
-                            restaurantID,
+                            ds.getKey(),
                             restaurantAbout,
                             restaurantDeliverFee,
-                            picture));
+                            null));
                 }
 
-                RecyclerView recycleView = (RecyclerView) view.findViewById(R.id.restaurant_cycle);
-                RestaurantAdapter myAdapter = new RestaurantAdapter(view.getContext(), restaurants);
-                recycleView.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
-                recycleView.setAdapter(myAdapter);
+                final FirebaseDatabase database = FirebaseDatabase.getInstance();
+                DatabaseReference ref = database.getReference();
+                DatabaseReference tableRef = ref.child("RestaurantPicture");
+
+                ValueEventListener eventListener = new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for(DataSnapshot ds : dataSnapshot.getChildren()) {
+                            String restaurantID = ds.child("restaurantID").getValue(String.class);
+                            String restaurantPictureURL = ds.child("restaurantPictureURL").getValue(String.class);
+                            for(Restaurant r : restaurants){
+                                if(r.getRestaurant_ID().equals(restaurantID)){
+                                    r.setPicture(restaurantPictureURL);
+                                }
+                            }
+                        }
+
+                        RecyclerView recycleView = (RecyclerView) view.findViewById(R.id.restaurant_cycle);
+                        RestaurantAdapter myAdapter = new RestaurantAdapter(view.getContext(), restaurants);
+                        recycleView.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
+                        recycleView.setAdapter(myAdapter);
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {}
+                };
+                tableRef.addListenerForSingleValueEvent(eventListener);
             }
 
             @Override

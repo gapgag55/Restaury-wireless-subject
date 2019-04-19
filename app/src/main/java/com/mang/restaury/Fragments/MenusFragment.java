@@ -39,9 +39,9 @@ import static android.support.constraint.Constraints.TAG;
 public class MenusFragment extends Fragment {
 
     private ArrayList<Menu> menus;
-    int resID;
+    String resID;
 
-    public MenusFragment(int resID) {
+    public MenusFragment(String resID) {
         // Required empty public constructor
         this.resID = resID;
     }
@@ -58,21 +58,20 @@ public class MenusFragment extends Fragment {
         // Get a reference to our posts
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference();
-        Query menuRef = ref.child("Menu").orderByChild("restaurant_ID").equalTo(resID);
+        Query menuRef = ref.child("Menu").orderByChild("restaurantID").equalTo(resID);
 
         ValueEventListener eventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot ds : dataSnapshot.getChildren()) {
 
-                    int menu_ID = ds.child("menu_ID").getValue(int.class);
-                    int menu_basePrice = ds.child("menu_basePrice").getValue(int.class);
-                    String menu_name = ds.child("menu_name").getValue(String.class);
-                    String menu_pictureURL = ds.child("menu_pictureURL").getValue(String.class);
+                    String menu_ID = ds.getKey();
+                    int menu_basePrice = ds.child("menuBasePrice").getValue(int.class);
+                    String menu_name = ds.child("menuName").getValue(String.class);
 
                     Log.d(TAG,menu_ID+"/"+resID+"/"+menu_basePrice);
 
-                    menus.add(new Menu(menu_ID, menu_name, menu_basePrice, menu_pictureURL, resID));
+                    menus.add(new Menu(menu_ID, menu_name, menu_basePrice, resID));
                 }
 
                 System.out.println(menus.toArray());

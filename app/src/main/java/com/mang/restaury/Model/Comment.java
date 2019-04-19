@@ -5,16 +5,17 @@ public class Comment {
     private String dateTime;
     private String detail;
     private float rating;
-    private int restaurantID;
+    private String restaurantID;
     private String userId;
 
-    public Comment(String dateTime, String detail, float rating, int restaurantID, String userId) {
+    public Comment(String dateTime, String detail, float rating, String restaurantID, String userId) {
         this.dateTime = dateTime;
         this.detail = detail;
         this.rating = rating;
         this.restaurantID = restaurantID;
         this.userId = userId;
     }
+
 
     public String getDateTime() {
         return dateTime;
@@ -28,7 +29,7 @@ public class Comment {
         return rating;
     }
 
-    public int getRestaurantID() {
+    public String getRestaurantID() {
         return restaurantID;
     }
 

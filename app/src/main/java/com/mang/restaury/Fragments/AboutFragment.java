@@ -26,7 +26,7 @@ public class AboutFragment extends Fragment {
 //    private Authentication auth;
 
     private TextView description;
-    private int resID;
+    private String resID;
     private String restaurantName;
     private double latitute;
     private double longitute;
@@ -35,7 +35,7 @@ public class AboutFragment extends Fragment {
 //    MapView mMapView;
 //    private GoogleMap googleMap;
 
-    public AboutFragment(int resID, String restaurantName, double latitute, double longitute, String about) {
+    public AboutFragment(String resID, String restaurantName, double latitute, double longitute, String about) {
         this.resID = resID;
         this.restaurantName = restaurantName;
         this.latitute = latitute;

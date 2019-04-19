@@ -4,9 +4,9 @@ import io.realm.RealmObject;
 
 public class Restaurant extends RealmObject {
 
-    private int restaurant_ID;
+    private String restaurant_ID;
     private String restaurant_about;
-    private int restaurant_deliverFee;
+    private double restaurant_deliverFee;
     private String title;
     private double latitude;
     private double longtitude;
@@ -16,7 +16,7 @@ public class Restaurant extends RealmObject {
     public Restaurant() {
     }
 
-    public Restaurant(String title, double latitude, double longtitude, int restaurant_ID, String restaurant_about, int restaurant_deliverFee,String picture) {
+    public Restaurant(String title, double latitude, double longtitude, String restaurant_ID, String restaurant_about, double restaurant_deliverFee,String picture) {
         this.title = title;
         this.latitude = latitude;
         this.longtitude = longtitude;
@@ -49,11 +49,11 @@ public class Restaurant extends RealmObject {
         this.title = title;
     }
 
-    public int getRestaurant_ID() {
+    public String getRestaurant_ID() {
         return restaurant_ID;
     }
 
-    public void setRestaurant_ID(int restaurant_ID) {
+    public void setRestaurant_ID(String restaurant_ID) {
         this.restaurant_ID = restaurant_ID;
     }
 
@@ -65,11 +65,11 @@ public class Restaurant extends RealmObject {
         this.restaurant_about = restaurant_about;
     }
 
-    public int getRestaurant_deliverFee() {
+    public double getRestaurant_deliverFee() {
         return restaurant_deliverFee;
     }
 
-    public void setRestaurant_deliverFee(int restaurant_deliverFee) {
+    public void setRestaurant_deliverFee(double restaurant_deliverFee) {
         this.restaurant_deliverFee = restaurant_deliverFee;
     }
 
