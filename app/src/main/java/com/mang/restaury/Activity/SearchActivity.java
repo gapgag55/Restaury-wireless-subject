@@ -9,6 +9,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
@@ -21,6 +23,12 @@ import android.widget.TextView;
 
 import com.crystal.crystalrangeseekbar.interfaces.OnRangeSeekbarChangeListener;
 import com.crystal.crystalrangeseekbar.interfaces.OnRangeSeekbarFinalValueListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.mang.restaury.Adapter.RestaurantAdapter;
 import com.mang.restaury.Fragments.CartFragment;
 import com.mang.restaury.Fragments.FavoriteFragment;
 import com.mang.restaury.Fragments.ProfileFragment;
@@ -31,6 +39,7 @@ import com.mang.restaury.R;
 import com.mang.restaury.Utility.RangeSeekBar;
 
 import java.util.ArrayList;
+import java.util.TreeMap;
 
 public class SearchActivity extends AppCompatActivity {
 
@@ -41,11 +50,19 @@ public class SearchActivity extends AppCompatActivity {
     LinearLayout gv,drawer_left,drawer_right;
     Context con = this;
 
-    Button thai_food_button,intalian_food_button,japanese_food_button,indian_food_button;
+    Button thai_food_button,intalian_food_button,japanese_food_button,indian_food_button,apply_button;
     int thai_food,intalian_food,japanese_food,indian_food;
+    TreeMap<String,Integer> foodtype ;
+
 
     ImageButton one_star_button,two_star_button,three_star_button,four_star_button,five_star_button;
+    TreeMap<Integer, Integer> stars;
     int one_star,two_star,three_star,four_star,five_star;
+
+    TreeMap<String,Integer> minMax;
+
+
+    int min,max;
 
     private ArrayList<Restaurant> restaurants;
 
@@ -89,6 +106,10 @@ public class SearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search);
 
 
+        // search result
+        restaurants = new ArrayList<>();
+
+
         // onBack
         ImageButton backIcon = (ImageButton) findViewById(R.id.back_icon);
         backIcon.setOnClickListener(new View.OnClickListener() {
@@ -102,10 +123,12 @@ public class SearchActivity extends AppCompatActivity {
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        renderFragment(new searchResultFragment());
+        final String keyword = getIntent().getExtras().getString("keyword");
+
+        renderFragment(new searchResultFragment(keyword));
 
         TextView searchTitle = (TextView) findViewById(R.id.search_title);
-        searchTitle.setText("Search: " + getIntent().getExtras().getString("keyword"));
+        searchTitle.setText("Search: " + keyword);
 
         // right drawer
         t1 = (Toolbar) findViewById(R.id.toolbar);
@@ -164,6 +187,8 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void finalValue(Number minValue, Number maxValue) {
                 Log.d("CRS=>", String.valueOf(minValue) + " : " + String.valueOf(maxValue));
+                min = new Integer(String.valueOf(minValue));
+                max = new Integer(String.valueOf(maxValue));
             }
         });
 
@@ -311,6 +336,33 @@ public class SearchActivity extends AppCompatActivity {
                     five_star_button.setImageResource(R.drawable.one_star);
                     five_star = 0;
                 }
+            }
+        });
+
+        apply_button = findViewById(R.id.apply_filter);
+        apply_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                minMax = new TreeMap<String,Integer>();
+                stars = new TreeMap<Integer, Integer>();
+                foodtype = new TreeMap<String,Integer>();
+
+                foodtype.put("thai_food",thai_food);
+                foodtype.put("intalian_food",intalian_food);
+                foodtype.put("japanese_food",japanese_food);
+                foodtype.put("indian_food",indian_food);
+
+                stars.put(1,one_star);
+                stars.put(2,two_star);
+                stars.put(3,three_star);
+                stars.put(4,four_star);
+                stars.put(5,five_star);
+
+                minMax.put("min",min);
+                minMax.put("max",max);
+
+                renderFragment(new searchResultFragment(keyword,foodtype,stars,minMax));
             }
         });
     }

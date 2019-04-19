@@ -37,7 +37,9 @@ public class RestaurantActivity extends AppCompatActivity {
     private String about;
     private String resID;
     private String resName;
-    private int resDeliverFee;
+    private double resDeliverFee;
+    private double resStar;
+    private String resType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +57,9 @@ public class RestaurantActivity extends AppCompatActivity {
         about = getIntent().getExtras().getString("about");
         resID = getIntent().getExtras().getString("res_id");
         resName = getIntent().getExtras().getString("res_name");
-        resDeliverFee =  getIntent().getExtras().getInt("res_deliverFee");
+        resDeliverFee =  getIntent().getExtras().getDouble("res_deliverFee");
+        resStar = getIntent().getExtras().getDouble("res_star");
+        resType = getIntent().getExtras().getString("resType");
 
 
         // set image of the restaurant
@@ -111,7 +115,7 @@ public class RestaurantActivity extends AppCompatActivity {
                 } else {
 
                     // add
-                    Restaurant restaurant = new Restaurant(resName, latitute, longitute,  resID, about, resDeliverFee, picture);
+                    Restaurant restaurant = new Restaurant(resName, latitute, longitute,  resID, about, resDeliverFee, picture,resStar,resType);
 
                     final Restaurant managedRestaurant = realm.copyToRealm(restaurant);
                     Favorite favorite = realm.createObject(Favorite.class);

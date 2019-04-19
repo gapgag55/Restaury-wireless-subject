@@ -15,13 +15,15 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@android:color/white">
+
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/restaurant_cycle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="15dp"
-                android:layout_marginBottom="50dp"
-                android:background="@android:color/white">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/near_layout"
+                android:padding="20dp"
+                android:layout_marginBottom="50dp">
+
             </android.support.v7.widget.RecyclerView>
 
         </RelativeLayout>
