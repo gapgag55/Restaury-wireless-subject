@@ -91,7 +91,7 @@
                                 android:layout_height="25dp"
                                 android:textColor="@color/colorThirdary"
                                 android:background="@android:color/transparent"
-                                android:text="+">
+                                android:text="+" />
 
                         </LinearLayout>
 
