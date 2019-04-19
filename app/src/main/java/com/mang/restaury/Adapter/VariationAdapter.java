@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class VariationAdapter extends BaseAdapter {
 
     private ArrayList<Customize> variations;
-    public static int selectedVariation;
+    public static String selectedVariation;
 
     LayoutInflater inflter;
     Context context;

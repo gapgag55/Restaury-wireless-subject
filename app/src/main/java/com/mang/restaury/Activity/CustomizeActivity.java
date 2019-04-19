@@ -44,7 +44,7 @@ public class CustomizeActivity extends AppCompatActivity {
         final Realm realm = Realm.getDefaultInstance();
 
         // From MenuAdapter.java
-        final int menuID = getIntent().getExtras().getInt("menuID");
+        final String menuID = getIntent().getExtras().getString("menuID");
         String menuName = getIntent().getExtras().getString("menuName");
         String menuPrice = getIntent().getExtras().getString("menuPrice");
 
@@ -90,14 +90,14 @@ public class CustomizeActivity extends AppCompatActivity {
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference ref = database.getReference();
 
-        final HashMap<Integer, String> sizeMap = new HashMap<>();
+        final HashMap<String, String> sizeMap = new HashMap<>();
         final Query size = ref.child("Size");
         size.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
 
-                    int sizeID = ds.child("sizeID").getValue(int.class);
+                    String sizeID = ds.getKey();
                     String sizeName = ds.child("sizeName").getValue(String.class);
 
                     sizeMap.put(sizeID, sizeName);
@@ -126,9 +126,9 @@ public class CustomizeActivity extends AppCompatActivity {
 
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
 
-                    int sizeId = ds.child("size_ID").getValue(int.class);
+                    String sizeId = ds.child("sizeID").getValue(String.class);
                     String sizeName = sizeMap.get(sizeId);
-                    int sizePrice = ds.child("menuSize_additionalprice").getValue(int.class);
+                    int sizePrice = ds.child("additionalPrice").getValue(int.class);
 
                     variations.add(new Customize(sizeId, sizeName, sizePrice));
                 }

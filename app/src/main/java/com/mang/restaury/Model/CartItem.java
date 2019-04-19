@@ -6,25 +6,25 @@ import io.realm.RealmObject;
 
 public class CartItem extends RealmObject {
 
-    private int menuID;
-    private int sizeID;
+    private String menuID;
+    private String sizeID;
     private String instruction;
     private int totalNumber;
 
     public CartItem() {}
 
-    public CartItem(int menuID, int sizeID, String instruction, int totalNumber) {
+    public CartItem(String menuID, String sizeID, String instruction, int totalNumber) {
         this.menuID = menuID;
         this.sizeID = sizeID;
         this.instruction = instruction;
         this.totalNumber = totalNumber;
     }
 
-    public int getMenuID() {
+    public String getMenuID() {
         return menuID;
     }
 
-    public int getSizeID() {
+    public String getSizeID() {
         return sizeID;
     }
 
