@@ -6,7 +6,7 @@ import io.realm.RealmObject;
 
 public class CartItem extends RealmObject {
 
-    private String menuID;
+    private String menuID; // MenuID can get restaurantID
     private String sizeID;
     private String instruction;
     private int totalNumber;
