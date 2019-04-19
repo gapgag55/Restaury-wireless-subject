@@ -78,11 +78,11 @@
                         android:paddingRight="10dp"/>
 
                     <Button
-                        android:id="@+id/intalian_food"
+                        android:id="@+id/france_food"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
                         android:background="@drawable/orange_border"
-                        android:text="Intalian Food"
+                        android:text="France Food"
                         android:textAllCaps="false"
                         android:textColor="@color/colorFont"
                         android:textSize="15dp"
@@ -91,11 +91,11 @@
                         android:paddingRight="10dp"/>
 
                     <Button
-                        android:id="@+id/japanese_food"
+                        android:id="@+id/usa_food"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
                         android:background="@drawable/orange_border"
-                        android:text="Japanese Food"
+                        android:text="USA Food"
                         android:textAllCaps="false"
                         android:textColor="@color/colorFont"
                         android:textSize="15dp"
@@ -104,11 +104,24 @@
                         android:paddingRight="10dp"/>
 
                     <Button
-                        android:id="@+id/indian_food"
+                        android:id="@+id/india_food"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
                         android:background="@drawable/orange_border"
                         android:text="Indian Food"
+                        android:textAllCaps="false"
+                        android:textColor="@color/colorFont"
+                        android:textSize="15dp"
+                        android:layout_marginLeft="10dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"/>
+
+                    <Button
+                        android:id="@+id/japan_food"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:background="@drawable/orange_border"
+                        android:text="Japan Food"
                         android:textAllCaps="false"
                         android:textColor="@color/colorFont"
                         android:textSize="15dp"
@@ -149,7 +162,8 @@
                 app:bar_highlight_color="@color/colorSecondary"
                 app:bar_color="@color/colorLine"
                 app:min_value="0"
-                app:max_value="5000"
+                app:max_value="100"
+                app:steps="1"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"/>
 

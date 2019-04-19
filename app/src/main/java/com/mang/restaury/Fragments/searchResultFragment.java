@@ -17,6 +17,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.database.core.utilities.Tree;
 import com.mang.restaury.Adapter.MenuAdapter;
@@ -26,6 +27,7 @@ import com.mang.restaury.Model.Restaurant;
 import com.mang.restaury.R;
 
 import java.lang.reflect.Array;
+import java.net.Inet4Address;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -40,7 +42,7 @@ public class searchResultFragment extends Fragment {
     private ArrayList<Restaurant> restaurants;
     private TreeMap<String,Integer> foodtype = null;
     private TreeMap<Integer, Integer> stars = null;
-    private TreeMap<String,Integer> minMax = null;
+    private TreeMap<String,Integer> minMaxc = null;
 
 
 
@@ -63,7 +65,7 @@ public class searchResultFragment extends Fragment {
         this.keyword = keyword;
         this.foodtype = foodtype;
         this.stars = stars;
-        this.minMax = minMax;
+        this.minMaxc = minMax;
     }
 
 
@@ -129,19 +131,100 @@ public class searchResultFragment extends Fragment {
                         for(Restaurant r : restaurants){
                             if(!r.getTitle().toLowerCase().contains(keyword.toLowerCase()))continue;
 
-                            if(stars != null){
+
+//                            if(foodtype!=null){
+//                                int match = 0;
+//                                String[] foodtypeR = r.getType().split(",");
+//                                Log.d("test"," "+foodtypeR[0]);
+//                                for(int i = 0; i < foodtypeR.length;i++){
+//                                    if((int)foodtype.get(foodtypeR[i])==0){
+//                                        match = 1;
+//                                        break;
+//                                    };
+//                                }
+//                                if(match == 0) continue;
+//                            }
+
+
+                            if(stars!=null){
                                 Log.d("dad",Math.floor(r.getStar())+"");
+
                                 if(stars.get((int)Math.floor(r.getStar()))==0)continue;
                             }
+
                             filteredRestaurant.add(r);
                         }
 
+                        final TreeMap<String,Integer[]> resRange =  new TreeMap<String,Integer[]>();
+
+                        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+                        DatabaseReference ref = database.getReference();
+                        Query menuRef = ref.child("Menu");
+
+                        ValueEventListener eventListener = new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                for(DataSnapshot ds : dataSnapshot.getChildren()) {
+                                    String resID = ds.child("restaurantID").getValue(String.class);
+                                    for(Restaurant r : filteredRestaurant){
+                                        if(r.getRestaurantID().equals(resID)){
+                                            Integer[] minMax;
+                                            if(!resRange.containsKey(resID)){
+
+                                                minMax = new Integer[2];
+                                                minMax[0] = ds.child("menuBasePrice").getValue(Integer.class);
+                                                minMax[1] = ds.child("menuBasePrice").getValue(Integer.class);
+
+                                            }else{
+                                                minMax = resRange.get(resID);
+                                                int price = ds.child("menuBasePrice").getValue(Integer.class);
+                                                if(price<minMax[0]) minMax[0] = price;
+                                                if(price>minMax[1]) minMax[1] = price;
+                                            }
+                                            resRange.put(resID,minMax);
+                                        }
+                                    }
+                                }
+
+                                final ArrayList<Restaurant> filteredRestaurant2 = new ArrayList<>();
 
 
-                        RecyclerView recycleView = (RecyclerView) view.findViewById (R.id.restaurant_cycle);
-                        RestaurantAdapter myAdapter = new RestaurantAdapter(view.getContext(), filteredRestaurant);
-                        recycleView.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
-                        recycleView.setAdapter(myAdapter);
+                                for(Restaurant r : filteredRestaurant){
+                                    Integer[] minMax = resRange.get(r.getRestaurantID());
+                                    Log.d("bank",(minMaxc!=null)+" ");
+                                    if(minMaxc!=null){
+                                        Integer min = minMaxc.get("min");
+                                        Integer max = minMaxc.get("max");
+
+                                        Log.d("bank",(min>minMax[0])+" "+(max<minMax[1]));
+
+                                        if(!(min>minMax[0]&&max<minMax[1])){
+
+                                            continue;
+                                        }
+                                    }
+
+                                    filteredRestaurant2.add(r);
+
+                                }
+
+                                RecyclerView recycleView = (RecyclerView) view.findViewById (R.id.restaurant_cycle);
+                                RestaurantAdapter myAdapter = new RestaurantAdapter(view.getContext(), filteredRestaurant2);
+                                recycleView.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
+                                recycleView.setAdapter(myAdapter);
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        };
+
+                        menuRef.addListenerForSingleValueEvent(eventListener);
+
+
+
+
                     }
 
                     @Override
