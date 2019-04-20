@@ -9,16 +9,11 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.mang.restaury.Activity.RestaurantActivity;
-import com.mang.restaury.Model.CartItem;
 import com.mang.restaury.Model.Order;
 import com.mang.restaury.R;
-import com.mang.restaury.YourOrderActivity;
-
-import org.w3c.dom.Text;
+import com.mang.restaury.Activity.YourOrderActivity;
 
 import java.util.HashMap;
-import java.util.List;
 
 
 public class MyOrderAdapter extends BaseAdapter {
@@ -56,7 +51,7 @@ public class MyOrderAdapter extends BaseAdapter {
         final MyOrderAdapter.ViewHolder holder;
 
         if(view == null){
-            view = inflter.inflate(R.layout.cart_item, viewGroup, false);
+            view = inflter.inflate(R.layout.my_orders, viewGroup, false);
             holder = new MyOrderAdapter.ViewHolder();
 
             holder.dateTime = (TextView) view.findViewById(R.id.date_time);
@@ -67,21 +62,17 @@ public class MyOrderAdapter extends BaseAdapter {
         } else {
             holder = (MyOrderAdapter.ViewHolder) view.getTag();
         }
-//
-//        for (Order order : items) {
-//
-//        }
 
-        Order order = items.get((items.keySet().toArray())[i]);
+        final String orderKey = (items.keySet().toArray())[i].toString();
+        Order order = items.get(orderKey);
 
-        holder.dateTime.setText("Date: " + order.getOrderDateTime().toString());
+        holder.dateTime.setText("Date: " + order.getOrderDateTime());
         holder.viewOrderButton.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
 
-
                  Intent intent = new Intent(mContext, YourOrderActivity.class);
-//                 intent.putExtra("restaurant_name", restaurant.getTitle());
+                 intent.putExtra("orderId", orderKey);
 
                  mContext.startActivity(intent);
 

@@ -83,10 +83,10 @@ public class ProfileFragment extends Fragment {
                     orders.put(key, new Order(uid, orderTotalPrice, orderDateTime, orderAddress, orderPhone));
 
                 }
-//
-//                MyOrderAdapter orderAdapter = new MyOrderAdapter(getContext(), orders);
-//                myOrders.setAdapter(orderAdapter);
-//                setListViewHeightBasedOnChildren(myOrders);
+
+                MyOrderAdapter orderAdapter = new MyOrderAdapter(getContext(), orders);
+                myOrders.setAdapter(orderAdapter);
+                setListViewHeightBasedOnChildren(myOrders);
             }
 
             @Override

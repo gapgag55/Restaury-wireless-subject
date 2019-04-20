@@ -1,13 +1,15 @@
-package com.mang.restaury;
+package com.mang.restaury.Activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class YourOrderActivity extends AppCompatActivity {
+import com.mang.restaury.R;
+
+public class MyTableReservationActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_your_order);
+        setContentView(R.layout.activity_my_table_reservation);
     }
 }
