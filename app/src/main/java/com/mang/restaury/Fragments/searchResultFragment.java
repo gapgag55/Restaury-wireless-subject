@@ -132,18 +132,19 @@ public class searchResultFragment extends Fragment {
                             if(!r.getTitle().toLowerCase().contains(keyword.toLowerCase()))continue;
 
 
-//                            if(foodtype!=null){
-//                                int match = 0;
-//                                String[] foodtypeR = r.getType().split(",");
-//                                Log.d("test"," "+foodtypeR[0]);
-//                                for(int i = 0; i < foodtypeR.length;i++){
-//                                    if((int)foodtype.get(foodtypeR[i])==0){
-//                                        match = 1;
-//                                        break;
-//                                    };
-//                                }
-//                                if(match == 0) continue;
-//                            }
+                            if(foodtype!=null){
+                                int match = 0;
+                                String[] foodtypeR = r.getType().split(",");
+                                Log.d("test"," "+foodtypeR[0]+r.getTitle());
+                                for(int i = 0; i < foodtypeR.length;i++){
+                                    Log.d("test2"," "+foodtypeR[i]+" "+(foodtype.get(foodtypeR[i])==0));
+                                    if((int)foodtype.get(foodtypeR[i])==1){
+                                        match = 1;
+                                        break;
+                                    };
+                                }
+                                if(match == 0) continue;
+                            }
 
 
                             if(stars!=null){
@@ -156,6 +157,7 @@ public class searchResultFragment extends Fragment {
                         }
 
                         final TreeMap<String,Integer[]> resRange =  new TreeMap<String,Integer[]>();
+                        final TreeMap<String,Restaurant> filteredRestaurant2 = new TreeMap<String,Restaurant>();
 
                         final FirebaseDatabase database = FirebaseDatabase.getInstance();
                         DatabaseReference ref = database.getReference();
@@ -182,34 +184,30 @@ public class searchResultFragment extends Fragment {
                                                 if(price>minMax[1]) minMax[1] = price;
                                             }
                                             resRange.put(resID,minMax);
+
+                                            if(minMaxc!=null){
+                                                Integer min = minMaxc.get("min");
+                                                Integer max = minMaxc.get("max");
+                                                int price = ds.child("menuBasePrice").getValue(Integer.class);
+                                                if(!filteredRestaurant2.containsKey(r.getRestaurantID())){
+                                                    if(price>=min&&price<=max)filteredRestaurant2.put(r.getRestaurantID(),r);
+                                                }
+                                            }else{
+                                                filteredRestaurant2.put(r.getRestaurantID(),r);
+                                            }
+
                                         }
                                     }
                                 }
 
-                                final ArrayList<Restaurant> filteredRestaurant2 = new ArrayList<>();
 
-
-                                for(Restaurant r : filteredRestaurant){
-                                    Integer[] minMax = resRange.get(r.getRestaurantID());
-                                    Log.d("bank",(minMaxc!=null)+" ");
-                                    if(minMaxc!=null){
-                                        Integer min = minMaxc.get("min");
-                                        Integer max = minMaxc.get("max");
-
-                                        Log.d("bank",(min>minMax[0])+" "+(max<minMax[1]));
-
-                                        if(!(min>minMax[0]&&max<minMax[1])){
-
-                                            continue;
-                                        }
-                                    }
-
-                                    filteredRestaurant2.add(r);
-
+                                ArrayList<Restaurant> fFilter = new ArrayList<>();
+                                for(Restaurant r : filteredRestaurant2.values()){
+                                    fFilter.add(r);
                                 }
 
                                 RecyclerView recycleView = (RecyclerView) view.findViewById (R.id.restaurant_cycle);
-                                RestaurantAdapter myAdapter = new RestaurantAdapter(view.getContext(), filteredRestaurant2);
+                                RestaurantAdapter myAdapter = new RestaurantAdapter(view.getContext(), fFilter);
                                 recycleView.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
                                 recycleView.setAdapter(myAdapter);
                             }

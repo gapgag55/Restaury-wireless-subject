@@ -119,10 +119,6 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
-
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-
         final String keyword = getIntent().getExtras().getString("keyword");
 
         renderFragment(new searchResultFragment(keyword));
@@ -394,6 +390,8 @@ public class SearchActivity extends AppCompatActivity {
 
                 Log.d("testCondition"," "+(foodtype +" "+stars+" "+minMax));
                 renderFragment(new searchResultFragment(keyword,foodtype,stars,minMax));
+
+                mDrawerLayout.closeDrawers();
 
             }
         });
