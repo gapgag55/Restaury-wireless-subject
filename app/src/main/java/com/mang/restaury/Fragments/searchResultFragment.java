@@ -182,6 +182,9 @@ public class searchResultFragment extends Fragment {
                                                 int price = ds.child("menuBasePrice").getValue(Integer.class);
                                                 if(price<minMax[0]) minMax[0] = price;
                                                 if(price>minMax[1]) minMax[1] = price;
+
+                                                Log.d("minMax",minMax[0]+" "+minMax[1]);
+
                                             }
                                             resRange.put(resID,minMax);
 
@@ -201,8 +204,15 @@ public class searchResultFragment extends Fragment {
                                 }
 
 
+
+
+
                                 ArrayList<Restaurant> fFilter = new ArrayList<>();
                                 for(Restaurant r : filteredRestaurant2.values()){
+                                    String resID = r.getRestaurantID();
+                                    Integer[] minMax = resRange.get(resID);
+                                    r.setMinPrice(minMax[0]);
+                                    r.setMaxPrice(minMax[1]);
                                     fFilter.add(r);
                                 }
 

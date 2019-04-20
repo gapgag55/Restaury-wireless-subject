@@ -13,7 +13,8 @@ public class Restaurant extends RealmObject {
     private String picture;
     private double star;
     private String type;
-
+    private int minPrice;
+    private int maxPrice;
 
     public Restaurant() {
     }
@@ -28,6 +29,22 @@ public class Restaurant extends RealmObject {
         this.picture = picture;
         this.star = star;
         this.type = type;
+    }
+
+    public int getMinPrice() {
+        return minPrice;
+    }
+
+    public void setMinPrice(int minPrice) {
+        this.minPrice = minPrice;
+    }
+
+    public int getMaxPrice() {
+        return maxPrice;
+    }
+
+    public void setMaxPrice(int maxPrice) {
+        this.maxPrice = maxPrice;
     }
 
     public String getType() {
