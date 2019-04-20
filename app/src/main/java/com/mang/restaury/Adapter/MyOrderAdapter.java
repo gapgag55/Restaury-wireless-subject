@@ -67,11 +67,15 @@ public class MyOrderAdapter extends BaseAdapter {
         } else {
             holder = (MyOrderAdapter.ViewHolder) view.getTag();
         }
+//
+//        for (Order order : items) {
+//
+//        }
 
-        Order order = items.get(i);
+        Order order = items.get((items.keySet().toArray())[i]);
 
-         holder.dateTime.setText("Date: " + order.getOrderDateTime().toString());
-         holder.viewOrderButton.setOnClickListener(new View.OnClickListener() {
+        holder.dateTime.setText("Date: " + order.getOrderDateTime().toString());
+        holder.viewOrderButton.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
 
