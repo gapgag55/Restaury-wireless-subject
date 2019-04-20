@@ -13,8 +13,10 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -23,11 +25,18 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.mang.restaury.Adapter.CartAdapter;
+import com.mang.restaury.Model.Cart;
 import com.mang.restaury.Model.CartItem;
+import com.mang.restaury.Model.Comment;
+import com.mang.restaury.Model.Order;
+import com.mang.restaury.Model.OrderDetail;
 import com.mang.restaury.Model.Restaurant;
 import com.mang.restaury.R;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import io.realm.Realm;
@@ -42,6 +51,12 @@ public class CartFragment extends Fragment {
     private View rootView;
     private CartAdapter cartAdapter;
 
+
+    private int subTotalCal;
+    private double vatCal;
+    private int deliverFeeCal;
+    private double totalCal;
+
     public CartFragment() {
         // Required empty public constructor
     }
@@ -53,6 +68,10 @@ public class CartFragment extends Fragment {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_cart, container, false);
 
+        final ScrollView cartLayout = (ScrollView) rootView.findViewById(R.id.cart);
+        final LinearLayout noItemLayout = (LinearLayout) rootView.findViewById(R.id.no_items);
+        cartLayout.setVisibility(View.GONE);
+
         ListView cartItems = (ListView) rootView.findViewById(R.id.cart_items);
         cartItems.setDivider(null);
 
@@ -62,6 +81,12 @@ public class CartFragment extends Fragment {
 
         final RealmResults<CartItem> items = realm.where(CartItem.class).findAll();
         final List<CartItem> cart = items.subList(0, items.size());
+
+        if (cart.size() > 0) {
+            cartLayout.setVisibility(View.VISIBLE);
+            noItemLayout.setVisibility(View.GONE);
+        }
+
 
         cartAdapter = new CartAdapter(CartFragment.this, getActivity(), cart);
         cartItems.setAdapter(cartAdapter);
@@ -95,19 +120,19 @@ public class CartFragment extends Fragment {
 
 
 
+        final EditText fullNameEditText = (EditText) rootView.findViewById(R.id.fullname);
+        final EditText phoneEditText = (EditText) rootView.findViewById(R.id.phone);
+        final EditText addressEditText = (EditText) rootView.findViewById(R.id.address);
 
-       // Load User Data
+
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final DatabaseReference ref = database.getReference();
+
+        // Load User Data
         final AuthenticationFragment auth = AuthenticationFragment.getInstance();
 
         if (auth.getCurrentUser() != null) {
 
-            final EditText fullNameEditText = (EditText) rootView.findViewById(R.id.fullname);
-            final EditText phoneEditText = (EditText) rootView.findViewById(R.id.phone);
-            final EditText addressEditText = (EditText) rootView.findViewById(R.id.address);
-
-
-            final FirebaseDatabase database = FirebaseDatabase.getInstance();
-            final DatabaseReference ref = database.getReference();
             final String uid = auth.getCurrentUser().getUid();
 
             Query users = ref.child("User").child(uid);
@@ -142,7 +167,63 @@ public class CartFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
+                String uid = auth.getCurrentUser().getUid();
 
+                // Get latest item update in cart realm
+                RealmResults<CartItem> items = realm.where(CartItem.class).findAll();
+                List<CartItem> cart = items.subList(0, items.size());
+
+                // Push to order
+                String orderDate = date.getSelectedItem().toString();
+                String orderTime = time.getSelectedItem().toString();
+
+                if (orderDate.equals("Today")) {
+                    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                    Date date = new Date();
+                    orderDate = dateFormat.format(date);
+                }
+
+                if (orderDate.equals("Tomorrow")) {
+                    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                    Date date = new Date((new Date()).getTime() + (1000 * 60 * 60 * 24));
+                    orderDate = dateFormat.format(date);
+                }
+
+                String orderDateTime = orderDate + " " + orderTime;
+
+                String address = addressEditText.getText().toString();
+                String phone = phoneEditText.getText().toString();
+
+
+                String orderKey =  ref.child("Order").push().getKey();
+
+                ref.child("Order").child(orderKey).setValue(
+                        new Order(uid, totalCal, orderDateTime, address, phone)
+                );
+
+                // Push to orderDetail
+                for (CartItem item : cart) {
+                    String menuID = item.getMenuID();
+                    String orderDetailRequest = item.getInstruction();
+                    String sizeID = item.getSizeID();
+                    int totalNumber = item.getTotalNumber();
+
+                    ref.child("OrderDetail").push().setValue(
+                            new OrderDetail("Hello", menuID, orderDetailRequest, orderKey, sizeID, totalNumber)
+                    );
+                }
+
+
+                // reset cart realm
+                realm.beginTransaction();
+                RealmResults<CartItem> realmCartItem = realm.where(CartItem.class).findAll();
+                realmCartItem.deleteAllFromRealm();
+                realm.commitTransaction();
+
+                Toast.makeText(getContext(), "Order Successfully", Toast.LENGTH_LONG).show();
+
+                cartLayout.setVisibility(View.GONE);
+                noItemLayout.setVisibility(View.VISIBLE);
             }
         });
 
@@ -193,10 +274,10 @@ public class CartFragment extends Fragment {
         TextView total = (TextView) rootView.findViewById(R.id.total);
 
 
-        int subTotalCal = cartAdapter.subtotal;
-        double vatCal = subTotalCal * 0.07;
-        int deliverFeeCal = 20;
-        double totalCal = subTotalCal + deliverFeeCal + vatCal;
+        subTotalCal = cartAdapter.subtotal;
+        vatCal = subTotalCal * 0.07;
+        deliverFeeCal = 20;
+        totalCal = subTotalCal + deliverFeeCal + vatCal;
 
         subtotal.setText(String.valueOf("฿ " + subTotalCal));
         deliveryFee.setText(String.valueOf("฿ " + deliverFeeCal));

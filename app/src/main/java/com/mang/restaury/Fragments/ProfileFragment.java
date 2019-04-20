@@ -11,19 +11,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.mang.restaury.Model.User;
+import com.mang.restaury.Adapter.MyOrderAdapter;
+import com.mang.restaury.Model.Order;
 import com.mang.restaury.R;
+
+import java.util.HashMap;
+import java.util.List;
 
 
 /**
@@ -46,18 +51,72 @@ public class ProfileFragment extends Fragment {
         rootView = inflater.inflate(R.layout.fragment_profile, container, false);
 
 
+
+        // Load Orders
+        final ListView myOrders = (ListView) rootView.findViewById(R.id.my_orders);
+        myOrders.setDivider(null);
+
+
+
+
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final DatabaseReference ref = database.getReference();
+
+        final AuthenticationFragment auth = AuthenticationFragment.getInstance();
+        final String uid = auth.getCurrentUser().getUid();
+
+        Query orders = ref.child("Order").orderByChild("userId").equalTo(uid);
+        orders.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                HashMap<String, Order> orders = new HashMap<>();
+
+                for(DataSnapshot ds : dataSnapshot.getChildren()) {
+
+                    String key = ds.getKey();
+                    Double orderTotalPrice = ds.child("orderTotalPrice").getValue(Double.class);
+                    String orderDateTime = ds.child("orderDateTime").getValue(String.class);
+                    String orderAddress = ds.child("orderAddress").getValue(String.class);
+                    String orderPhone = ds.child("orderPhone").getValue(String.class);
+
+                    orders.put(key, new Order(uid, orderTotalPrice, orderDateTime, orderAddress, orderPhone));
+
+                }
+//
+//                MyOrderAdapter orderAdapter = new MyOrderAdapter(getContext(), orders);
+//                myOrders.setAdapter(orderAdapter);
+//                setListViewHeightBasedOnChildren(myOrders);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         final EditText fullNameEditText = (EditText) rootView.findViewById(R.id.fullname);
         final EditText phoneEditText = (EditText) rootView.findViewById(R.id.phone);
         final EditText addressEditText = (EditText) rootView.findViewById(R.id.address);
         final ScrollView logout = (ScrollView) rootView.findViewById(R.id.profile_scrollview);
 
         // Query User Profile
-
-        final AuthenticationFragment auth = AuthenticationFragment.getInstance();
-
-        final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        final DatabaseReference ref = database.getReference();
-        final String uid = auth.getCurrentUser().getUid();
 
         Query users = ref.child("User").child(uid);
         users.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -133,8 +192,24 @@ public class ProfileFragment extends Fragment {
         logout.setVisibility(View.GONE);
     }
 
-    private void changeToLogoutView2() {
-        ScrollView logout = (ScrollView) rootView.findViewById(R.id.profile_scrollview);
-        logout.setVisibility(View.VISIBLE);
+    public static void setListViewHeightBasedOnChildren(ListView listView) {
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter == null)
+            return;
+
+        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.UNSPECIFIED);
+        int totalHeight = 0;
+        View view = null;
+        for (int i = 0; i < listAdapter.getCount(); i++) {
+            view = listAdapter.getView(i, view, listView);
+            if (i == 0)
+                view.setLayoutParams(new ViewGroup.LayoutParams(desiredWidth, ViewGroup.LayoutParams.WRAP_CONTENT));
+
+            view.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+            totalHeight += view.getMeasuredHeight();
+        }
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+        listView.setLayoutParams(params);
     }
 }

@@ -116,10 +116,7 @@ public class RestaurantActivity extends AppCompatActivity {
 
                     // add
                     Restaurant restaurant = new Restaurant(resName, latitute, longitute,  resID, about, resDeliverFee, picture,resStar,resType);
-
-                    final Restaurant managedRestaurant = realm.copyToRealm(restaurant);
-                    Favorite favorite = realm.createObject(Favorite.class);
-                    favorite.getRestaurants().add(managedRestaurant);
+                    Restaurant realmFavorite = realm.copyToRealm(restaurant);
                     saveIcon.setBackgroundResource(R.drawable.ic_save_active);
 
                 }

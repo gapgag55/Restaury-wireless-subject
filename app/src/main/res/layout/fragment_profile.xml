@@ -42,7 +42,7 @@
 
             <!-- My Orders -->
             <LinearLayout
-                android:id="@+id/my_orders"
+                android:id="@+id/my_orders_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -63,44 +63,11 @@
                     android:background="@drawable/divider"
                     />
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:background="@drawable/divider"
-                    android:padding="20dp">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Delivery Date:"
-                        android:fontFamily="@font/roboto_regular"
-                        android:textColor="@color/colorFont"
-                        android:layout_alignParentLeft="true" />
-                    
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/green_button"
-                        android:text="View Order"
-                        android:textSize="12sp"
-                        android:textColor="@android:color/white"
-                        android:paddingTop="10dp"
-                        android:paddingBottom="10dp"
-                        android:paddingLeft="20dp"
-                        android:paddingRight="20dp"
-                        android:layout_alignParentRight="true"
-                        />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="10/10/2562"
-                        android:fontFamily="@font/roboto_regular"
-                        android:textColor="@color/colorFont"
-                        android:layout_alignParentRight="true" />
-
-                </RelativeLayout>
+               <ListView
+                   android:id="@+id/my_orders"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"></ListView>
 
             </LinearLayout>
 
@@ -138,7 +105,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Delivery Date:"
+                        android:text="Rod Chart Kaprow"
                         android:fontFamily="@font/roboto_regular"
                         android:textColor="@color/colorFont"
                         android:layout_alignParentLeft="true" />
