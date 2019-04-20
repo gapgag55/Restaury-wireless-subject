@@ -47,8 +47,9 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
 
         // viewHolder.restaurant_image.setImageURI();
         viewHolder.restaurant_name.setText(restaurant.getTitle());
-        viewHolder.restaurant_price.setText("250 - 1000 Baht");
-        viewHolder.restaurant_type.setText("THAI FOOD");
+        viewHolder.restaurant_price.setText(restaurant.getMinPrice()+" - "+restaurant.getMaxPrice()+" Baht");
+        viewHolder.restaurant_type.setText(restaurant.getType().split(",")[0].toUpperCase()+" FOOD");
+
 
 
         // On Click
@@ -58,7 +59,6 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
 
                 Intent intent = new Intent(mContext, RestaurantActivity.class);
                 intent.putExtra("restaurant_name", restaurant.getTitle());
-
                 intent.putExtra("latitute",restaurant.getLatitude());
                 intent.putExtra("longitute",restaurant.getLongtitude());
                 intent.putExtra("picture",restaurant.getPicture());
