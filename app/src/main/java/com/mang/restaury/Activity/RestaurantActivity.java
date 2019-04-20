@@ -1,5 +1,6 @@
 package com.mang.restaury.Activity;
 
+import android.net.Uri;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +10,11 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookActivity;
+import com.facebook.FacebookSdk;
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.widget.ShareDialog;
 import com.mang.restaury.Adapter.ResturantTabAdapter;
 import com.mang.restaury.Fragments.AboutFragment;
 import com.mang.restaury.Fragments.MenusFragment;
@@ -41,12 +47,42 @@ public class RestaurantActivity extends AppCompatActivity {
     private double resStar;
     private String resType;
 
+    private CallbackManager callbackManager;
+    private ShareDialog shareDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restaurant);
-
+        FacebookSdk.sdkInitialize(this.getApplicationContext());
         final Realm realm = Realm.getDefaultInstance();
+        
+        // Share by bank
+
+        callbackManager = CallbackManager.Factory.create();
+        shareDialog = new ShareDialog(this);
+
+        ImageButton share_button = findViewById(R.id.share_button);
+        share_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                ShareLinkContent content = new ShareLinkContent.Builder()
+                        .setContentUrl(Uri.parse("https://developers.facebook.com"))
+                        .build();
+
+                if(ShareDialog.canShow(ShareLinkContent.class)){
+                    shareDialog.show(content);
+                }
+
+
+            }
+        });
+
+
+        ShareLinkContent content = new ShareLinkContent.Builder()
+                .setContentUrl(Uri.parse("https://developers.facebook.com"))
+                .build();
 
         // Intent from RestaurantAdapter.java
 
