@@ -1,6 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:weightSum="100"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp"
+    android:background="@drawable/divider">
 
-</android.support.constraint.ConstraintLayout>
+    <!-- item - add and remove -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="20"
+        android:gravity="center_vertical">
+
+        <Button
+            android:id="@+id/remove_button"
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorThirdary"
+            android:background="@android:color/transparent"
+            android:text="-"
+            android:fontFamily="@font/roboto_regular"
+            android:textSize="20sp"
+            android:gravity="left|center_vertical" />
+
+        <TextView
+            android:id="@+id/menu_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1"
+            android:fontFamily="@font/roboto_regular"
+            android:textColor="@color/colorFont"
+            android:layout_alignParentEnd="true"
+            />
+
+        <Button
+            android:id="@+id/add_button"
+            android:layout_width="25dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorThirdary"
+            android:background="@android:color/transparent"
+            android:text="+"
+            android:fontFamily="@font/roboto_regular"
+            android:textSize="20sp"
+            android:gravity="right|center_vertical"
+            />
+
+    </LinearLayout>
+
+
+    <!-- product name -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="60">
+
+        <TextView
+            android:id="@+id/menu_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Thai Fried Rice with Prawns Thai Fried Rice with Prawns"
+            android:fontFamily="@font/roboto_regular"
+            android:textColor="@color/colorFont"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            />
+
+    </LinearLayout>
+
+
+    <!-- price -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="20"
+        android:gravity="end">
+
+        <TextView
+            android:id="@+id/menu_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="฿ 60.00"
+            android:fontFamily="@font/roboto_regular"
+            android:textColor="@color/colorFont"
+            android:textAlignment="textEnd"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>

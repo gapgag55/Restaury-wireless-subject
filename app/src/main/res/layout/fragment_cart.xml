@@ -40,7 +40,7 @@
             android:layout_marginTop="20dp">
 
             <LinearLayout
-                android:id="@+id/cart_items"
+                android:id="@+id/cart_items_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -50,90 +50,12 @@
                 <!-- items goes here -->
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/divider"
-                    android:padding="20dp">
+                    android:layout_height="wrap_content">
 
-                    <LinearLayout
+                    <ListView
+                        android:id="@+id/cart_items"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:weightSum="100"
-                        android:orientation="horizontal">
-
-                        <!-- item - add and remove -->
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="10">
-
-                            <Button
-                                android:layout_width="25dp"
-                                android:layout_height="25dp"
-                                android:textColor="@color/colorThirdary"
-                                android:background="@android:color/transparent"
-                                android:text="-">
-
-                            </Button>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="1"
-                                android:paddingLeft="10dp"
-                                android:paddingRight="10dp"
-                                android:fontFamily="@font/roboto_regular"
-                                android:textColor="@color/colorFont"
-                                android:layout_alignParentEnd="true"
-                                />
-
-                            <Button
-                                android:layout_width="25dp"
-                                android:layout_height="25dp"
-                                android:textColor="@color/colorThirdary"
-                                android:background="@android:color/transparent"
-                                android:text="+" />
-
-                        </LinearLayout>
-
-                        <!-- product name -->
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="70">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Thai Fried Rice with Prawns"
-                                android:fontFamily="@font/roboto_regular"
-                                android:textColor="@color/colorFont"
-                                android:layout_alignParentLeft="true"
-                                />
-
-
-                        </LinearLayout>
-
-
-                        <!-- price -->
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="20"
-                            android:gravity="end">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="฿ 60.00"
-                                android:fontFamily="@font/roboto_regular"
-                                android:textColor="@color/colorFont"
-                                android:layout_alignParentEnd="true"
-                                />
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
+                        android:layout_height="wrap_content"></ListView>
 
                 </LinearLayout>
 
@@ -157,6 +79,7 @@
                         />
 
                     <TextView
+                        android:id="@+id/sub_total"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="฿ 60.00"
@@ -186,6 +109,7 @@
                         />
 
                     <TextView
+                        android:id="@+id/delivery_fee"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="฿ 20.25"
@@ -216,6 +140,7 @@
                         />
 
                     <TextView
+                        android:id="@+id/vat"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="฿ 2.62"
@@ -241,6 +166,7 @@
                         />
 
                     <TextView
+                        android:id="@+id/total"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="฿ 170.00"
@@ -258,7 +184,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_below="@+id/cart_items"
+                android:layout_below="@+id/cart_items_layout"
                 android:background="@android:color/white"
                 android:layout_marginTop="20dp">
 
@@ -290,13 +216,14 @@
                         android:textColor="@color/colorFont"
                         android:layout_alignParentLeft="true" />
 
-                    <TextView
+                    <Spinner
+                        android:id="@+id/delivery_date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="10/10/2562"
-                        android:fontFamily="@font/roboto_regular"
-                        android:textColor="@color/colorFont"
-                        android:layout_alignParentRight="true" />
+                        android:spinnerMode="dropdown"
+                        android:minWidth="100dp"
+                        android:layout_alignParentRight="true"
+                        android:textAlignment="textEnd" />
 
                 </RelativeLayout>
 
@@ -316,14 +243,14 @@
                         android:layout_alignParentLeft="true"
                         />
 
-                    <TextView
+                    <Spinner
+                        android:id="@+id/delivery_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="13:00"
-                        android:fontFamily="@font/roboto_regular"
-                        android:textColor="@color/colorFont"
-                        android:layout_alignParentEnd="true"
-                        />
+                        android:spinnerMode="dropdown"
+                        android:minWidth="100dp"
+                        android:layout_alignParentRight="true"
+                        android:textAlignment="textEnd" />
 
                 </RelativeLayout>
 
@@ -336,8 +263,7 @@
                 android:layout_below="@+id/cart_delivery"
                 android:orientation="vertical"
                 android:background="@android:color/white"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="130dp">
+                android:layout_marginTop="20dp">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -354,6 +280,7 @@
                     />
 
                 <EditText
+                    android:id="@+id/fullname"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Name"
@@ -365,6 +292,7 @@
                     />
 
                 <EditText
+                    android:id="@+id/phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Phone Number"
@@ -376,6 +304,7 @@
                     />
 
                 <EditText
+                    android:id="@+id/address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Address"
@@ -388,31 +317,34 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:padding="15dp"
+                android:layout_below="@+id/cart_contact"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="180dp"
+                android:elevation="10dp">
+
+                <Button
+                    android:id="@+id/place_order"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/orange_button"
+                    android:text="PLACE YOUR ORDER"
+                    android:fontFamily="@font/roboto_medium"
+                    android:textColor="@android:color/white"
+                    android:textSize="17sp"
+                    android:padding="15dp"/>
+
+            </LinearLayout>
+
+
         </LinearLayout>
 
     </ScrollView>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/white"
-        android:padding="15dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="50dp"
-        android:elevation="10dp">
-
-        <Button
-            android:id="@+id/place_order"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/orange_button"
-            android:text="PLACE YOUR ORDER"
-            android:fontFamily="@font/roboto_medium"
-            android:textColor="@android:color/white"
-            android:textSize="17sp"
-            android:padding="15dp"/>
-
-    </LinearLayout>
 
 
 </RelativeLayout>

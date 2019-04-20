@@ -58,8 +58,8 @@ public class MenusFragment extends Fragment {
         // Get a reference to our posts
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference();
-        Query menuRef = ref.child("Menu").orderByChild("restaurantID").equalTo(resID);
 
+        Query menuRef = ref.child("Menu").orderByChild("restaurantID").equalTo(resID);
         ValueEventListener eventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -89,14 +89,14 @@ public class MenusFragment extends Fragment {
         menuRef.addListenerForSingleValueEvent(eventListener);
 
 
-        Button viewCartButton = (Button) rootView.findViewById(R.id.view_cart_button);
-        viewCartButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                // Go to cart
-            }
-        });
+//        Button viewCartButton = (Button) rootView.findViewById(R.id.view_cart_button);
+//        viewCartButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                // Go to cart
+//            }
+//        });
 
         return rootView;
     }
