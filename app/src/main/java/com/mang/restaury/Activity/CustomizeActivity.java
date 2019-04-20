@@ -19,7 +19,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.mang.restaury.Adapter.VariationAdapter;
-import com.mang.restaury.Model.Cart;
 import com.mang.restaury.Model.CartItem;
 import com.mang.restaury.Model.Customize;
 import com.mang.restaury.Model.Favorite;
@@ -160,11 +159,7 @@ public class CustomizeActivity extends AppCompatActivity {
                         CartItem cartItem = new CartItem(menuID, menuName, variationSize, instruction.getText().toString(), totalPrice, totalNumber);
 
                         realm.beginTransaction();
-
-                        final CartItem managedCartItem = realm.copyToRealm(cartItem);
-                        Cart cart = realm.createObject(Cart.class);
-                        cart.getCartItems().add(managedCartItem);
-
+                        CartItem realmCartItem = realm.copyToRealm(cartItem);
                         realm.commitTransaction();
 
                         closeFragment();

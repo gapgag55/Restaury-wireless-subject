@@ -10,18 +10,16 @@ public class Cart extends RealmObject {
     private Double totalPrice;
     private String dateTime;
     private String address;
-    private int restaurantId;
-    private RealmList<CartItem> cartItems;
+    private String phone;
 
     public Cart() {}
 
-    public Cart(String userId, Double totalPrice, String dateTime, String address, int restaurantId, RealmList<CartItem> cartItems) {
+    public Cart(String userId, Double totalPrice, String dateTime, String addressm, String phone) {
         this.userId = userId;
         this.totalPrice = totalPrice;
         this.dateTime = dateTime;
         this.address = address;
-        this.restaurantId = restaurantId;
-        this.cartItems = cartItems;
+        this.phone = phone;
     }
 
     public String getUserId() {
@@ -40,11 +38,7 @@ public class Cart extends RealmObject {
         return address;
     }
 
-    public int getRestaurantId() {
-        return restaurantId;
-    }
-
-    public RealmList<CartItem> getCartItems() {
-        return cartItems;
+    public String getPhone() {
+        return phone;
     }
 }

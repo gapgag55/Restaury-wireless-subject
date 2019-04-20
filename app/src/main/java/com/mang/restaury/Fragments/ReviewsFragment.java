@@ -163,7 +163,7 @@ public class ReviewsFragment extends Fragment {
         ((TextView) rootView.findViewById(R.id.statistic_one_number)).setText(oneAmount);
 
 
-        ((TextView) rootView.findViewById(R.id.average_number)).setText(String.valueOf(averageRating));
+        ((TextView) rootView.findViewById(R.id.average_number)).setText(String.format("%.2f", averageRating));
         ((RatingBar) rootView.findViewById(R.id.average_star)).setRating(averageRating);
 
     }

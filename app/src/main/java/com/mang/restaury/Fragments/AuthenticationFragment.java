@@ -1,5 +1,6 @@
 package com.mang.restaury.Fragments;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -62,6 +63,8 @@ public class AuthenticationFragment extends BottomSheetDialogFragment {
     Button loginGoogle;
     Button loginFacebook;
     LoginButton loginFacebookHide;
+
+    ProgressDialog loadingDialog;
 
     public static AuthenticationFragment getInstance() {
         return new AuthenticationFragment();
@@ -151,6 +154,8 @@ public class AuthenticationFragment extends BottomSheetDialogFragment {
 
                         if (task.isSuccessful()) {
 
+                            loadingDialog.dismiss();
+
                             final String uid = mAuth.getCurrentUser().getUid();
 //
                             String[] splitFullName = mAuth.getCurrentUser().getDisplayName().toString().split(" ");
@@ -197,6 +202,8 @@ public class AuthenticationFragment extends BottomSheetDialogFragment {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
 
+                            loadingDialog.dismiss();
+
                             final String uid = mAuth.getCurrentUser().getUid();
 
                             final FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -229,6 +236,9 @@ public class AuthenticationFragment extends BottomSheetDialogFragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        // Start Loading Progress
+        loadingDialog = ProgressDialog.show(getContext(), "Authorizing...", "Loading...", true, false);
 
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == GOOGLE_SIGN_IN_REQUEST_CODE) {
