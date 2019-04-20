@@ -30,6 +30,9 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+            final AuthenticationFragment auth = AuthenticationFragment.getInstance();
+
             switch (item.getItemId()) {
                 case R.id.search_page:
                     selectedFragment = new SearchFragment();
@@ -42,12 +45,16 @@ public class MainActivity extends AppCompatActivity {
                     break;
 
                 case R.id.cart_page:
+                    if (auth.getCurrentUser() == null) {
+                        auth.show(getSupportFragmentManager(), "Authentication");
+
+                        return true;
+                    }
                     selectedFragment = new CartFragment();
                     fragmentTag = "cart_fragment";
                     break;
 
                 case R.id.profile_page:
-                    final AuthenticationFragment auth = AuthenticationFragment.getInstance();
                     if (auth.getCurrentUser() == null) {
                         auth.show(getSupportFragmentManager(), "Authentication");
 

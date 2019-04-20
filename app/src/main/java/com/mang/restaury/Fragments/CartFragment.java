@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -124,6 +125,7 @@ public class CartFragment extends Fragment {
                     fullNameEditText.setText(fullname);
                     phoneEditText.setText(phone);
                     addressEditText.setText(address);
+
                 }
 
                 @Override
@@ -135,15 +137,11 @@ public class CartFragment extends Fragment {
 
 
 
-
-
-
-
-
         Button placeOrderButton = (Button) rootView.findViewById(R.id.place_order);
         placeOrderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
 
             }
         });
