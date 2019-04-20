@@ -98,7 +98,8 @@
                 android:orientation="vertical"
                 android:layout_below="@+id/about_layout"
                 android:background="@android:color/white"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -118,10 +119,10 @@
                     android:orientation="horizontal"
                     android:background="@drawable/divider">
 
-                    <!--<com.google.android.gms.maps.MapView-->
-                        <!--android:id="@+id/mapView"-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="200dp" />-->
+                    <com.google.android.gms.maps.MapView
+                        android:id="@+id/mapView"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp" />
 
                 </RelativeLayout>
 
