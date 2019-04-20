@@ -50,8 +50,8 @@ public class SearchActivity extends AppCompatActivity {
     LinearLayout gv,drawer_left,drawer_right;
     Context con = this;
 
-    Button thai_food_button,intalian_food_button,japanese_food_button,indian_food_button,apply_button;
-    int thai_food,intalian_food,japanese_food,indian_food;
+    Button thai_food_button,france_food_button,usa_food_button,india_food_button,japan_food_button,apply_button;
+    int thai_food,france_food,usa_food,india_food,japan_food;
     TreeMap<String,Integer> foodtype ;
 
 
@@ -62,7 +62,7 @@ public class SearchActivity extends AppCompatActivity {
     TreeMap<String,Integer> minMax;
 
 
-    int min,max;
+    int min = 0 ,max = 100;
 
     private ArrayList<Restaurant> restaurants;
 
@@ -118,10 +118,6 @@ public class SearchActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
-
-
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         final String keyword = getIntent().getExtras().getString("keyword");
 
@@ -211,53 +207,70 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
-        intalian_food = 0;
-        intalian_food_button = (Button)findViewById(R.id.intalian_food);
-        intalian_food_button.setOnClickListener(new View.OnClickListener() {
+        france_food = 0;
+        france_food_button = (Button)findViewById(R.id.france_food);
+        france_food_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(intalian_food == 0) {
-                    intalian_food_button.setBackgroundResource(R.drawable.active_button);
-                    intalian_food_button.setTextColor(Color.WHITE);
-                    intalian_food = 1;
+                if(france_food == 0) {
+                    france_food_button.setBackgroundResource(R.drawable.active_button);
+                    france_food_button.setTextColor(Color.WHITE);
+                    france_food = 1;
                 }else{
-                    intalian_food_button.setBackgroundResource(R.drawable.orange_border);
-                    intalian_food_button.setTextColor(Color.BLACK);
-                    intalian_food = 0;
+                    france_food_button.setBackgroundResource(R.drawable.orange_border);
+                    france_food_button.setTextColor(Color.BLACK);
+                    france_food = 0;
                 }
             }
         });
 
-        japanese_food = 0;
-        japanese_food_button = (Button)findViewById(R.id.japanese_food);
-        japanese_food_button.setOnClickListener(new View.OnClickListener() {
+        usa_food = 0;
+        usa_food_button = (Button)findViewById(R.id.usa_food);
+        usa_food_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(japanese_food == 0) {
-                    japanese_food_button.setBackgroundResource(R.drawable.active_button);
-                    japanese_food_button.setTextColor(Color.WHITE);
-                    japanese_food = 1;
+                if(usa_food == 0) {
+                    usa_food_button.setBackgroundResource(R.drawable.active_button);
+                    usa_food_button.setTextColor(Color.WHITE);
+                    usa_food = 1;
                 }else{
-                    japanese_food_button.setBackgroundResource(R.drawable.orange_border);
-                    japanese_food_button.setTextColor(Color.BLACK);
-                    japanese_food = 0;
+                    usa_food_button.setBackgroundResource(R.drawable.orange_border);
+                    usa_food_button.setTextColor(Color.BLACK);
+                    usa_food = 0;
                 }
             }
         });
 
-        indian_food = 0;
-        indian_food_button = (Button)findViewById(R.id.indian_food);
-        indian_food_button.setOnClickListener(new View.OnClickListener() {
+        india_food = 0;
+        india_food_button = (Button)findViewById(R.id.india_food);
+        india_food_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(indian_food == 0) {
-                    indian_food_button.setBackgroundResource(R.drawable.active_button);
-                    indian_food_button.setTextColor(Color.WHITE);
-                    indian_food = 1;
+                if(india_food == 0) {
+                    india_food_button.setBackgroundResource(R.drawable.active_button);
+                    india_food_button.setTextColor(Color.WHITE);
+                    india_food = 1;
                 }else{
-                    indian_food_button.setBackgroundResource(R.drawable.orange_border);
-                    indian_food_button.setTextColor(Color.BLACK);
-                    indian_food = 0;
+                    india_food_button.setBackgroundResource(R.drawable.orange_border);
+                    india_food_button.setTextColor(Color.BLACK);
+                    india_food = 0;
+                }
+            }
+        });
+
+        japan_food = 0;
+        japan_food_button = (Button)findViewById(R.id.japan_food);
+        japan_food_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(japan_food == 0) {
+                    japan_food_button.setBackgroundResource(R.drawable.active_button);
+                    japan_food_button.setTextColor(Color.WHITE);
+                    japan_food = 1;
+                }else{
+                    japan_food_button.setBackgroundResource(R.drawable.orange_border);
+                    japan_food_button.setTextColor(Color.BLACK);
+                    japan_food = 0;
                 }
             }
         });
@@ -333,7 +346,7 @@ public class SearchActivity extends AppCompatActivity {
                     five_star_button.setImageResource(R.drawable.active_five_star);
                     five_star = 1;
                 }else {
-                    five_star_button.setImageResource(R.drawable.one_star);
+                    five_star_button.setImageResource(R.drawable.five_star);
                     five_star = 0;
                 }
             }
@@ -344,25 +357,42 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                minMax = new TreeMap<String,Integer>();
-                stars = new TreeMap<Integer, Integer>();
-                foodtype = new TreeMap<String,Integer>();
 
-                foodtype.put("thai_food",thai_food);
-                foodtype.put("intalian_food",intalian_food);
-                foodtype.put("japanese_food",japanese_food);
-                foodtype.put("indian_food",indian_food);
 
-                stars.put(1,one_star);
-                stars.put(2,two_star);
-                stars.put(3,three_star);
-                stars.put(4,four_star);
-                stars.put(5,five_star);
 
-                minMax.put("min",min);
-                minMax.put("max",max);
 
+                if(!(thai_food==0&&france_food==0&&usa_food==0&&india_food==0&&japan_food==0)){
+                    foodtype = new TreeMap<String,Integer>();
+                    foodtype.put("Thai",thai_food);
+                    foodtype.put("France",france_food);
+                    foodtype.put("USA",usa_food);
+                    foodtype.put("India",india_food);
+                    foodtype.put("Japan",japan_food);
+                }else foodtype = null;
+                Log.d("type"," "+thai_food+" "+france_food+" "+usa_food+" "+india_food+" "+japan_food+!(thai_food==0&&france_food==0&&usa_food==0&&india_food==0&&japan_food==0)+foodtype);
+
+                if(!(one_star==0&&two_star==0&&three_star==0&&four_star==0&&five_star==0)){
+                    stars = new TreeMap<Integer, Integer>();
+                    stars.put(1,one_star);
+                    stars.put(2,two_star);
+                    stars.put(3,three_star);
+                    stars.put(4,four_star);
+                    stars.put(5,five_star);
+
+                }else stars = null;
+
+
+                if(!(min == 0 && max == 100)){
+                    minMax = new TreeMap<String,Integer>();
+                    minMax.put("min",min);
+                    minMax.put("max",max);
+                }else minMax = null;
+
+                Log.d("testCondition"," "+(foodtype +" "+stars+" "+minMax));
                 renderFragment(new searchResultFragment(keyword,foodtype,stars,minMax));
+
+                mDrawerLayout.closeDrawers();
+
             }
         });
     }
