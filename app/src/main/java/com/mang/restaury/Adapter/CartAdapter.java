@@ -86,22 +86,19 @@ public class CartAdapter extends BaseAdapter {
         holder.removeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int totalPrice = Integer.parseInt(holder.menuPrice.getText().toString().split(" ")[1]);
+                double totalPrice = Double.parseDouble(holder.menuPrice.getText().toString().split(" ")[1]);
                 int itemAmount = Integer.parseInt(holder.itemAmount.getText().toString());
-                final int basePrice = totalPrice / itemAmount;
+                double basePrice = totalPrice / itemAmount;
 
                 itemAmount = itemAmount - 1;
                 totalPrice = itemAmount * basePrice;
-
-                final int amount = itemAmount;
-                final int price = totalPrice;
 
                 if (itemAmount > 0) {
                     // Set realm amount && price
                     realm.beginTransaction();
                     CartItem item = realm.where(CartItem.class).equalTo("menuID", cartItem.getMenuID().toString()).findFirst();
-                    item.setTotalPrice(price);
-                    item.setTotalNumber(amount);
+                    item.setTotalPrice((int) totalPrice);
+                    item.setTotalNumber(itemAmount);
                     realm.commitTransaction();
 
                     // set Text
@@ -119,9 +116,9 @@ public class CartAdapter extends BaseAdapter {
         holder.addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int totalPrice = Integer.parseInt(holder.menuPrice.getText().toString().split(" ")[1]);
+                double totalPrice = Double.parseDouble(holder.menuPrice.getText().toString().split(" ")[1]);
                 int itemAmount = Integer.parseInt(holder.itemAmount.getText().toString());
-                int basePrice = totalPrice / itemAmount;
+                double basePrice = totalPrice / itemAmount;
 
                 itemAmount = itemAmount + 1;
                 totalPrice = itemAmount * basePrice;
@@ -130,7 +127,7 @@ public class CartAdapter extends BaseAdapter {
                 // Set realm amount && price
                 realm.beginTransaction();
                 CartItem item = realm.where(CartItem.class).equalTo("menuID", cartItem.getMenuID().toString()).findFirst();
-                item.setTotalPrice(totalPrice);
+                item.setTotalPrice((int) totalPrice);
                 item.setTotalNumber(itemAmount);
                 realm.commitTransaction();
 

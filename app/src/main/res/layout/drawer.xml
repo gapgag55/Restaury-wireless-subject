@@ -162,7 +162,7 @@
                 app:bar_highlight_color="@color/colorSecondary"
                 app:bar_color="@color/colorLine"
                 app:min_value="0"
-                app:max_value="100"
+                app:max_value="500"
                 app:steps="1"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"/>

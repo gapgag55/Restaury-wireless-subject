@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import com.mang.restaury.Activity.CustomizeActivity;
 import com.mang.restaury.Model.Customize;
 import com.mang.restaury.R;
 
@@ -21,17 +22,17 @@ public class VariationAdapter extends BaseAdapter {
 
     LayoutInflater inflter;
     Context context;
+    CustomizeActivity activity;
 
     private RadioButton button;
     private int selectedPosition = -1;
 
-    public VariationAdapter(Context context, ArrayList<Customize> variations) {
+    public VariationAdapter(Context context, CustomizeActivity activity, ArrayList<Customize> variations) {
         this.context = context;
+        this.activity = activity;
         this.variations = variations;
 
         inflter = (LayoutInflater.from(context));
-        selectedPosition = 0;
-        selectedVariation = variations.get(0);
     }
 
     @Override
@@ -68,11 +69,6 @@ public class VariationAdapter extends BaseAdapter {
             holder = (ViewHolder)view.getTag();
         }
 
-        if (i == 0) {
-            holder.variationType.setChecked(true);
-        }
-
-
         holder.variationType.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,9 +81,16 @@ public class VariationAdapter extends BaseAdapter {
                 button = (RadioButton) v;
 
                 selectedVariation = variations.get(i);
+                activity.updatePrice();
             }
         });
 
+
+        if (i == 0 && button == null) {
+            selectedPosition = 0;
+            button = holder.variationType;
+            selectedVariation = variations.get(0);
+        }
 
         if(selectedPosition != i){
             holder.variationType.setChecked(false);

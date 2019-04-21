@@ -18,6 +18,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.mang.restaury.Adapter.IngredientAdapter;
 import com.mang.restaury.Adapter.VariationAdapter;
 import com.mang.restaury.Model.CartItem;
 import com.mang.restaury.Model.Customize;
@@ -33,6 +34,13 @@ public class CustomizeActivity extends AppCompatActivity {
     private TextView menu;
     private TextView res;
 
+    private VariationAdapter variationAdapter;
+    private IngredientAdapter ingredientAdapter;
+
+    private String menuID;
+    private String menuName;
+    private double menuPrice;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,12 +49,14 @@ public class CustomizeActivity extends AppCompatActivity {
         final Realm realm = Realm.getDefaultInstance();
 
         // From MenuAdapter.java
-        final String menuID = getIntent().getExtras().getString("menuID");
-        final String menuName = getIntent().getExtras().getString("menuName");
-        final String menuPrice = getIntent().getExtras().getString("menuPrice");
+        menuID = getIntent().getExtras().getString("menuID");
+        menuName = getIntent().getExtras().getString("menuName");
+        menuPrice = Double.parseDouble(getIntent().getExtras().getString("menuPrice"));
+
+        System.out.println(menuPrice );
 
         ((TextView) findViewById(R.id.menu_name)).setText(menuName);
-        ((TextView) findViewById(R.id.total_price)).setText("฿" + menuPrice);
+        ((TextView) findViewById(R.id.total_price)).setText("฿" + String.valueOf(menuPrice));
 
 
         // Set Close
@@ -84,9 +94,12 @@ public class CustomizeActivity extends AppCompatActivity {
         });
 
 
+
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference ref = database.getReference();
 
+
+        // Load Size
         final HashMap<String, String> sizeMap = new HashMap<>();
         final Query size = ref.child("Size");
         size.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -106,7 +119,26 @@ public class CustomizeActivity extends AppCompatActivity {
         });
 
 
-        final CustomizeActivity context = this;
+        // Load Ingredient
+        final HashMap<String, String> ingredientMap = new HashMap<>();
+        final Query ingreident = ref.child("Ingredient");
+        ingreident.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+
+                    String ingreidentID = ds.getKey();
+                    String ingredientName = ds.child("ingredientName").getValue(String.class);
+
+                    ingredientMap.put(ingreidentID, ingredientName);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) { }
+        });
+
+
 
         // Printout Menu Size
         final Query menuSize = ref.child("MenuSize").orderByChild("menuID").equalTo(menuID);
@@ -130,39 +162,45 @@ public class CustomizeActivity extends AppCompatActivity {
                 }
 
 
-                final VariationAdapter variationAdapter = new VariationAdapter(context, variations);
+                variationAdapter = new VariationAdapter(getBaseContext(), CustomizeActivity.this, variations);
                 variationList.setAdapter(variationAdapter);
                 setListViewHeightBasedOnChildren(variationList);
 
+            }
 
-                // place_order
-                Button placeOrderButton = (Button) findViewById(R.id.place_order);
-                placeOrderButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                        EditText instruction = (EditText) findViewById(R.id.instruction);
-                        int totalNumber = Integer.parseInt(itemAmount.getText().toString());
+            }
+        });
 
-                        // variation
-                        Customize variation = variationAdapter.selectedVariation;
-                        int variationPrice = variation.getPrice();
-                        String variationSize = variation.getSizeId();
+        // Load ingredient
+        final Query ingredientSize = ref.child("MenuIngredient").orderByChild("menuID").equalTo(menuID);
+        ingredientSize.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                        // total price
-                        int basePrice = (int) Double.parseDouble(menuPrice);
-                        int totalPrice = (basePrice + variationPrice) * totalNumber;
 
-                        // add to cart
-                        CartItem cartItem = new CartItem(menuID, menuName, variationSize, instruction.getText().toString(), totalPrice, totalNumber);
+                // Variation paint out
+                ListView ingredientList = (ListView) findViewById(R.id.ingredient_list);
+                ingredientList.setDivider(null);
 
-                        realm.beginTransaction();
-                        CartItem realmCartItem = realm.copyToRealm(cartItem);
-                        realm.commitTransaction();
+                final ArrayList<Customize> ingredients = new ArrayList<>();
 
-                        closeFragment();
-                    }
-                });
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+
+                    String ingredientId = ds.child("ingredientID").getValue(String.class);
+                    String ingredientName = ingredientMap.get(ingredientId);
+                    int ingredientPrice = ds.child("additionalPrice").getValue(int.class);
+
+                    ingredients.add(new Customize(ingredientId, ingredientName, ingredientPrice));
+                }
+
+
+                ingredientAdapter = new IngredientAdapter(getBaseContext(), CustomizeActivity.this, ingredients);
+                ingredientList.setAdapter(ingredientAdapter);
+                setListViewHeightBasedOnChildren(ingredientList);
+
             }
 
             @Override
@@ -173,6 +211,48 @@ public class CustomizeActivity extends AppCompatActivity {
 
 
 
+        // place_order
+        Button placeOrderButton = (Button) findViewById(R.id.place_order);
+        placeOrderButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                EditText instruction = (EditText) findViewById(R.id.instruction);
+                int totalNumber = Integer.parseInt(itemAmount.getText().toString());
+
+                // variation
+                Customize variation = variationAdapter.selectedVariation;
+                Customize ingredient = ingredientAdapter.selectedIngredient;
+
+                int variationPrice = 0;
+                int ingredientPrice = 0;
+
+                String variationId = "";
+                String ingredientId = "";
+
+                if (variation != null) {
+                    variationPrice = variation.getPrice();
+                    variationId = variation.getId();
+                }
+
+                if (ingredient != null) {
+                    ingredientPrice = ingredient.getPrice();
+                    ingredientId = ingredient.getId();
+                }
+
+                // total price
+                double totalPrice = (menuPrice + variationPrice + ingredientPrice) * totalNumber;
+
+                // add to cart
+                CartItem cartItem = new CartItem(menuID, ingredientId, menuName, variationId, instruction.getText().toString(), totalPrice, totalNumber);
+
+                realm.beginTransaction();
+                CartItem realmCartItem = realm.copyToRealm(cartItem);
+                realm.commitTransaction();
+
+                closeFragment();
+            }
+        });
     }
 
     public static void setListViewHeightBasedOnChildren(ListView listView) {
@@ -194,6 +274,22 @@ public class CustomizeActivity extends AppCompatActivity {
         ViewGroup.LayoutParams params = listView.getLayoutParams();
         params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
         listView.setLayoutParams(params);
+    }
+
+    public void updatePrice() {
+
+        Customize variation = variationAdapter.selectedVariation;
+        Customize ingredient = ingredientAdapter.selectedIngredient;
+
+        int variationPrice = 0;
+        int ingredientPrice = 0;
+
+        if (variation != null) variationPrice = variation.getPrice();
+        if (ingredient != null) ingredientPrice = ingredient.getPrice();
+
+        double price = menuPrice + variationPrice + ingredientPrice;
+
+        ((TextView) findViewById(R.id.total_price)).setText("฿" + String.valueOf(price));
     }
 
 

@@ -7,16 +7,18 @@ import io.realm.RealmObject;
 public class CartItem extends RealmObject {
 
     private String menuID; // MenuID can get restaurantID
+    private String ingredientID;
     private String menuName;
     private String sizeID;
     private String instruction;
-    private int totalPrice;
+    private double totalPrice;
     private int totalNumber;
 
     public CartItem() {}
 
-    public CartItem(String menuID, String menuName, String sizeID, String instruction, int totalPrice, int totalNumber) {
+    public CartItem(String menuID, String ingredientID, String menuName, String sizeID, String instruction, double totalPrice, int totalNumber) {
         this.menuID = menuID;
+        this.ingredientID = ingredientID;
         this.menuName = menuName;
         this.sizeID = sizeID;
         this.instruction = instruction;
@@ -26,6 +28,10 @@ public class CartItem extends RealmObject {
 
     public String getMenuID() {
         return menuID;
+    }
+
+    public String getIngredientID() {
+        return ingredientID;
     }
 
     public String getMenuName() {
@@ -40,7 +46,7 @@ public class CartItem extends RealmObject {
         return instruction;
     }
 
-    public int getTotalPrice() {
+    public double getTotalPrice() {
         return totalPrice;
     }
 

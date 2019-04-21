@@ -62,7 +62,7 @@ public class SearchActivity extends AppCompatActivity {
     TreeMap<String,Integer> minMax;
 
 
-    int min = 0 ,max = 100;
+    int min = 0 ,max = 500;
 
     private ArrayList<Restaurant> restaurants;
 
@@ -382,7 +382,7 @@ public class SearchActivity extends AppCompatActivity {
                 }else stars = null;
 
 
-                if(!(min == 0 && max == 100)){
+                if(!(min == 0 && max == 500)){
                     minMax = new TreeMap<String,Integer>();
                     minMax.put("min",min);
                     minMax.put("max",max);

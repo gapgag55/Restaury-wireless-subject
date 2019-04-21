@@ -2,18 +2,18 @@ package com.mang.restaury.Model;
 
 public class Customize {
 
-    private String sizeId;
+    private String id;
     private String name;
     private int price;
 
-    public Customize(String sizeId, String name, int price) {
-        this.sizeId = sizeId;
+    public Customize(String id, String name, int price) {
+        this.id = id;
         this.name = name;
         this.price = price;
     }
 
-    public String getSizeId() {
-        return sizeId;
+    public String getId() {
+        return id;
     }
 
     public String getName() {
