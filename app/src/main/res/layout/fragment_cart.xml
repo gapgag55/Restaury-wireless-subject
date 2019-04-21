@@ -48,9 +48,7 @@
             android:layout_alignParentLeft="true"
             />
 
-
     </LinearLayout>
-
 
     <ScrollView
         android:id="@+id/cart"
@@ -349,7 +347,7 @@
                 android:padding="15dp"
                 android:layout_below="@+id/cart_contact"
                 android:layout_marginTop="20dp"
-                android:layout_marginBottom="180dp"
+                android:layout_marginBottom="100dp"
                 android:elevation="10dp">
 
                 <Button
@@ -365,11 +363,8 @@
 
             </LinearLayout>
 
-
         </LinearLayout>
 
     </ScrollView>
-
-
 
 </RelativeLayout>

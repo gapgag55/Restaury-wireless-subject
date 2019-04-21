@@ -91,17 +91,17 @@ public class AboutFragment extends Fragment {
 
         mMapView.onResume(); // needed to get the map to display immediately
 
+        try {
+            MapsInitializer.initialize(getActivity().getApplicationContext());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
 
         mMapView.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap mMap) {
                 googleMap = mMap;
-
-                try {
-                    MapsInitializer.initialize(getActivity().getApplicationContext());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
 
                 // For dropping a marker at a point on the Map
                 LatLng sydney = new LatLng(latitute, longitute);

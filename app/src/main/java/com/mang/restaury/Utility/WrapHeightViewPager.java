@@ -7,11 +7,7 @@ import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 
-public class WrapHeightViewPager extends ViewPager  {
-
-    private int height = 0;
-    private int decorHeight = 0;
-    private int widthMeasuredSpec;
+public class WrapHeightViewPager extends ViewPager   {
 
     public WrapHeightViewPager(Context context) {
         super(context);
@@ -21,19 +17,18 @@ public class WrapHeightViewPager extends ViewPager  {
         super(context, attrs);
     }
 
+    @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 
         int height = 0;
-        for(int i = 0; i < getChildCount(); i++) {
+        for (int i = 0; i < getChildCount(); i++) {
             View child = getChildAt(i);
             child.measure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
             int h = child.getMeasuredHeight();
-            if(h > height) height = h;
+            if (h > height) height = h;
         }
 
-        if (height != 0) {
-            heightMeasureSpec = MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY);
-        }
+        heightMeasureSpec = MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY);
 
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }

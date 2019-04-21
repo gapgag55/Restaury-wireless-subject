@@ -95,7 +95,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/customize_variation"
+                android:id="@+id/customize_variation_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -134,7 +134,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/customize_variation"
+                android:id="@+id/customize_ingredient_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"

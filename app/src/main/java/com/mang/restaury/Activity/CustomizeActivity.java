@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -146,25 +147,31 @@ public class CustomizeActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                // Variation paint out
-                ListView variationList = (ListView) findViewById(R.id.variation_list);
-                variationList.setDivider(null);
 
-                final ArrayList<Customize> variations = new ArrayList<>();
+                if (!dataSnapshot.exists()) {
+                    ((LinearLayout) findViewById(R.id.customize_variation_layout)).setVisibility(View.GONE);
+                } else {
 
-                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    // Variation paint out
+                    ListView variationList = (ListView) findViewById(R.id.variation_list);
+                    variationList.setDivider(null);
 
-                    String sizeId = ds.child("sizeID").getValue(String.class);
-                    String sizeName = sizeMap.get(sizeId);
-                    int sizePrice = ds.child("additionalPrice").getValue(int.class);
+                    final ArrayList<Customize> variations = new ArrayList<>();
 
-                    variations.add(new Customize(sizeId, sizeName, sizePrice));
+                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
+
+                        String sizeId = ds.child("sizeID").getValue(String.class);
+                        String sizeName = sizeMap.get(sizeId);
+                        int sizePrice = ds.child("additionalPrice").getValue(int.class);
+
+                        variations.add(new Customize(sizeId, sizeName, sizePrice));
+                    }
+
+
+                    variationAdapter = new VariationAdapter(getBaseContext(), CustomizeActivity.this, variations);
+                    variationList.setAdapter(variationAdapter);
+                    setListViewHeightBasedOnChildren(variationList);
                 }
-
-
-                variationAdapter = new VariationAdapter(getBaseContext(), CustomizeActivity.this, variations);
-                variationList.setAdapter(variationAdapter);
-                setListViewHeightBasedOnChildren(variationList);
 
             }
 
@@ -180,26 +187,30 @@ public class CustomizeActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
+                if (!dataSnapshot.exists()) {
+                    ((LinearLayout) findViewById(R.id.customize_ingredient_layout)).setVisibility(View.GONE);
+                } else {
 
-                // Variation paint out
-                ListView ingredientList = (ListView) findViewById(R.id.ingredient_list);
-                ingredientList.setDivider(null);
+                    // Variation paint out
+                    ListView ingredientList = (ListView) findViewById(R.id.ingredient_list);
+                    ingredientList.setDivider(null);
 
-                final ArrayList<Customize> ingredients = new ArrayList<>();
+                    final ArrayList<Customize> ingredients = new ArrayList<>();
 
-                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
 
-                    String ingredientId = ds.child("ingredientID").getValue(String.class);
-                    String ingredientName = ingredientMap.get(ingredientId);
-                    int ingredientPrice = ds.child("additionalPrice").getValue(int.class);
+                        String ingredientId = ds.child("ingredientID").getValue(String.class);
+                        String ingredientName = ingredientMap.get(ingredientId);
+                        int ingredientPrice = ds.child("additionalPrice").getValue(int.class);
 
-                    ingredients.add(new Customize(ingredientId, ingredientName, ingredientPrice));
+                        ingredients.add(new Customize(ingredientId, ingredientName, ingredientPrice));
+                    }
+
+
+                    ingredientAdapter = new IngredientAdapter(getBaseContext(), CustomizeActivity.this, ingredients);
+                    ingredientList.setAdapter(ingredientAdapter);
+                    setListViewHeightBasedOnChildren(ingredientList);
                 }
-
-
-                ingredientAdapter = new IngredientAdapter(getBaseContext(), CustomizeActivity.this, ingredients);
-                ingredientList.setAdapter(ingredientAdapter);
-                setListViewHeightBasedOnChildren(ingredientList);
 
             }
 
