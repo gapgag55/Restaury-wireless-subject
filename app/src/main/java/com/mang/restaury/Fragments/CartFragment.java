@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -37,6 +38,7 @@ import com.mang.restaury.R;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -105,19 +107,44 @@ public class CartFragment extends Fragment {
         setSpinner(date, dateData);
 
 
-
         // Set Maximum people can book
         final Spinner time = (Spinner) rootView.findViewById(R.id.delivery_time);
 
-        // Spinner Drop down elements
-        List<String> timeData = new ArrayList<String>();
-        timeData.add("13:00");
-        timeData.add("14:00");
-        timeData.add("15:00");
-        timeData.add("16:00");
-        timeData.add("17:00");
+        date.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                // Spinner Drop down elements
 
-        setSpinner(time, timeData);
+                String selectedItem = parent.getItemAtPosition(position).toString();
+                List<String> timeData = new ArrayList<String>();
+
+
+                Calendar c = Calendar.getInstance();
+
+
+                int closeTime = 23;
+
+                if(selectedItem.equals("Today"))
+                {
+                    int currentHr=c.get(Calendar.HOUR_OF_DAY)+1;
+                    for(int i = currentHr;i<=closeTime;i++) {
+                        timeData.add(i+":00");
+                    }
+                }else {
+                    int open = 10;
+                    for(int i = open;i<=closeTime;i++) {
+                        timeData.add(i+":00");
+                    }
+                }
+
+                setSpinner(time, timeData);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
 
 
