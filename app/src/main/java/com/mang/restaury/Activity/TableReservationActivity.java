@@ -1,13 +1,16 @@
 package com.mang.restaury.Activity;
 
 import android.app.DatePickerDialog;
+import android.location.LocationManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -94,20 +97,49 @@ public class TableReservationActivity extends AppCompatActivity {
 
         setSpinner(date, dateData);
 
-
-
         // Set Maximum people can book
         final Spinner time = (Spinner) findViewById(R.id.reserve_time);
 
-        // Spinner Drop down elements
-        List<String> timeData = new ArrayList<String>();
-        timeData.add("13:00");
-        timeData.add("14:00");
-        timeData.add("15:00");
-        timeData.add("16:00");
-        timeData.add("17:00");
+        date.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                // Spinner Drop down elements
 
-        setSpinner(time, timeData);
+                String selectedItem = parent.getItemAtPosition(position).toString();
+                List<String> timeData = new ArrayList<String>();
+
+
+                Calendar c = Calendar.getInstance();
+
+
+                int closeTime = 24;
+
+                if(selectedItem.equals("Today"))
+                {
+                    int currentHr=c.get(Calendar.HOUR_OF_DAY);
+                    for(int i = currentHr;i<closeTime;i++) {
+                        timeData.add(i+":00");
+                    }
+                }else {
+                    int open = 10;
+                    for(int i = open;i<closeTime;i++) {
+                        timeData.add(i+":00");
+                    }
+                }
+
+                setSpinner(time, timeData);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+
+
+
 
 
         final EditText instruction = (EditText) findViewById(R.id.instruction);
@@ -137,6 +169,7 @@ public class TableReservationActivity extends AppCompatActivity {
 //                System.out.println(reservePeople + " : " + reserveDate + " : " + reserveTime);
 
                 if (reserveDate.equals("Today")) {
+
                     DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                     Date date = new Date();
                     reserveDate = dateFormat.format(date);
@@ -187,12 +220,15 @@ public class TableReservationActivity extends AppCompatActivity {
                                             String reserveTableID = ds.child("tableId").getValue(String.class);
                                             String dateTime = ds.child("dateTime").getValue(String.class);
 
+                                            Log.d("table-cool"," "+(tableID.equals(reserveTableID))+(dateTime.equals(reserveDateTime)));
+
                                             if (tableID.equals(reserveTableID) && dateTime.equals(reserveDateTime)) {
                                                 temp.put("isTableAvailable", false);
                                                 break;
                                             }
                                         }
 
+                                        Log.d("table-cool2",temp.get("isTableAvailable")+"");
                                         if (temp.get("isTableAvailable")) {
                                             // Save Data
                                             ref.child("Reservation").push().setValue(
