@@ -45,6 +45,7 @@ public class RestaurantActivity extends AppCompatActivity {
     private double resDeliverFee;
     private double resStar;
     private String resType;
+    private String resURL;
 
     private CallbackManager callbackManager;
     private ShareDialog shareDialog;
@@ -55,31 +56,8 @@ public class RestaurantActivity extends AppCompatActivity {
         setContentView(R.layout.activity_restaurant);
         FacebookSdk.sdkInitialize(this.getApplicationContext());
         final Realm realm = Realm.getDefaultInstance();
-        
-        // Share by bank
-
-        callbackManager = CallbackManager.Factory.create();
-        shareDialog = new ShareDialog(this);
-
-        ImageButton share_button = findViewById(R.id.share_button);
-        share_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                ShareLinkContent content = new ShareLinkContent.Builder()
-                        .setContentUrl(Uri.parse("https://developers.facebook.com"))
-                        .build();
-
-                if(ShareDialog.canShow(ShareLinkContent.class)){
-                    shareDialog.show(content);
-                }
-            }
-        });
 
 
-        ShareLinkContent content = new ShareLinkContent.Builder()
-                .setContentUrl(Uri.parse("https://developers.facebook.com"))
-                .build();
 
         // Intent from RestaurantAdapter.java
 
@@ -93,7 +71,27 @@ public class RestaurantActivity extends AppCompatActivity {
         resDeliverFee =  getIntent().getExtras().getDouble("res_deliverFee");
         resStar = getIntent().getExtras().getDouble("res_star");
         resType = getIntent().getExtras().getString("resType");
+        resURL = getIntent().getExtras().getString("resURL");
 
+        // Share by bank
+
+        callbackManager = CallbackManager.Factory.create();
+        shareDialog = new ShareDialog(this);
+
+        ImageButton share_button = findViewById(R.id.share_button);
+        share_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                ShareLinkContent content = new ShareLinkContent.Builder()
+                        .setContentUrl(Uri.parse(resURL))
+                        .build();
+
+                if(ShareDialog.canShow(ShareLinkContent.class)){
+                    shareDialog.show(content);
+                }
+            }
+        });
 
         // set image of the restaurant
         mResPic = (ImageView) findViewById(R.id.restaurant_image) ;
@@ -147,7 +145,7 @@ public class RestaurantActivity extends AppCompatActivity {
                 } else {
 
                     // add
-                    Restaurant restaurant = new Restaurant(resName, latitute, longitute,  resID, about, resDeliverFee, picture,resStar,resType);
+                    Restaurant restaurant = new Restaurant(resName, latitute, longitute,  resID, about, resDeliverFee, picture,resStar,resType,resURL);
                     Restaurant realmFavorite = realm.copyToRealm(restaurant);
                     saveIcon.setBackgroundResource(R.drawable.ic_save_active);
 
