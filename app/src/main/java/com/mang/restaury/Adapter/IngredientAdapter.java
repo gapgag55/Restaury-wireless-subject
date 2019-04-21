@@ -4,42 +4,45 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import com.mang.restaury.Activity.CustomizeActivity;
 import com.mang.restaury.Model.Customize;
 import com.mang.restaury.R;
 
 import java.util.ArrayList;
 
-public class IngredientAdapter {
+public class IngredientAdapter extends BaseAdapter {
 
-    private ArrayList<Customize> variations;
-    public static Customize selectedVariation ;
+
+    private ArrayList<Customize> ingredients;
+    public static Customize selectedIngredient;
 
     LayoutInflater inflter;
     Context context;
+    CustomizeActivity activity;
 
     private RadioButton button;
     private int selectedPosition = -1;
 
-    public IngredientAdapter(Context context, ArrayList<Customize> variations) {
+    public IngredientAdapter(Context context, CustomizeActivity activity, ArrayList<Customize> ingredients) {
         this.context = context;
-        this.variations = variations;
+        this.activity = activity;
+        this.ingredients = ingredients;
 
         inflter = (LayoutInflater.from(context));
-        selectedPosition = 0;
-        selectedVariation = variations.get(0);
     }
 
     @Override
     public int getCount() {
-        return variations.size();
+        return ingredients.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return variations.get(i);
+        return ingredients.get(i);
     }
 
     @Override
@@ -66,11 +69,6 @@ public class IngredientAdapter {
             holder = (IngredientAdapter.ViewHolder)view.getTag();
         }
 
-        if (i == 0) {
-            holder.variationType.setChecked(true);
-        }
-
-
         holder.variationType.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,7 +80,8 @@ public class IngredientAdapter {
                 selectedPosition = i;
                 button = (RadioButton) v;
 
-                selectedVariation = variations.get(i);
+                selectedIngredient = ingredients.get(i);
+                activity.updatePrice();
             }
         });
 
@@ -97,7 +96,7 @@ public class IngredientAdapter {
         }
 
 
-        Customize item = variations.get(i);
+        Customize item = ingredients.get(i);
 
         holder.variationType.setText(item.getName());
         holder.variationPrice.setText("฿ +" + String.valueOf(item.getPrice()));

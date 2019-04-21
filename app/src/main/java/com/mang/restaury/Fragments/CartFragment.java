@@ -204,13 +204,14 @@ public class CartFragment extends Fragment {
 
                 // Push to orderDetail
                 for (CartItem item : cart) {
+                    String ingredientID = item.getIngredientID();
                     String menuID = item.getMenuID();
                     String orderDetailRequest = item.getInstruction();
                     String sizeID = item.getSizeID();
                     int totalNumber = item.getTotalNumber();
 
                     ref.child("OrderDetail").push().setValue(
-                            new OrderDetail("Hello", menuID, orderDetailRequest, orderKey, sizeID, totalNumber)
+                            new OrderDetail(ingredientID, menuID, orderDetailRequest, orderKey, sizeID, totalNumber)
                     );
                 }
 

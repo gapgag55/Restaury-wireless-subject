@@ -119,28 +119,28 @@ public class CartAdapter extends BaseAdapter {
         holder.addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int totalPrice = Integer.parseInt(holder.menuPrice.getText().toString().split(" ")[1]);
+                double totalPrice = Double.parseDouble(holder.menuPrice.getText().toString().split(" ")[1]);
                 int itemAmount = Integer.parseInt(holder.itemAmount.getText().toString());
-                int basePrice = totalPrice / itemAmount;
+                double basePrice = totalPrice / itemAmount;
 
                 itemAmount = itemAmount + 1;
                 totalPrice = itemAmount * basePrice;
 
 
                 // Set realm amount && price
-                realm.beginTransaction();
-                CartItem item = realm.where(CartItem.class).equalTo("menuID", cartItem.getMenuID().toString()).findFirst();
-                item.setTotalPrice(totalPrice);
-                item.setTotalNumber(itemAmount);
-                realm.commitTransaction();
-
-                //set text
-                holder.itemAmount.setText(String.valueOf(itemAmount));
-                holder.menuPrice.setText("฿ " + totalPrice);
-
-
-                subtotal += basePrice;
-                cartFragment.updateValue();
+//                realm.beginTransaction();
+//                CartItem item = realm.where(CartItem.class).equalTo("menuID", cartItem.getMenuID().toString()).findFirst();
+//                item.setTotalPrice(totalPrice);
+//                item.setTotalNumber(itemAmount);
+//                realm.commitTransaction();
+//
+//                //set text
+//                holder.itemAmount.setText(String.valueOf(itemAmount));
+//                holder.menuPrice.setText("฿ " + totalPrice);
+//
+//
+//                subtotal += basePrice;
+//                cartFragment.updateValue();
             }
         });
 
