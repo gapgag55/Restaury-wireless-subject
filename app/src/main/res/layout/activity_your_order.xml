@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:fontFamily="@font/roboto_medium"
-            android:text="Your Order"
+            android:text="@string/your_order"
             android:textColor="@color/colorFont"
             android:textSize="20dp" />
 
@@ -97,7 +97,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Subtotal"
+                        android:text="@string/cart_subtotal"
                         android:fontFamily="@font/roboto_regular"
                         android:textColor="@color/colorFont"
                         android:layout_alignParentLeft="true"
@@ -127,7 +127,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Delivery fee"
+                        android:text="@string/cart_delivery_fee"
                         android:fontFamily="@font/roboto_regular"
                         android:textColor="@color/colorFont"
                         android:layout_alignParentLeft="true"
@@ -158,7 +158,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="VAT"
+                        android:text="@string/cart_vat"
                         android:fontFamily="@font/roboto_regular"
                         android:textColor="@color/colorFont"
                         android:layout_alignParentLeft="true"
@@ -184,7 +184,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Total (inct. VAT)"
+                        android:text="@string/cart_total"
                         android:fontFamily="@font/roboto_regular"
                         android:textColor="@color/colorFont"
                         android:layout_alignParentLeft="true"
@@ -216,7 +216,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Delivery"
+                    android:text="@string/cart_delivery"
                     android:fontFamily="@font/roboto_medium"
                     android:textSize="18sp"
                     android:textColor="@color/colorFont"
@@ -236,7 +236,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Delivery Date:"
+                        android:text="@string/cart_delivery_date"
                         android:fontFamily="@font/roboto_regular"
                         android:textColor="@color/colorFont"
                         android:layout_alignParentLeft="true" />
@@ -262,7 +262,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Delivery Time:"
+                        android:text="@string/cart_delivery_time"
                         android:fontFamily="@font/roboto_regular"
                         android:textColor="@color/colorFont"
                         android:layout_alignParentLeft="true"
@@ -294,7 +294,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Contact Information"
+                    android:text="@string/profile_contact_information"
                     android:fontFamily="@font/roboto_medium"
                     android:textSize="18sp"
                     android:textColor="@color/colorFont"
@@ -309,7 +309,7 @@
                     android:id="@+id/fullname"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Name"
+                    android:hint="@string/profile_placeholder_name"
                     android:textColorHint="@color/colorHint"
                     android:padding="20dp"
                     android:textSize="15sp"
@@ -321,7 +321,7 @@
                     android:id="@+id/phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Phone Number"
+                    android:hint="@string/profile_placeholder_phone"
                     android:textColorHint="@color/colorHint"
                     android:padding="20dp"
                     android:textSize="15sp"
@@ -333,7 +333,7 @@
                     android:id="@+id/address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Address"
+                    android:hint="@string/profile_placeholder_address"
                     android:textColorHint="@color/colorHint"
                     android:padding="20dp"
                     android:textSize="15sp"
@@ -358,7 +358,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/orange_button"
-                    android:text="PLACE YOUR ORDER"
+                    android:text="@string/cart_place_order"
                     android:fontFamily="@font/roboto_medium"
                     android:textColor="@android:color/white"
                     android:textSize="17sp"

@@ -68,6 +68,10 @@ public class VariationAdapter extends BaseAdapter {
             holder = (ViewHolder)view.getTag();
         }
 
+        if (i == 0) {
+            holder.variationType.setChecked(true);
+        }
+
 
         holder.variationType.setOnClickListener(new View.OnClickListener() {
             @Override

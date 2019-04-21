@@ -21,8 +21,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.mang.restaury.Adapter.VariationAdapter;
 import com.mang.restaury.Model.CartItem;
 import com.mang.restaury.Model.Customize;
-import com.mang.restaury.Model.Favorite;
-import com.mang.restaury.Model.Restaurant;
 import com.mang.restaury.R;
 
 import java.util.ArrayList;

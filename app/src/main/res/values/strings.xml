@@ -1,22 +1,94 @@
 <resources>
     <string name="app_name">Restaury</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_tab">TabActivity</string>
-    <string name="action_settings">Settings</string>
-    <string name="section_format">Hello World from section: %1$d</string>
-    <string name="title_activity_table_reservation">TableReservationActivity</string>
-    <!--
-    This string is used for square devices and overridden by hello_world in
-    values-round/strings.xml for round devices.
-    -->
-    <string name="hello_world">Hello Square World!</string>
-    <string name="title_activity_maps">Map</string>
+    <!-- fragment_search.xml -->
+    <string name="search_near">Near</string>
+    <string name="search_placeholder">Search for restaurant you know</string>
+    <string name="search_restaurant_near_you">Restaurant Near You</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
 
-    <string name="facebook_app_id">814679415574139</string>
-    <string name="fb_login_protocol_scheme">fb814679415574139</string>
+    <!-- fragment_favorite.xml -->
+    <string name="favorite_restaurant">Favorite Restaurants</string>
+
+    <!-- fragment_profile.xml -->
+    <string name="profile">Profile</string>
+    <string name="profile_my_orders">My Orders</string>
+    <string name="profile_my_table_reservations">My Table Reservations</string>
+    <string name="profile_contact_information">Contact Information</string>
+    <string name="profile_placeholder_name">Name</string>
+    <string name="profile_placeholder_phone">Phone Number</string>
+    <string name="profile_placeholder_address">Address</string>
+    <string name="profile_update">Update</string>
+    <string name="profile_logout">Logout</string>
+
+
+    <!-- bottom_sheet_login.xml -->
+    <string name="login">Login</string>
+    <string name="login_google">Login with Google</string>
+    <string name="login_facebook">Login with Facebook</string>
+
+    <!-- activity_your_order.xml & fragment_cart.xml-->
+    <string name="your_order">Your Order</string>
+    <string name="your_cart">Your cart</string>
+    <string name="cart_no_items">No food in cart</string>
+    <string name="cart_subtotal">Subtotal</string>
+    <string name="cart_delivery_fee">Delivery fee</string>
+    <string name="cart_vat">VAT</string>
+    <string name="cart_total">Total (inct. VAT)</string>
+    <string name="cart_delivery">Delivery</string>
+    <string name="cart_delivery_date">Delivery Date:</string>
+    <string name="cart_delivery_time">Delivery Time:</string>
+    <string name="cart_place_order">Place your order</string>
+
+
+    <!-- drawer.xml -->
+    <string name="drawer_filterer">Filterer</string>
+    <string name="drawer_food_type">Food Type</string>
+    <string name="drawer_price_length">Price Length</string>
+    <string name="drawer_rating_star">Rating Stars</string>
+    <string name="drawer_thai_food">Thai Food</string>
+    <string name="drawer_italian_food">Italian Food</string>
+    <string name="drawer_france_food">France Food</string>
+    <string name="drawer_usa_food">USA Food</string>
+    <string name="drawer_japan_food">Japan Food</string>
+    <string name="drawer_apply">Apply</string>
+
+
+    <!-- fragment_about.xml -->
+    <string name="about">About</string>
+    <string name="about_location">Location</string>
+    <string name="about_book_table">Book the table</string>
+
+
+    <!-- fragment_menu.xml -->
+    <string name="menu">Menus</string>
+
+
+    <!-- fragment_reviews.xml -->
+    <string name="review_write">Write a Review</string>
+    <string name="review_write_placeholder">Some comment here…</string>
+    <string name="review_send">Send a review</string>
+    <string name="review_comment_rating">Comment Rating</string>
+    <string name="review_comment_review">Comment Reviews</string>
+
+
+    <!-- activity_table_reservation.xml -->
+    <string name="table">Table Reservation</string>
+    <string name="table_reservation_detail">Reservation Detail</string>
+    <string name="table_people">People:</string>
+    <string name="table_reserve_date">Reserve Date</string>
+    <string name="table_reserve_time">Reserve Time</string>
+    <string name="table_no_table_available">Table is not available</string>
+    <string name="table_special_instruction">Special Instruction (Optional)</string>
+    <string name="table_some_instruction">Some instruction here</string>
+    <string name="table_reserve_table">RESERVE THE TABLE</string>
+
+
+    <!-- my_orders.xml -->
+    <string name="view_order">View Order</string>
+
+
+    <!-- menu.xml -->
+    <string name="add_ons_available">with add ons available</string>
 
 </resources>

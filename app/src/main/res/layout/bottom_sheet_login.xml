@@ -43,7 +43,7 @@
                 android:background="@drawable/google_button"
                 android:fontFamily="@font/roboto_medium"
                 android:padding="10dp"
-                android:text="Login with Google"
+                android:text="@string/login_google"
                 android:textAlignment="center"
                 android:textColor="@android:color/white"
                 android:textSize="15sp" />
@@ -55,6 +55,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/login_google_layout"
             android:layout_marginTop="10dp"
+            android:orientation="vertical"
             android:background="@drawable/google_button">
 
             <Button
@@ -64,7 +65,7 @@
                 android:background="@drawable/facebook_button"
                 android:fontFamily="@font/roboto_medium"
                 android:padding="10dp"
-                android:text="Login with Facebook"
+                android:text="@string/login_facebook"
                 android:textAlignment="center"
                 android:textColor="@android:color/white"
                 android:textSize="15sp" />

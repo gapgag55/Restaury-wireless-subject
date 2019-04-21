@@ -33,7 +33,7 @@
             android:layout_marginRight="20dp"
             android:background="@drawable/search_input"
             android:padding="20dp"
-            android:hint="Search for restaurant you know"
+            android:hint="@string/search_placeholder"
             android:textColorHint="@color/colorHint"
             android:singleLine="true"
             android:fontFamily="@font/roboto_medium"
@@ -50,7 +50,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Near"
+                android:text="@string/search_near"
                 android:background="@drawable/orange_button"
                 android:textColor="@android:color/white"
                 android:layout_marginLeft="20dp"
@@ -63,7 +63,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto_medium"
-                android:text="Restaurants Near You"
+                android:text="@string/search_restaurant_near_you"
                 android:textColor="@color/colorFont"
                 android:textSize="17dp"
                 android:layout_marginLeft="20dp" />
