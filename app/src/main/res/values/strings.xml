@@ -83,6 +83,10 @@
     <string name="table_some_instruction">Some instruction here</string>
     <string name="table_reserve_table">RESERVE THE TABLE</string>
 
+    <!-- activity_customize.xml -->
+    <string name="customize">Customize</string>
+    <string name="customize_variation">Variation</string>
+    <string name="customize_ingredient">Ingredient</string>
 
     <!-- my_orders.xml -->
     <string name="view_order">View Order</string>

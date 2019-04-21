@@ -61,4 +61,7 @@
     <string name="tab_about">เกี่ยวกับ</string>
     <string name="tab_menus">รายการอาหาร</string>
     <string name="tab_reviews">ความคิดเห็น</string>
+    <string name="customize">ตัวเลือก</string>
+    <string name="customize_variation">ไซส์</string>
+    <string name="customize_ingredient">ส่วนผสมเพิ่มเติม</string>
 </resources>
