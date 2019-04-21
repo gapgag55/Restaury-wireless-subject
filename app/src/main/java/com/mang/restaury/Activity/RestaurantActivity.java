@@ -160,9 +160,9 @@ public class RestaurantActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         ResturantTabAdapter adapter = new ResturantTabAdapter(getSupportFragmentManager());
-        adapter.addFragment(new AboutFragment(resID, resName, latitute, longitute, about), "About");
-        adapter.addFragment(new MenusFragment(resID), "Menus");
-        adapter.addFragment(new ReviewsFragment(resID), "Reviews");
+        adapter.addFragment(new AboutFragment(resID, resName, latitute, longitute, about), getString(R.string.tab_about));
+        adapter.addFragment(new MenusFragment(resID), getString(R.string.tab_menus));
+        adapter.addFragment(new ReviewsFragment(resID), getString(R.string.tab_reviews));
         viewPager.setAdapter(adapter);
     }
 }

@@ -189,9 +189,6 @@ public class ReviewsFragment extends Fragment {
 
     private void loadReview(DatabaseReference ref) {
 
-        final TextView commentRatingTitle = (TextView) rootView.findViewById(R.id.commentRatingTitle);
-        final TextView commentsTitle = (TextView) rootView.findViewById(R.id.comments);
-
         Query comments = ref.child("Comment").orderByChild("restaurantID").equalTo(resID);
         comments.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -215,9 +212,6 @@ public class ReviewsFragment extends Fragment {
                     );
 
                 }
-
-                commentRatingTitle.setText("Comment Ratings (" + comments.size() + ")");
-                commentsTitle.setText("Customer Reviews (" + comments.size() + ")");
 
                 // reverse comment
                 Collections.reverse(comments);

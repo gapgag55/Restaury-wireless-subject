@@ -128,51 +128,6 @@
                         android:layout_height="wrap_content"
                         android:choiceMode="singleChoice"></ListView>
 
-                        <!--<RelativeLayout-->
-                            <!--android:layout_width="match_parent"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:id="@+id/price_box">-->
-
-                            <!--<RadioButton-->
-                                <!--android:layout_width="wrap_content"-->
-                                <!--android:layout_height="wrap_content"-->
-                                <!--android:text="Regular"-->
-                                <!--android:checked="true"-->
-                                <!--android:buttonTint="@color/colorSecondary" />-->
-
-
-                            <!--<TextView-->
-                                <!--android:layout_width="wrap_content"-->
-                                <!--android:layout_height="wrap_content"-->
-                                <!--android:text="+ ฿ 0.00"-->
-                                <!--android:fontFamily="@font/roboto_regular"-->
-                                <!--android:textColor="@color/colorFont"-->
-                                <!--android:layout_alignParentRight="true" />-->
-
-                        <!--</RelativeLayout>-->
-
-                        <!--<RelativeLayout-->
-                            <!--android:layout_width="match_parent"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:layout_below="@id/price_box"-->
-                            <!--android:id="@+id/price_box2">-->
-
-                            <!--<RadioButton-->
-                                <!--android:layout_width="wrap_content"-->
-                                <!--android:layout_height="wrap_content"-->
-                                <!--android:text="Extra"-->
-                                <!--android:buttonTint="@color/colorSecondary" />-->
-
-                            <!--<TextView-->
-                                <!--android:layout_width="wrap_content"-->
-                                <!--android:layout_height="wrap_content"-->
-                                <!--android:text="+ ฿ 10.00"-->
-                                <!--android:fontFamily="@font/roboto_regular"-->
-                                <!--android:textColor="@color/colorFont"-->
-                                <!--android:layout_alignParentRight="true" />-->
-
-                        <!--</RelativeLayout>-->
-
                 </RelativeLayout>
 
 

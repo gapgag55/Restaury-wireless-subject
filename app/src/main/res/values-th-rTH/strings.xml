@@ -40,7 +40,7 @@
     <string name="about_location">ตำแหน่งที่อยู่</string>
     <string name="about_book_table">จองโต๊ะ</string>
     <string name="menu">รายการอาหาร</string>
-    <string name="review_write">แสดงความติดเห็น</string>
+    <string name="review_write">แสดงความคิดเห็น</string>
     <string name="review_write_placeholder">เขียนความคิดเห็น</string>
     <string name="review_send">ส่งความคิดเห็น</string>
     <string name="review_comment_rating">เรคติ้งร้านอาหาร</string>
@@ -58,4 +58,7 @@
     <string name="add_ons_available">มีบริการส่วนเสริม</string>
     <string name="your_cart">ออเดอร์</string>
     <string name="cart_no_items">ไม่มีรายการในออเดอร์</string>
+    <string name="tab_about">เกี่ยวกับ</string>
+    <string name="tab_menus">รายการอาหาร</string>
+    <string name="tab_reviews">ความคิดเห็น</string>
 </resources>

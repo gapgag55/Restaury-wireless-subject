@@ -170,6 +170,9 @@ public class CustomizeActivity extends AppCompatActivity {
 
             }
         });
+
+
+
     }
 
     public static void setListViewHeightBasedOnChildren(ListView listView) {
