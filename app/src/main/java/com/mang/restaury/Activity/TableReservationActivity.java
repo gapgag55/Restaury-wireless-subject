@@ -123,13 +123,7 @@ public class TableReservationActivity extends AppCompatActivity {
         });
 
 
-
-
-
-
-
         final EditText instruction = (EditText) findViewById(R.id.instruction);
-
 
         // Submit Reservation
         final TextView status = (TextView) findViewById(R.id.reservation_status);
@@ -264,6 +258,9 @@ public class TableReservationActivity extends AppCompatActivity {
         close();
     }
 
+    /**
+     * Close this fragment with animation
+     */
     private void close() {
         finish();
         overridePendingTransition(R.anim.stay, R.anim.slide_out_down);

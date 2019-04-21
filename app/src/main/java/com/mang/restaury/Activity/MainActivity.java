@@ -31,6 +31,11 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
+            /**
+             * Declare singeleton authentication due to some fragment is required
+             * - CartFragment
+             * - ProfileFragment
+             */
             final AuthenticationFragment auth = AuthenticationFragment.getInstance();
 
             switch (item.getItemId()) {
@@ -50,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
                         return true;
                     }
+
                     selectedFragment = new CartFragment();
                     fragmentTag = "cart_fragment";
                     break;
@@ -71,6 +77,9 @@ public class MainActivity extends AppCompatActivity {
                     break;
             }
 
+            /**
+             * Render Fragment
+             */
             renderFragment(selectedFragment, fragmentTag);
             return true;
         }
@@ -82,17 +91,28 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
+        // Initialize realm once per application
         Realm.init(this);
 
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
+        /**
+         * Display first fragment (Search Fragment) when user open this app
+         */
         selectedFragment = new SearchFragment();
         fragmentTag = "search_fragment";
         renderFragment(selectedFragment, fragmentTag);
     }
 
+    /**
+     *
+     * @param selectedFragment
+     * @param fragmentTag
+     *
+     * Method is using for render fragment in MainActivity
+     */
     private void renderFragment(Fragment selectedFragment, String fragmentTag) {
         getSupportFragmentManager()
                 .beginTransaction()

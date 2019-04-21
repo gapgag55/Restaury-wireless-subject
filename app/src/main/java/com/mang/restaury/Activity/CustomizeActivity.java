@@ -147,9 +147,13 @@ public class CustomizeActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-
+                /**
+                 * Hide component in view when no data existing
+                 */
                 if (!dataSnapshot.exists()) {
+
                     ((LinearLayout) findViewById(R.id.customize_variation_layout)).setVisibility(View.GONE);
+
                 } else {
 
                     // Variation paint out
@@ -166,7 +170,6 @@ public class CustomizeActivity extends AppCompatActivity {
 
                         variations.add(new Customize(sizeId, sizeName, sizePrice));
                     }
-
 
                     variationAdapter = new VariationAdapter(getBaseContext(), CustomizeActivity.this, variations);
                     variationList.setAdapter(variationAdapter);
@@ -187,8 +190,13 @@ public class CustomizeActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
+                /**
+                 * Hide component in view when no data existing
+                 */
                 if (!dataSnapshot.exists()) {
+
                     ((LinearLayout) findViewById(R.id.customize_ingredient_layout)).setVisibility(View.GONE);
+
                 } else {
 
                     // Variation paint out
@@ -235,12 +243,17 @@ public class CustomizeActivity extends AppCompatActivity {
                 Customize variation = variationAdapter.selectedVariation;
                 Customize ingredient = ingredientAdapter.selectedIngredient;
 
+                /**
+                 * To prevent unselected choice happens
+                 */
                 int variationPrice = 0;
                 int ingredientPrice = 0;
-
                 String variationId = "";
                 String ingredientId = "";
 
+                /**
+                 * Get selected items
+                 */
                 if (variation != null) {
                     variationPrice = variation.getPrice();
                     variationId = variation.getId();
@@ -257,15 +270,18 @@ public class CustomizeActivity extends AppCompatActivity {
                 // add to cart
                 CartItem cartItem = new CartItem(menuID, ingredientId, menuName, variationId, instruction.getText().toString(), totalPrice, totalNumber);
 
+                // add item to object database
                 realm.beginTransaction();
                 CartItem realmCartItem = realm.copyToRealm(cartItem);
                 realm.commitTransaction();
 
+                // Close fragment with animation
                 closeFragment();
             }
         });
     }
 
+    // Calculate height of Listview in ScrollView by using this
     public static void setListViewHeightBasedOnChildren(ListView listView) {
         ListAdapter listAdapter = listView.getAdapter();
         if (listAdapter == null)
@@ -287,19 +303,34 @@ public class CustomizeActivity extends AppCompatActivity {
         listView.setLayoutParams(params);
     }
 
+    /**
+     * Method is called in variationAdapter and ingredientAdapter
+     * when remove or add order amount
+     */
     public void updatePrice() {
 
+        /**
+         * Get selected item from variation and add ons ingredient to calculate next
+         */
         Customize variation = variationAdapter.selectedVariation;
         Customize ingredient = ingredientAdapter.selectedIngredient;
 
+
+        /**
+         * To prevent unselected choice happens
+         */
         int variationPrice = 0;
         int ingredientPrice = 0;
 
+
+        /**
+         * Get selected items
+         */
         if (variation != null) variationPrice = variation.getPrice();
         if (ingredient != null) ingredientPrice = ingredient.getPrice();
 
-        double price = menuPrice + variationPrice + ingredientPrice;
 
+        double price = menuPrice + variationPrice + ingredientPrice;
         ((TextView) findViewById(R.id.total_price)).setText("฿" + String.valueOf(price));
     }
 
@@ -309,6 +340,9 @@ public class CustomizeActivity extends AppCompatActivity {
         closeFragment();
     }
 
+    /**
+     * Close this fragment with animation
+     */
     private void closeFragment() {
         finish();
         overridePendingTransition(R.anim.stay, R.anim.slide_out_down);

@@ -31,7 +31,6 @@ public class RestaurantActivity extends AppCompatActivity {
 
     private TextView toolbar_title;
 
-
     private ResturantTabAdapter mSectionsPageAdapter;
     private ViewPager mViewPager;
     private ImageView mResPic;
@@ -54,13 +53,14 @@ public class RestaurantActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restaurant);
+
+        // Declare FacebookSDK to use with ShareButton
         FacebookSdk.sdkInitialize(this.getApplicationContext());
+
+        // Call realm for manage local object storage
         final Realm realm = Realm.getDefaultInstance();
 
-
-
         // Intent from RestaurantAdapter.java
-
         final String restaurant_name = getIntent().getExtras().getString("restaurant_name");
         latitute = getIntent().getExtras().getDouble("latitute");
         longitute = getIntent().getExtras().getDouble("longitute");
@@ -73,8 +73,7 @@ public class RestaurantActivity extends AppCompatActivity {
         resType = getIntent().getExtras().getString("resType");
         resURL = getIntent().getExtras().getString("resURL");
 
-        // Share by bank
-
+        // Facebook Share Manager
         callbackManager = CallbackManager.Factory.create();
         shareDialog = new ShareDialog(this);
 
@@ -83,6 +82,9 @@ public class RestaurantActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                /**
+                 * Share the url of restaurant
+                 */
                 ShareLinkContent content = new ShareLinkContent.Builder()
                         .setContentUrl(Uri.parse(resURL))
                         .build();
@@ -111,7 +113,6 @@ public class RestaurantActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(mViewPager);
 
 
-
 //         onBack
         ImageButton backIcon = (ImageButton) findViewById(R.id.back_icon);
         backIcon.setOnClickListener(new View.OnClickListener() {
@@ -129,6 +130,7 @@ public class RestaurantActivity extends AppCompatActivity {
             saveIcon.setBackgroundResource(R.drawable.ic_save_active);
         }
 
+        // Save restaurant to realm
         saveIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -157,6 +159,14 @@ public class RestaurantActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     *
+     * @param viewPager
+     * Render fragment
+     * - About
+     * - Menus
+     * - Reviews
+     */
     private void setupViewPager(ViewPager viewPager) {
         ResturantTabAdapter adapter = new ResturantTabAdapter(getSupportFragmentManager());
         adapter.addFragment(new AboutFragment(resID, resName, latitute, longitute, about), getString(R.string.tab_about));

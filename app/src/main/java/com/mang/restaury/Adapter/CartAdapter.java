@@ -105,7 +105,6 @@ public class CartAdapter extends BaseAdapter {
                     holder.itemAmount.setText(String.valueOf(itemAmount));
                     holder.menuPrice.setText("฿ " + totalPrice);
 
-
                     // set totalPrice
                     subtotal -= basePrice;
                     cartFragment.updateValue();

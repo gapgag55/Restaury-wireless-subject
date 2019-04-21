@@ -55,7 +55,6 @@ public class YourOrderActivity extends AppCompatActivity {
 
                 ArrayList<OrderDetail> items = new ArrayList<OrderDetail>();
 
-
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
 
                     String ingredientID = ds.child("ingredientID").getValue(String.class);
@@ -68,7 +67,6 @@ public class YourOrderActivity extends AppCompatActivity {
                     items.add(new OrderDetail(ingredientID, menuID, orderDetailRequest, orderID, sizeID, totalNumber));
 
                 }
-
 
                 OrderAdapter orderAdapter = new OrderAdapter(getBaseContext(), items);
                 orderItems.setAdapter(orderAdapter);
@@ -154,6 +152,7 @@ public class YourOrderActivity extends AppCompatActivity {
 
     }
 
+    // Calculate height of Listview in ScrollView by using this
     public static void setListViewHeightBasedOnChildren(ListView listView) {
         ListAdapter listAdapter = listView.getAdapter();
         if (listAdapter == null)

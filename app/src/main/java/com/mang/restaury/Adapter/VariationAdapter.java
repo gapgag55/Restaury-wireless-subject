@@ -92,15 +92,14 @@ public class VariationAdapter extends BaseAdapter {
             selectedVariation = variations.get(0);
         }
 
-        if(selectedPosition != i){
+        if (selectedPosition != i) {
             holder.variationType.setChecked(false);
-        }else{
+        } else {
             holder.variationType.setChecked(true);
-            if(button != null && holder.variationType != button){
+            if (button != null && holder.variationType != button) {
                 button = holder.variationType;
             }
         }
-
 
         Customize item = variations.get(i);
 

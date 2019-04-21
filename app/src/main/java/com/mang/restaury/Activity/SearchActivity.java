@@ -61,11 +61,9 @@ public class SearchActivity extends AppCompatActivity {
 
     TreeMap<String,Integer> minMax;
 
-
     int min = 0 ,max = 500;
 
     private ArrayList<Restaurant> restaurants;
-
 
     private Fragment selectedFragment;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -105,10 +103,8 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-
         // search result
         restaurants = new ArrayList<>();
-
 
         // onBack
         ImageButton backIcon = (ImageButton) findViewById(R.id.back_icon);
@@ -342,10 +338,10 @@ public class SearchActivity extends AppCompatActivity {
         five_star_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(five_star == 0) {
+                if (five_star == 0) {
                     five_star_button.setImageResource(R.drawable.active_five_star);
                     five_star = 1;
-                }else {
+                } else {
                     five_star_button.setImageResource(R.drawable.five_star);
                     five_star = 0;
                 }
@@ -357,18 +353,14 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-
-
-
-
-                if(!(thai_food==0&&france_food==0&&usa_food==0&&india_food==0&&japan_food==0)){
+                if (!(thai_food==0&&france_food==0&&usa_food==0&&india_food==0&&japan_food==0)){
                     foodtype = new TreeMap<String,Integer>();
                     foodtype.put("Thai",thai_food);
                     foodtype.put("France",france_food);
                     foodtype.put("USA",usa_food);
                     foodtype.put("India",india_food);
                     foodtype.put("Japan",japan_food);
-                }else foodtype = null;
+                } else foodtype = null;
                 Log.d("type"," "+thai_food+" "+france_food+" "+usa_food+" "+india_food+" "+japan_food+!(thai_food==0&&france_food==0&&usa_food==0&&india_food==0&&japan_food==0)+foodtype);
 
                 if(!(one_star==0&&two_star==0&&three_star==0&&four_star==0&&five_star==0)){
