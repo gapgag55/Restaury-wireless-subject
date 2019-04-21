@@ -35,22 +35,6 @@ public class IngredientAdapter extends BaseAdapter {
         inflter = (LayoutInflater.from(context));
     }
 
-<<<<<<< HEAD
-//    @Override
-//    public int getCount() {
-//        return variations.size();
-//    }
-//
-//    @Override
-//    public Object getItem(int i) {
-//        return variations.get(i);
-//    }
-//
-//    @Override
-//    public long getItemId(int i) {
-//        return i;
-//    }
-=======
     @Override
     public int getCount() {
         return ingredients.size();
@@ -65,8 +49,8 @@ public class IngredientAdapter extends BaseAdapter {
     public long getItemId(int i) {
         return i;
     }
->>>>>>> 4df64cb8241d28515ee505385d9e16d34ebd033a
 
+    @Override
     public View getView(final int i, View view, ViewGroup viewGroup)  {
         IngredientAdapter.ViewHolder holder;
 
