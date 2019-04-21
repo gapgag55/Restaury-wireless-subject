@@ -15,11 +15,12 @@ public class Restaurant extends RealmObject {
     private String type;
     private int minPrice;
     private int maxPrice;
+    private String URL;
 
     public Restaurant() {
     }
 
-    public Restaurant(String title, double latitude, double longtitude, String restaurantID, String restaurantAbout, double restaurantDeliverFee, String picture, double star, String type) {
+    public Restaurant(String title, double latitude, double longtitude, String restaurantID, String restaurantAbout, double restaurantDeliverFee, String picture, double star, String type,String URL) {
         this.title = title;
         this.latitude = latitude;
         this.longtitude = longtitude;
@@ -29,6 +30,15 @@ public class Restaurant extends RealmObject {
         this.picture = picture;
         this.star = star;
         this.type = type;
+        this.URL = URL;
+    }
+
+    public String getURL() {
+        return URL;
+    }
+
+    public void setURL(String URL) {
+        this.URL = URL;
     }
 
     public int getMinPrice() {

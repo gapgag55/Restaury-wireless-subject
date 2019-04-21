@@ -69,6 +69,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
                 intent.putExtra("res_deliverFee", restaurant.getRestaurantDeliverFee());
                 intent.putExtra("res_star", restaurant.getStar());
                 intent.putExtra("resType", restaurant.getType());
+                intent.putExtra("resURL", restaurant.getURL());
 
                 mContext.startActivity(intent);
             }

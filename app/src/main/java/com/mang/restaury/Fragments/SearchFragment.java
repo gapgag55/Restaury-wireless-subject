@@ -73,7 +73,7 @@ public class SearchFragment extends Fragment {
                     String restaurantName = ds.child("restaurantName").getValue(String.class);
                     Integer restaurantStar = ds.child("restaurantStar").getValue(Integer.class);
                     String restaurantType = ds.child("restaurantType").getValue(String.class);
-
+                    String restaurantURL = ds.child("restaurantURL").getValue(String.class);
 
                     restaurants.add(new Restaurant(restaurantName,
                             restaurantLatitute,
@@ -83,7 +83,8 @@ public class SearchFragment extends Fragment {
                             restaurantDeliverFee,
                             null,
                             restaurantStar,
-                            restaurantType));
+                            restaurantType,
+                            restaurantURL));
                 }
 
                 final FirebaseDatabase database = FirebaseDatabase.getInstance();
