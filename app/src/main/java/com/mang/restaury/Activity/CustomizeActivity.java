@@ -253,9 +253,6 @@ public class CustomizeActivity extends AppCompatActivity {
                 closeFragment();
             }
         });
-
-
-
     }
 
     public static void setListViewHeightBasedOnChildren(ListView listView) {
