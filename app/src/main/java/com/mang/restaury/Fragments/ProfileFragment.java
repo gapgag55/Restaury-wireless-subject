@@ -24,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.mang.restaury.Adapter.MyOrderAdapter;
+import com.mang.restaury.Adapter.MyTableReservationAdapter;
 import com.mang.restaury.Model.Order;
 import com.mang.restaury.R;
 
@@ -99,8 +100,37 @@ public class ProfileFragment extends Fragment {
 
 
 
+        // Load table reservations
+        final ListView myTableReservation = (ListView) rootView.findViewById(R.id.my_table_reservations);
+        myTableReservation.setDivider(null);
 
 
+        Query tables = ref.child("Reservation").orderByChild("userId").equalTo(uid);
+        tables.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                HashMap<String, String> table = new HashMap<>();
+
+                for(DataSnapshot ds : dataSnapshot.getChildren()) {
+
+                    String restaurantId = ds.child("restaurantId").getValue(String.class);
+                    String dateTime = ds.child("dateTime").getValue(String.class);
+
+                    table.put(restaurantId, dateTime);
+
+                }
+
+                MyTableReservationAdapter tableAdapter = new MyTableReservationAdapter(getContext(), table);
+                myTableReservation.setAdapter(tableAdapter);
+                setListViewHeightBasedOnChildren(myTableReservation);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
 
 
