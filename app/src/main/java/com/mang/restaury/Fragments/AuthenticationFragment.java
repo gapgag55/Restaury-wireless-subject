@@ -20,6 +20,7 @@ import com.facebook.FacebookException;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -144,7 +145,7 @@ public class AuthenticationFragment extends BottomSheetDialogFragment {
 
     private void firebasAuthWithFacebook(AccessToken token) {
 
-        this.dismiss();
+        final AuthenticationFragment context = this;
 
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
         mAuth.signInWithCredential(credential)
@@ -154,6 +155,7 @@ public class AuthenticationFragment extends BottomSheetDialogFragment {
 
                         if (task.isSuccessful()) {
 
+                            context.dismiss();
                             loadingDialog.dismiss();
 
                             final String uid = mAuth.getCurrentUser().getUid();
@@ -193,7 +195,7 @@ public class AuthenticationFragment extends BottomSheetDialogFragment {
 
     private void firebaseAuthWithGoogle(final GoogleSignInAccount acct) {
 
-        this.dismiss();
+        final AuthenticationFragment context = this;
 
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         mAuth.signInWithCredential(credential)
@@ -202,6 +204,7 @@ public class AuthenticationFragment extends BottomSheetDialogFragment {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
 
+                            context.dismiss();
                             loadingDialog.dismiss();
 
                             final String uid = mAuth.getCurrentUser().getUid();

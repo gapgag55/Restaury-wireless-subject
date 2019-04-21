@@ -31,6 +31,7 @@ import com.mang.restaury.Model.Comment;
 import com.mang.restaury.Model.Order;
 import com.mang.restaury.Model.OrderDetail;
 import com.mang.restaury.Model.Restaurant;
+import com.mang.restaury.Model.User;
 import com.mang.restaury.R;
 
 import java.text.DateFormat;
@@ -167,7 +168,7 @@ public class CartFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                String uid = auth.getCurrentUser().getUid();
+                final String uid = auth.getCurrentUser().getUid();
 
                 // Get latest item update in cart realm
                 RealmResults<CartItem> items = realm.where(CartItem.class).findAll();
@@ -191,8 +192,8 @@ public class CartFragment extends Fragment {
 
                 String orderDateTime = orderDate + " " + orderTime;
 
-                String address = addressEditText.getText().toString();
-                String phone = phoneEditText.getText().toString();
+                final String address = addressEditText.getText().toString();
+                final String phone = phoneEditText.getText().toString();
 
 
                 String orderKey =  ref.child("Order").push().getKey();
@@ -212,6 +213,33 @@ public class CartFragment extends Fragment {
                             new OrderDetail("Hello", menuID, orderDetailRequest, orderKey, sizeID, totalNumber)
                     );
                 }
+
+
+
+                // update user profile
+                Query userRef = ref.child("User").child(uid);
+                userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                        if (dataSnapshot.child("address").getValue(String.class).equals("")) {
+
+                            final String firstName = dataSnapshot.child("firstName").getValue(String.class);
+                            final String lastName =  dataSnapshot.child("lastName").getValue(String.class);
+                            final String email = dataSnapshot.child("email").getValue(String.class);
+
+
+                            ref.child("User").child(uid).setValue(
+                                    new User(firstName, lastName, address, phone, email)
+                            );
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                    }
+                });
+
 
 
                 // reset cart realm

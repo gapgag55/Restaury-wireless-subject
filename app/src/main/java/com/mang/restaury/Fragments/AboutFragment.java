@@ -2,7 +2,11 @@ package com.mang.restaury.Fragments;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+<<<<<<< HEAD
 import android.support.annotation.NonNull;
+=======
+import android.graphics.drawable.Drawable;
+>>>>>>> 25d2da21644093b928f5688e19a2f01dd9fcb3dc
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,10 +22,13 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+<<<<<<< HEAD
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -31,7 +38,10 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.mang.restaury.Activity.CustomizeActivity;
 import com.mang.restaury.R;
+=======
+>>>>>>> 25d2da21644093b928f5688e19a2f01dd9fcb3dc
 import com.mang.restaury.Activity.TableReservationActivity;
+import com.mang.restaury.R;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -92,20 +102,24 @@ public class AboutFragment extends Fragment {
 
         mMapView.onResume(); // needed to get the map to display immediately
 
-        try {
-            MapsInitializer.initialize(getActivity().getApplicationContext());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
         mMapView.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap mMap) {
                 googleMap = mMap;
 
+                try {
+                    MapsInitializer.initialize(getActivity().getApplicationContext());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
                 // For dropping a marker at a point on the Map
                 LatLng sydney = new LatLng(latitute, longitute);
-                googleMap.addMarker(new MarkerOptions().position(sydney).title(restaurantName).icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_icon)));
+                BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.marker_icon);
+
+                Marker marker = googleMap.addMarker(new MarkerOptions().position(sydney).title(restaurantName));
+                marker.setIcon(icon);
 
                 // For zooming automatically to the location of the marker
                 CameraPosition cameraPosition = new CameraPosition.Builder().target(sydney).zoom(17).build();
@@ -113,6 +127,7 @@ public class AboutFragment extends Fragment {
             }
         });
 
+<<<<<<< HEAD
 
         // count reservation
 
@@ -140,6 +155,8 @@ public class AboutFragment extends Fragment {
         reservation.addValueEventListener(eventListener);
 
 
+=======
+>>>>>>> 25d2da21644093b928f5688e19a2f01dd9fcb3dc
         return rootView;
     }
 

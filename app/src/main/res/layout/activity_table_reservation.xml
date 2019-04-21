@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.CartFragment">
+    tools:context=".Activity.TableReservationActivity">
 
     <!-- Toolbar -->
     <android.support.v7.widget.Toolbar
@@ -19,26 +19,26 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/toolbar_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:fontFamily="@font/roboto_medium"
-            android:text="Table Reservation"
-            android:layout_centerHorizontal="true"
-            android:textColor="@color/colorFont"
-            android:textSize="20dp" />
+            <TextView
+                android:id="@+id/toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/roboto_medium"
+                android:text="Table Reservation"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/colorFont"
+                android:textSize="20dp" />
 
 
-        <ImageButton
-            android:id="@+id/close_button"
-            android:layout_width="16dp"
-            android:layout_height="17dp"
-            android:background="@drawable/ic_close"
-            android:layout_centerVertical="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginRight="20dp"/>
+            <ImageButton
+                android:id="@+id/close_button"
+                android:layout_width="16dp"
+                android:layout_height="17dp"
+                android:background="@drawable/ic_close"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="20dp"/>
 
         </RelativeLayout>
 
