@@ -234,6 +234,8 @@ public class TableReservationActivity extends AppCompatActivity {
                                 @Override
                                 public void onCancelled(@NonNull DatabaseError databaseError) { }
                             });
+                        } else {
+                            status.setVisibility(View.VISIBLE);
                         }
                     }
 
