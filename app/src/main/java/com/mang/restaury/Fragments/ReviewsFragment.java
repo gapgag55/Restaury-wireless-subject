@@ -34,6 +34,7 @@ import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -139,7 +140,15 @@ public class ReviewsFragment extends Fragment {
             averageRating += comment.getRating();
         }
 
-        averageRating /= comments.size();
+        if(comments.size()==0){
+            averageRating = 0;
+        }else {
+            averageRating /= comments.size();
+        }
+
+
+
+
 
 
         String fiveAmount = String.valueOf(statistic.get(5));
@@ -165,6 +174,16 @@ public class ReviewsFragment extends Fragment {
 
         ((TextView) rootView.findViewById(R.id.average_number)).setText(String.format("%.2f", averageRating));
         ((RatingBar) rootView.findViewById(R.id.average_star)).setRating(averageRating);
+
+        try {
+            final FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference ref = database.getReference();
+            DatabaseReference restaurant = ref.child("Restaurant");
+            restaurant.child(resID).child("restaurantStar").setValue(averageRating);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -199,6 +218,9 @@ public class ReviewsFragment extends Fragment {
 
                 commentRatingTitle.setText("Comment Ratings (" + comments.size() + ")");
                 commentsTitle.setText("Customer Reviews (" + comments.size() + ")");
+
+                // reverse comment
+                Collections.reverse(comments);
 
                 // Print comment to view
                 RecyclerView recycleView = (RecyclerView) rootView.findViewById(R.id.comment_cycle);

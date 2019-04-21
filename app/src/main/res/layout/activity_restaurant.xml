@@ -16,48 +16,79 @@
         android:textAlignment="center"
         android:elevation="1dp">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:weightSum="100"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp">
 
-            <ImageButton
-                android:id="@+id/back_icon"
-                android:layout_width="17dp"
-                android:layout_height="12dp"
-                android:padding="30dp"
-                android:layout_centerVertical="true"
-                android:background="@drawable/ic_back" />
-
-            <TextView
-                android:id="@+id/toolbar_title"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:fontFamily="@font/roboto_medium"
-                android:text="Shabu Ha"
-                android:textColor="@color/colorFont"
-                android:layout_centerHorizontal="true"
-                android:textSize="20dp" />
+                android:layout_weight="20"
+                android:gravity="center_vertical">
 
-            <ImageButton
-                android:id="@+id/share_button"
-                android:layout_width="17dp"
-                android:layout_height="18dp"
-                android:background="@drawable/ic_share"
-                android:layout_centerVertical="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginRight="60dp"/>
+                <ImageButton
+                    android:id="@+id/back_icon"
+                    android:layout_width="17dp"
+                    android:layout_height="12dp"
+                    android:padding="30dp"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/ic_back"/>
 
-            <ImageButton
-                android:id="@+id/save_button"
-                android:layout_width="17dp"
-                android:layout_height="18dp"
-                android:background="@drawable/ic_save"
-                android:layout_centerVertical="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginRight="20dp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="60"
+                android:gravity="center_vertical">
 
-        </RelativeLayout>
+                <TextView
+                    android:id="@+id/toolbar_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="Shabu Ha"
+                    android:textColor="@color/colorFont"
+                    android:layout_centerHorizontal="true"
+                    android:textSize="20dp"
+                    android:scrollHorizontally="true"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="20"
+                android:gravity="center_vertical">
+
+                <ImageButton
+                    android:id="@+id/share_button"
+                    android:layout_width="17dp"
+                    android:layout_height="18dp"
+                    android:background="@drawable/ic_share"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="20dp"/>
+
+                <ImageButton
+                    android:id="@+id/save_button"
+                    android:layout_width="17dp"
+                    android:layout_height="18dp"
+                    android:background="@drawable/ic_save"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="20dp"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
 
     </android.support.v7.widget.Toolbar>
 

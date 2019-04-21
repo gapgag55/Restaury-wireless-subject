@@ -2,8 +2,10 @@ package com.mang.restaury.Fragments;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +23,12 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.mang.restaury.Activity.CustomizeActivity;
 import com.mang.restaury.R;
 import com.mang.restaury.Activity.TableReservationActivity;
@@ -104,6 +112,34 @@ public class AboutFragment extends Fragment {
                 googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
             }
         });
+
+
+        // count reservation
+
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference();
+        Query reservation = ref.child("Reservation").orderByChild("restaurantId").equalTo(resID);
+
+        ValueEventListener eventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Long reservation_time = dataSnapshot.getChildrenCount();
+
+                Log.d("reservation", " "+ reservation_time+resID);
+
+                TextView reservation_count = (TextView) rootView.findViewById(R.id.reservation_count);
+                reservation_count.setText(Long.toString(reservation_time)+" Reservations");
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        };
+
+        reservation.addValueEventListener(eventListener);
+
+
         return rootView;
     }
 

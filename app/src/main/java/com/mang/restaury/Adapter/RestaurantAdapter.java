@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.mang.restaury.Model.Restaurant;
@@ -49,7 +50,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
         viewHolder.restaurant_name.setText(restaurant.getTitle());
         viewHolder.restaurant_price.setText(restaurant.getMinPrice()+" - "+restaurant.getMaxPrice()+" Baht");
         viewHolder.restaurant_type.setText(restaurant.getType().split(",")[0].toUpperCase()+" FOOD");
-
+        viewHolder.restaurant_star.setRating((float) restaurant.getStar());
 
 
         // On Click
@@ -87,6 +88,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
         TextView restaurant_name;
         TextView restaurant_price;
         TextView restaurant_type;
+        RatingBar restaurant_star;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -98,6 +100,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
             restaurant_name = (TextView) itemView.findViewById(R.id.restaurant_name);
             restaurant_price = (TextView) itemView.findViewById(R.id.restaurant_price);
             restaurant_type = (TextView) itemView.findViewById(R.id.restaurant_type);
+            restaurant_star = (RatingBar) itemView.findViewById(R.id.average_star);
         }
     }
 
