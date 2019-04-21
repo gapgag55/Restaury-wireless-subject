@@ -214,6 +214,11 @@ public class CartFragment extends Fragment {
                 }
 
 
+
+                // update user profile
+
+
+
                 // reset cart realm
                 realm.beginTransaction();
                 RealmResults<CartItem> realmCartItem = realm.where(CartItem.class).findAll();

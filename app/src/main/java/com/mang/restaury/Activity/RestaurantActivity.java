@@ -25,7 +25,6 @@ public class RestaurantActivity extends AppCompatActivity {
 
     private TextView toolbar_title;
 
-    private static final String TAG = "MainActivity";
 
     private ResturantTabAdapter mSectionsPageAdapter;
     private ViewPager mViewPager;
@@ -80,7 +79,7 @@ public class RestaurantActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(mViewPager);
 
 
-        // onBack
+//         onBack
         ImageButton backIcon = (ImageButton) findViewById(R.id.back_icon);
         backIcon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,7 +89,6 @@ public class RestaurantActivity extends AppCompatActivity {
         });
 
         // onSave
-
         final ImageButton saveIcon = (ImageButton) findViewById(R.id.save_button);
         RealmResults<Restaurant> restaurants = realm.where(Restaurant.class).equalTo("restaurantID", resID).findAll();
 

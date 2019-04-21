@@ -1,47 +1,33 @@
 package com.mang.restaury.Activity;
 
-import android.app.DatePickerDialog;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.mang.restaury.Adapter.RestaurantAdapter;
 import com.mang.restaury.Model.Reservation;
-import com.mang.restaury.Model.Restaurant;
 import com.mang.restaury.Model.Table;
 import com.mang.restaury.R;
 
-import java.lang.reflect.Array;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
-
-import static android.support.constraint.Constraints.TAG;
 
 public class TableReservationActivity extends AppCompatActivity {
 
@@ -150,7 +136,7 @@ public class TableReservationActivity extends AppCompatActivity {
 
                 final String reserveDateTime = reserveDate + " " + reserveTime;
 
-               // Get available table of this restaurant
+                // Get available table of this restaurant
                 Query tableRef = ref.child("Table").orderByChild("restaurantID").equalTo(resID);
                 tableRef.addListenerForSingleValueEvent(new ValueEventListener() {
 

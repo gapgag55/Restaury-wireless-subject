@@ -2,6 +2,7 @@ package com.mang.restaury.Fragments;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,14 +17,14 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.firebase.auth.FirebaseAuth;
-import com.mang.restaury.Activity.CustomizeActivity;
-import com.mang.restaury.R;
 import com.mang.restaury.Activity.TableReservationActivity;
+import com.mang.restaury.R;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -84,26 +85,31 @@ public class AboutFragment extends Fragment {
 
         mMapView.onResume(); // needed to get the map to display immediately
 
-        try {
-            MapsInitializer.initialize(getActivity().getApplicationContext());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
         mMapView.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap mMap) {
                 googleMap = mMap;
 
+                try {
+                    MapsInitializer.initialize(getActivity().getApplicationContext());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
                 // For dropping a marker at a point on the Map
                 LatLng sydney = new LatLng(latitute, longitute);
-                googleMap.addMarker(new MarkerOptions().position(sydney).title(restaurantName).icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_icon)));
+                BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.marker_icon);
+
+                Marker marker = googleMap.addMarker(new MarkerOptions().position(sydney).title(restaurantName));
+                marker.setIcon(icon);
 
                 // For zooming automatically to the location of the marker
                 CameraPosition cameraPosition = new CameraPosition.Builder().target(sydney).zoom(17).build();
                 googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
             }
         });
+
         return rootView;
     }
 

@@ -2,6 +2,7 @@ package com.mang.restaury.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,12 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.mang.restaury.Activity.YourOrderActivity;
 import com.mang.restaury.Model.Order;
 import com.mang.restaury.R;
@@ -62,21 +69,30 @@ public class MyTableReservationAdapter extends BaseAdapter {
             holder = (MyTableReservationAdapter.ViewHolder) view.getTag();
         }
 
-//        final String orderKey = (items.keySet().toArray())[i].toString();
-//        Order order = items.get(orderKey);
-//
-//        holder.dateTime.setText("Date: " + order.getOrderDateTime());
-//        holder.viewOrderButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                Intent intent = new Intent(mContext, YourOrderActivity.class);
-//                intent.putExtra("orderId", orderKey);
-//
-//                mContext.startActivity(intent);
-//
-//            }
-//        });
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final DatabaseReference ref = database.getReference();
+
+
+        final String restaurantId = (items.keySet().toArray())[i].toString();
+        final String dateTime = items.get(restaurantId);
+
+        Query restaurants = ref.child("Restaurant").child(restaurantId);
+        restaurants.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                String restaurantName = dataSnapshot.child("restaurantName").getValue(String.class);
+
+                holder.dateTime.setText(dateTime);
+                holder.restaurantName.setText(restaurantName);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
 
         return view;
     }
