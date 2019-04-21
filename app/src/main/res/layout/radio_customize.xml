@@ -23,9 +23,9 @@
         android:id="@+id/variation_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="+ ฿ 0.00"
+        android:layout_alignParentRight="true"
         android:fontFamily="@font/roboto_regular"
-        android:textColor="@color/colorFont"
-        android:layout_alignParentRight="true" />
+        android:text="+ ฿ 0.00"
+        android:textColor="@color/colorFont" />
 
 </RelativeLayout>

@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class VariationAdapter extends BaseAdapter {
 
     private ArrayList<Customize> variations;
-    public static Customize selectedVariation;
+    public static Customize selectedVariation ;
 
     LayoutInflater inflter;
     Context context;
@@ -30,6 +30,8 @@ public class VariationAdapter extends BaseAdapter {
         this.variations = variations;
 
         inflter = (LayoutInflater.from(context));
+        selectedPosition = 0;
+        selectedVariation = variations.get(0);
     }
 
     @Override

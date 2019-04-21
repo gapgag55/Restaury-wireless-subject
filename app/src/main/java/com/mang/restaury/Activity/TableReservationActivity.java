@@ -184,7 +184,7 @@ public class TableReservationActivity extends AppCompatActivity {
 
                                         for (DataSnapshot ds : dataSnapshot.getChildren()) {
 
-                                            int reserveTableID = ds.child("tableId").getValue(int.class);
+                                            String reserveTableID = ds.child("tableId").getValue(String.class);
                                             String dateTime = ds.child("dateTime").getValue(String.class);
 
                                             if (tableID.equals(reserveTableID) && dateTime.equals(reserveDateTime)) {
