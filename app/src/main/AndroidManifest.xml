@@ -60,6 +60,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Activity.SearchActivity" />
+        <activity android:name=".Activity.TableReservationActivity" />
         <activity
             android:name=".Activity.RestaurantActivity"
             android:parentActivityName=".Activity.MainActivity" />

@@ -73,8 +73,6 @@ public class RestaurantActivity extends AppCompatActivity {
                 if(ShareDialog.canShow(ShareLinkContent.class)){
                     shareDialog.show(content);
                 }
-
-
             }
         });
 

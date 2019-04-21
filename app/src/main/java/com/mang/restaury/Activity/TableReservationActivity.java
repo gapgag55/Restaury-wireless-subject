@@ -98,17 +98,17 @@ public class TableReservationActivity extends AppCompatActivity {
                 Calendar c = Calendar.getInstance();
 
 
-                int closeTime = 24;
+                int closeTime = 23;
 
                 if(selectedItem.equals("Today"))
                 {
-                    int currentHr=c.get(Calendar.HOUR_OF_DAY);
-                    for(int i = currentHr;i<closeTime;i++) {
+                    int currentHr=c.get(Calendar.HOUR_OF_DAY)+1;
+                    for(int i = currentHr;i<=closeTime;i++) {
                         timeData.add(i+":00");
                     }
                 }else {
                     int open = 10;
-                    for(int i = open;i<closeTime;i++) {
+                    for(int i = open;i<=closeTime;i++) {
                         timeData.add(i+":00");
                     }
                 }
@@ -240,7 +240,6 @@ public class TableReservationActivity extends AppCompatActivity {
                     @Override
                     public void onCancelled(DatabaseError databaseError) { }
                 });
-
             }
         });
     }
