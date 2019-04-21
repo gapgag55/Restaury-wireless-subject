@@ -32,22 +32,21 @@ public class IngredientAdapter {
         selectedVariation = variations.get(0);
     }
 
-    @Override
-    public int getCount() {
-        return variations.size();
-    }
+//    @Override
+//    public int getCount() {
+//        return variations.size();
+//    }
+//
+//    @Override
+//    public Object getItem(int i) {
+//        return variations.get(i);
+//    }
+//
+//    @Override
+//    public long getItemId(int i) {
+//        return i;
+//    }
 
-    @Override
-    public Object getItem(int i) {
-        return variations.get(i);
-    }
-
-    @Override
-    public long getItemId(int i) {
-        return i;
-    }
-
-    @Override
     public View getView(final int i, View view, ViewGroup viewGroup)  {
         IngredientAdapter.ViewHolder holder;
 
