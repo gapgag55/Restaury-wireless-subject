@@ -2,11 +2,7 @@ package com.mang.restaury.Fragments;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-<<<<<<< HEAD
 import android.support.annotation.NonNull;
-=======
-import android.graphics.drawable.Drawable;
->>>>>>> 25d2da21644093b928f5688e19a2f01dd9fcb3dc
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
@@ -28,20 +24,14 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-<<<<<<< HEAD
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.mang.restaury.Activity.CustomizeActivity;
 import com.mang.restaury.R;
-=======
->>>>>>> 25d2da21644093b928f5688e19a2f01dd9fcb3dc
 import com.mang.restaury.Activity.TableReservationActivity;
-import com.mang.restaury.R;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -52,7 +42,6 @@ public class AboutFragment extends Fragment {
 
     private View rootView;
 
-    private TextView description;
     private String resID;
     private String restaurantName;
     private double latitute;
@@ -127,7 +116,6 @@ public class AboutFragment extends Fragment {
             }
         });
 
-<<<<<<< HEAD
 
         // count reservation
 
@@ -154,9 +142,6 @@ public class AboutFragment extends Fragment {
 
         reservation.addValueEventListener(eventListener);
 
-
-=======
->>>>>>> 25d2da21644093b928f5688e19a2f01dd9fcb3dc
         return rootView;
     }
 
