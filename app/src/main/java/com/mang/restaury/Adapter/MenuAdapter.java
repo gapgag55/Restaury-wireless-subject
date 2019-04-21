@@ -50,6 +50,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder>  {
     public String addLinebreaks(String input, int maxLineLength) {
         StringTokenizer tok = new StringTokenizer(input, " ");
         StringBuilder output = new StringBuilder(input.length());
+
         int lineLen = 0;
         while (tok.hasMoreTokens()) {
             String word = tok.nextToken();
@@ -136,7 +137,6 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder>  {
             super(itemView);
 
             // Get ID from XML
-
             menu = (LinearLayout) itemView.findViewById(R.id.menu_layout);
             menuName = (TextView) itemView.findViewById(R.id.menu_name);
             menuPrice = (TextView) itemView.findViewById(R.id.menu_price);

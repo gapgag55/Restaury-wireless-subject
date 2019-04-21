@@ -86,11 +86,11 @@ public class IngredientAdapter extends BaseAdapter {
         });
 
 
-        if(selectedPosition != i){
+        if (selectedPosition != i){
             holder.variationType.setChecked(false);
-        }else{
+        } else {
             holder.variationType.setChecked(true);
-            if(button != null && holder.variationType != button){
+            if (button != null && holder.variationType != button) {
                 button = holder.variationType;
             }
         }

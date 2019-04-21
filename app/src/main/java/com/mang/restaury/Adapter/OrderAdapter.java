@@ -55,7 +55,8 @@ public class OrderAdapter extends BaseAdapter {
     public View getView(final int i, View view, ViewGroup viewGroup)  {
         final OrderAdapter.ViewHolder holder;
 
-        if(view == null){
+        if (view == null) {
+
             view = inflter.inflate(R.layout.cart_item, viewGroup, false);
             holder = new OrderAdapter.ViewHolder();
 
