@@ -24,12 +24,12 @@ import java.util.HashMap;
 
 public class MyTableReservationAdapter extends BaseAdapter {
 
-    private HashMap<String, String> items;
+    private HashMap<String, HashMap<String, String>> items;
 
     LayoutInflater inflter;
     Context mContext;
 
-    public MyTableReservationAdapter(Context context, HashMap<String, String> items) {
+    public MyTableReservationAdapter(Context context, HashMap<String, HashMap<String, String>> items) {
         this.mContext = context;
         this.items = items;
 
@@ -73,8 +73,12 @@ public class MyTableReservationAdapter extends BaseAdapter {
         final DatabaseReference ref = database.getReference();
 
 
-        final String restaurantId = (items.keySet().toArray())[i].toString();
-        final String dateTime = items.get(restaurantId);
+        final String reserveId = (items.keySet().toArray())[i].toString();
+        final HashMap reserve = items.get(reserveId);
+//
+        final String restaurantId = (reserve.keySet().toArray())[0].toString();
+        final String dateTime = reserve.get(restaurantId).toString();
+
 
         Query restaurants = ref.child("Restaurant").child(restaurantId);
         restaurants.addListenerForSingleValueEvent(new ValueEventListener() {

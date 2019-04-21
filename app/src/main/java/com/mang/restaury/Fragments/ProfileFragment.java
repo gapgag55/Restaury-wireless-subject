@@ -110,14 +110,17 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                HashMap<String, String> table = new HashMap<>();
+                HashMap<String, HashMap<String, String>> table = new HashMap<>();
 
                 for(DataSnapshot ds : dataSnapshot.getChildren()) {
 
                     String restaurantId = ds.child("restaurantId").getValue(String.class);
                     String dateTime = ds.child("dateTime").getValue(String.class);
 
-                    table.put(restaurantId, dateTime);
+                    HashMap<String, String> temp = new HashMap<>();
+                    temp.put(restaurantId, dateTime);
+
+                    table.put(ds.getKey(),temp);
 
                 }
 
