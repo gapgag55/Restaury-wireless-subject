@@ -156,6 +156,7 @@ public class AuthenticationFragment extends BottomSheetDialogFragment {
                         if (task.isSuccessful()) {
 
                             context.dismiss();
+                            loadingDialog.dismiss();
 
                             final String uid = mAuth.getCurrentUser().getUid();
 //
@@ -204,6 +205,7 @@ public class AuthenticationFragment extends BottomSheetDialogFragment {
                         if (task.isSuccessful()) {
 
                             context.dismiss();
+                            loadingDialog.dismiss();
 
                             final String uid = mAuth.getCurrentUser().getUid();
 
@@ -239,7 +241,7 @@ public class AuthenticationFragment extends BottomSheetDialogFragment {
         super.onActivityResult(requestCode, resultCode, data);
 
         // Start Loading Progress
-//        loadingDialog = ProgressDialog.show(getContext(), "Authorizing...", "Loading...", true, false);
+        loadingDialog = ProgressDialog.show(getContext(), "Authorizing...", "Loading...", true, false);
 
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == GOOGLE_SIGN_IN_REQUEST_CODE) {
